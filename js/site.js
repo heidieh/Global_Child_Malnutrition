@@ -1,32 +1,3 @@
-/* NOTES TO SELF:
-	- Timeline  - want hover tooltip for year above timeline?
-				- (Simon) black line & dots don't resize when screen size changes, blue line does - ???
-				- steelblue line only goes to 2015, not 2016 (can see this when in intro.js)
-	- Map - add in accents for names e.g. Cote d'Ivoire
-	- Barchart * show position number in list for each country (in tooltip, next to country name, in bar?, for after bar see Ebola-Narrative)
-			   * could show all but need to scroll down to see them? - put x- and y-axis in divs, make bars scrollable	
-			   - (Simon) redraw y-axis black line AFTER updating bars
-			   - (Simon) extend hoverability so can see it if hover anywhere in x direction?
-			   6* only show 20 countries at a time
-	- Line graph 7- add in global & regional averages
-				 - add legend?
-				 - add linegraph_intro when currentCountryLines is empty again (i.e. not only on initial page load)? - see barChartLeg
-				 8- add target lines for wasting prev
-				 - after last actual survey do dotted line (need to add in data column for this?)
-	- Other - adjust/align for different screen sizes - including check stickyDiv & timeline
-			- want smoother transitions? / check direction of transitions etc
-			* google analytics - will need to get new account number for new site
-			* update intro.js tour	
-			5- (Simon) check sticky div on right-hand side  - turn off/don't apply if screen size below certain width (see ebola narrative)
-			* do thorough data check
-			- general code clean-up
-	- Discuss with Ben:		
-			- when to add/remove country from linegraph (click/doubleclick, etc)
-			- using most recent population numbers for under 5s from UNPD - no data for Tuvalu & Nauru, so keeping it constant at JME 2007 estimate of 1000
-			- changed color schemes for severe wasting - a bit pink, but very distinct to grey
-			
-*/
-
 
 /*************************************************/
 /****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
@@ -1110,7 +1081,7 @@ function addCountryLine(id, iso_code, status){
 		.call(yAxis);  	
 		
 	//if (currentStatType=='burd') {
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 	//};
 		
 	lineGraph.call(tip);
@@ -1119,8 +1090,14 @@ function addCountryLine(id, iso_code, status){
 
 
 var mouseoverCountryLineFunction = function(d) {   
-	//console.log("In mouseoverCountryLineFunction for ", d[0].ISO_3, "  d = ", d);
+	console.log("In mouseoverCountryLineFunction for ", d[0].ISO_3, "  d = ", d);
 	var highlightColor = '#ffff00';
+	
+	
+	//Create tooltip variable for path on linegraph:	
+/* 	var line_tip = {Country: d[0].Country,
+					ISO_3:"XXX"};
+	tip.show(line_tip); */
 	
 	//set highlight color for country_line
 	var country_line = d3.selectAll('.country_line'+ d[0].ISO_3); 
@@ -1150,6 +1127,10 @@ var mouseoverCountryLineFunction = function(d) {
 
 var mouseoutCountryLineFunction = function(d) { 
 	//console.log("In mouseoutCountryLineFunction for ", d[0].ISO_3, "  d = ", d);
+	
+	/* var line_tip = {Country: d[0].Country,
+					ISO_3:"XXX"};
+	tip.hide(line_tip); */
 	
 	
 	//reset color for country_line
@@ -1265,30 +1246,37 @@ var mouseoutPointFunction = function(d) {
 //Create tooltip variable for points on linegraph:	
 var tip = d3.tip()																		
 	.attr('class', 'd3-tip')
+	/* .offset(function (d) {
+		if (d.ISO_3=="XXX") {return [0,0];}
+		else {return [-10,4];}
+	}) */
 	.offset([-10,4])
 	.html(function(d) {
 		tip_text = '';
-		 switch(currentStatType) {
-			case 'prev':
-				switch(currentStatCat) {
-					case 'wast': 	statVal = (d3.format(".3n"))(d.Wasting); break;
-					case 'sevwast': statVal = (d3.format(".3n"))(d.Sev_wasting); break;
-					case 'stunt':	statVal = (d3.format(".3n"))(d.Stunting); break;
-					default:		statVal = -99; console.log("Error creating tooltip");       
-				};
-				tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "%</span>";
-				break;
-			case 'burd':
-				switch(currentStatCat) {
-					case 'wast': 	statVal = (d3.format(",.0f"))((d.Wasting/100) * d.Pop_und5); break;
-					case 'sevwast': statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5); break;
-					case 'stunt':	statVal = (d3.format(",.0f"))((d.Stunting/100) * d.Pop_und5); break;
-					default:		statVal = -99; console.log("Error creating tooltip");       
-				};
-				tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "</span>";
-				break;
-			default: tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": <i>Error</i></span>"; console.log("Error creating tooltip");
-		}; 
+		//if (d.ISO_3=="XXX") {tip_text = d.Country}
+		//else {
+			switch(currentStatType) {
+				case 'prev':
+					switch(currentStatCat) {
+						case 'wast': 	statVal = (d3.format(".3n"))(d.Wasting); break;
+						case 'sevwast': statVal = (d3.format(".3n"))(d.Sev_wasting); break;
+						case 'stunt':	statVal = (d3.format(".3n"))(d.Stunting); break;
+						default:		statVal = -99; console.log("Error creating tooltip");       
+					};
+					tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "%</span>";
+					break;
+				case 'burd':
+					switch(currentStatCat) {
+						case 'wast': 	statVal = (d3.format(",.0f"))((d.Wasting/100) * d.Pop_und5); break;
+						case 'sevwast': statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5); break;
+						case 'stunt':	statVal = (d3.format(",.0f"))((d.Stunting/100) * d.Pop_und5); break;
+						default:		statVal = -99; console.log("Error creating tooltip");       
+					};
+					tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "</span>";
+					break;
+				default: tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": <i>Error</i></span>"; console.log("Error creating tooltip");
+			}; 
+		//};
 		return tip_text;
 	}); 			
 		
@@ -1463,7 +1451,7 @@ function removeCountryLine(id, iso_code, status){
 		.call(yAxis); 
 		
 	//if (currentStatType=='burd') {
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 	//};
 	
 	console.log("******************************************************** currentCountryLines = ", currentCountryLines);
@@ -1496,7 +1484,7 @@ function getPointData() {
 
 
 
-function getCountryData(iso_code) {													
+function getCountryData(iso_code) {	  //returns data for any specified country, for current stat, ordered by chronological year						
 	cf.yearDim.filterAll();
 	cf.regDim.filterAll();
 	cf.countryDim.filter(iso_code);
@@ -1548,7 +1536,7 @@ function getCountryData(iso_code) {
 
 
 
-function transitionCurrentCountryLines(id){ 
+function transitionCurrentCountryLines(id, temp_iso){ 
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};
 	//var margin = {top: 0, bottom: 0};
 	//var width = timelineWidth-timelineRightMargin;  
@@ -1775,10 +1763,22 @@ function transitionCurrentCountryLines(id){
 				};		
 				return val;
 			});
-	
 		
 	};
 	
+	//transition the temp (yellow hovered) path
+ 	countryData = getCountryData(temp_iso);
+	var path = lineGraph.selectAll('path.country_line'+temp_iso+'_temp');  
+		path.transition()
+			.duration(500)  
+			.attr('class', function (d) {
+				return 'country_line country_line' + temp_iso+'_temp';
+			})
+			.ease("linear")
+			.attr('d', transLineFunction(countryData))
+			.attr("stroke", 'yellow')
+			.attr("stroke-width", 3); 
+			
 };
 
 
@@ -3244,7 +3244,7 @@ function btn_currentStatCat(new_currentStatCat) {
 		currentStatCat = 'wast';
 		updateLegend();
 		updateAll();  //don't move this outside of if statement or updates even if click on same button twice
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	}
 	else if  ((new_currentStatCat=="sevwast") && !($('#btnSevWast').hasClass('on'))) {
 		console.log("Clicked SEVERE WASTING button");
@@ -3254,7 +3254,7 @@ function btn_currentStatCat(new_currentStatCat) {
 		currentStatCat = 'sevwast';
 		updateLegend();
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	}
 	else if  ((new_currentStatCat=="stunt") && !($('#btnStunt').hasClass('on'))) {
 		console.log("Clicked STUNTING button");
@@ -3264,7 +3264,7 @@ function btn_currentStatCat(new_currentStatCat) {
 		currentStatCat = 'stunt';
 		updateLegend();
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	};
 };
 
@@ -3277,7 +3277,7 @@ function btn_currentStatType(new_currentStatType) {
 		currentStatType = 'prev';
 		updateLegend();
 		updateAll();
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	}
 	else if  ((new_currentStatType=="burd") && !($('#btnBurd').hasClass('on'))) {
 		console.log("Clicked BURDEN button");
@@ -3286,7 +3286,7 @@ function btn_currentStatType(new_currentStatType) {
 		currentStatType = 'burd';
 		updateLegend()
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph');
+		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	}
 };
 
