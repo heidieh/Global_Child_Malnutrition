@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <title>Global Child Malnutrition</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/introjs.css"/>
+        <link rel="stylesheet" type="text/css" href="css/site.css"/>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+		<!-- Something like the following needed for checking whether browser supports d3 - see http://chimera.labs.oreilly.com/books/1230000000345/ch03.html#_a_note_on_compatibility  -->
+		<!-- <script src="js/modernizr.js"></script>  
+		<script type="text/javascript">
+				Modernizr.load({
+						test: Modernizr.svg && Modernizr.inlinesvg,
+						yep : [ 'js/d3.v3.min.js',
+								'js/script.js' ]
+				});
+		</script> -->
+        <script src="js/jquery.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+        <script src="js/d3.js" charset="utf-8"></script>
+		<script src="js/d3.tip.js" charset="utf-8"></script>
+        <script src="js/crossfilter.v1.min.js" charset="utf-8"></script> 
+		<script src="js/dc.js"></script>
+		<script src="js/intro.js"></script> 
+        <!-- <script src="data/countries_subsid.js"></script> -->
+		<script src="data/countries_all.js"></script>
+		<script src="data/data.js"></script>
+<!--         <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-46399763-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>  -->  
+
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-74703713-1', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+		
+    </head>
+    <body>
+        <div id="container" class="fill">
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="title">Global child malnutrition</p>
+					<button title="Tour the main features of this site" id="btnIntro" class="button btn btn-primary btn-sm">Take a Tour</button><br/>
+                </div>
+				<div class="col-md-3">
+                    <div class="logo"><img src="images/GN_logo.png" alt="Generation Nutrition logo" width="280" height="70"></div>
+                </div>
+                <div class="col-md-5 spacersm">
+                        <p class="feedback">For feedback regarding the <a href="http://www.generation-nutrition.org" target="_blank">Generation Nutrition</a> campaign please contact <a href="mailto:b.hobbs@actionagainsthunger.org.uk" target="_top">Ben Hobbs</a><br/>
+						For feedback regarding this dashboard please contact <a href="mailto:heidi.elhosaini@gmail.com" target="_top">Heidi El-Hosaini</a></p>
+						<p class="feedback"><i>Data Sources: </i>UNICEF-WHO-The World Bank: <a href="http://www.who.int/nutgrowthdb/estimates2014/en/" target="_blank">Joint child malnutrition estimates</a><br/>
+						UN Dept of Economic and Social Affairs: <a href="http://esa.un.org/unpd/wpp/DataQuery/" target="_blank">Population statistics</a><br/>
+						GADM (Global Administrative Areas): <a href="http://www.gadm.org/" target="_blank">Country boundaries</a></p>
+                </div>
+            </div>  
+			
+			
+            <div class="row">
+			
+                <div class="col-md-4">
+					<div id="statbuttons">
+						<button title="<-2 standard deviations from median weight-for-height of the WHO Child Growth Standards" id="btnWast" class="button button1 on" onclick="btn_currentStatCat('wast');">Wasting</button> 
+						<button title="<-3 standard deviations from median weight-for-height of the WHO Child Growth Standards" id="btnSevWast" class="button" onclick="btn_currentStatCat('sevwast');">Severe wasting</button>
+						<button title="<-2 standard deviations from median height-for-age of the WHO Child Growth Standards" id="btnStunt" class="button" onclick="btn_currentStatCat('stunt');">Stunting</button>
+						<button title="Percentage of children aged 0-59 months" id="btnPrev" class="button button1 button2 on" onclick="btn_currentStatType('prev');">Prevalence</button>
+						<button title="Total number of children aged 0-59 months" id="btnBurd" class="button button2" onclick="btn_currentStatType('burd');">Burden</button>
+					</div>
+										
+					<div id = "timeline">
+						<button id="btnPlay" class="button play"></button>
+						<div id="slider-range-max" class="timeslider"> <!-- style="margin-left: 50px; margin-right: 10px; margin-top: 50px;"> -->
+						</div>
+					</div>
+					
+					<div id="linegraph_all">
+						<div class="row">
+							<p class="linegraph_title" id="linegraph_title"></p> 
+							<button title="Remove all countries from linegraph" id="clrAll" class="btnClrAll button_sm" onclick="removeAllCountryLines();">Clear All</button>		
+						</div>
+						<div id="linegraph"></div>
+					</div>
+										
+					<div id="barchart_all">
+						<div class="row">
+							<!-- <div class="col-md-9"> -->
+								<p class="barchart_title" id="barchart_title"></p> 
+								<p class="barchart_subtitle" id="barchart_subtitle"></p> 
+							<!-- </div>
+							<div class="col-md-3"> -->
+								<div class="barlegend" id="barlegend"></div> 
+								<!-- 	</div>  -->
+						</div>
+						<div id="barchart"></div>	
+						<div id="barchartxaxis"></div>
+					</div>
+					
+                </div>
+			
+				<div id="sticky-anchor"></div> 
+                <div class="col-md-8" id="map-container">
+					<div class="row">
+						
+						<div class="col-md-4">
+							<h4 class="map_title" id="map_title"><p style="font-size:28px"><b>Please wait while loading...</b></p></h4>
+							<p class="map_subtitle" id="map_subtitle"></p> 
+						</div>
+						<div class="col-md-8">
+							<div id="regionbuttons"> <!--  do we need class or id="unicef-reg" here? -->
+								<button title="All Countries" id="btnAll" class="btnAll button_sm reg_on" onclick="btn_reg_zoom('All');" href="#" data-zoom="2" data-position="0.0,0.0">All Countries</button>							
+								<button title="West and Central Africa" id="btnWCA" class="btnWCA button_sm" onclick="btn_reg_zoom('WCA');" href="#" data-zoom="4" data-position="6.0,10.0">WCA</button>
+							    <button title="Eastern and Southern Africa" id="btnESA" class="btnESA button_sm" onclick="btn_reg_zoom('ESA');" href="#" data-zoom="4" data-position="-8.0,32.0">ESA</button>
+								<button title="Middle East and North Africa" id="btnMENA" class="btnMENA button_sm" onclick="btn_reg_zoom('MENA');" href="#" data-zoom="4" data-position="28.0,25.0">MENA</button>
+								<button title="South Asia" id="btnSA" class="btnSA button_sm" onclick="btn_reg_zoom('SA');" href="#" data-zoom="4" data-position="24.0,80.0">SA</button>
+								<button title="East Asia and Pacific" id="btnEAP" class="btnEAP button_sm" onclick="btn_reg_zoom('EAP');" href="#" data-zoom="3" data-position="9.0,126.0">EAP</button>
+								<button title="Latin America and the Caribbean" id="btnTAC" class="btnTAC button_sm" onclick="btn_reg_zoom('TAC');" href="#" data-zoom="3" data-position="-16.0,-78.0">TAC</button>
+								<button title="Central and Eastern Europe and the Commonwealth of Independent States" id="btnCEECIS" class="btnCEECIS button_sm" onclick="btn_reg_zoom('CEECIS');" href="#" data-zoom="4" data-position="46.0,50.0">CEECIS</button>
+								<button title="Industrialized Countries" id="btnInd" class="btnInd button_sm" onclick="btn_reg_zoom('Ind');" href="#" data-zoom="2" data-position="0.0,0.0">Industrialized</button>
+								
+							</div>
+						</div>
+	
+					</div>
+					
+					<div class="row">					
+						<div id="map"></div>
+					</div>
+                </div>  	
+            </div>
+        </div> 
+        <script src="js/site.js"></script>        
+    </body>
+</html>
