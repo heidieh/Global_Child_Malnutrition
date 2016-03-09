@@ -1,4 +1,3 @@
-
 /*************************************************/
 /****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
 /*************************************************/
@@ -266,7 +265,7 @@ function getColor(d) {
 					d >= 30  ? col='#41B6C4' :  
 					d >= 20   ? col='#7FCDBB' :  
 					d >= 10   ? col='#C7E9B4' :
-							   col='#FFFFCC';   
+							   col='#EDF4C4'; //'#EDF8B1';   
 					break;		
 				default:		
 					col='#ddd8d8'; 
@@ -467,6 +466,8 @@ function generateMap(id,data){
 		};
 	mapInfo.addTo(map);	
 	
+
+	
 	wastingPrevCat = [0,2,5,10,15,20];
 	sevWastingPrevCat = [0,0.5,1,2,5,10];
 	stuntingPrevCat = [0,10,20,30,45,60];
@@ -484,11 +485,55 @@ function generateMap(id,data){
 	};
 	mapLegend.addTo(map);
 			
-		
+	/* L.TopoJSON = L.GeoJSON.extend({  
+		addData: function(jsonData) {    
+			if (jsonData.type === "Topology") {
+				for (key in jsonData.objects) {
+					geojson = topojson.feature(jsonData, jsonData.objects[key]);
+					L.GeoJSON.prototype.addData.call(this, geojson);
+				}
+			}    
+			else {
+				L.GeoJSON.prototype.addData.call(this, jsonData);
+			}
+		}  
+	});	
+	
+	var topoLayer = new L.TopoJSON();
+
+	$.getJSON('data/countries_all.json')
+	    .done(addTopoData);
+
+	function addTopoData(topoData){  
+		topoLayer.addData(topoData);
+		topoLayer.addTo(map);
+	};
+	
+	topoLayer.eachLayer(handleLayer);
+*/
+	
+//	function handleLayer(layer){  
+	  /* var randomValue = Math.random(),
+		fillColor = colorScale(randomValue).hex();
+
+	  layer.setStyle({
+		fillColor : fillColor,
+		fillOpacity: 1,
+		color:'#555',
+		weight:1,
+		opacity:0.5
+	  });
+
+	  layer.on({
+		mouseover: enterLayer,
+		mouseout: leaveLayer
+	  }); */
+//	} 
+	
 	var overlay = L.geoJson(countries_all,{
                 style: baseStyle,
                 onEachFeature: onEachFeature
-            }).addTo(map); 
+            }).addTo(map);  
 			
 			
 	document.getElementById('regionbuttons').onclick = function(abc) {
@@ -610,6 +655,7 @@ function updateMap(id,data){
 	//console.log("updateMap eachLayer = ", map.eachLayer);
 
 	colorAllGeoms(countries_all);
+	//colorAllGeoms(topoLayer);
 	colorData(data);
 	
 }
@@ -620,16 +666,16 @@ function updateMap(id,data){
 /************************/
 
 function generateLineGraph(id){ 
-	var margin = {top: 10, left: 40, right: 20, bottom: 20};
+	var margin = {top: 10, left: 40, right: 20, bottom: 20};  //margins of actual x- and y-axes within the svg
 	//var margin = {top: 0, bottom: 0};
 	//var width = timelineWidth-timelineRightMargin;  
-	var width = $(id).width() - margin.left - margin.right;  
-	var height = $(id).height() - margin.top - margin.bottom;  
+	var width = $(id).width() - margin.left - margin.right;  	//width of main svg
+	var height = $(id).height() - margin.top - margin.bottom;   //height of main svg
 	
 	
 			
 	var yrScale = d3.scale.linear()
-            .range([0, width])    
+            .range([0, width])    		//x-axis width, accounting for specified margins
             .domain([minYr,maxYr]);              
 			
 /* 	var years = function (y) {      //create array years = [minYr,...,maxYr]
@@ -643,7 +689,7 @@ function generateLineGraph(id){
 	var lineDom = getLinegraphDomain();
 	var yScale = d3.scale.linear()   
 			.domain([lineDom[0],lineDom[1]]) 			
-            .range([height, 0]);		
+            .range([height, 0]);			   //y-axis height, accounting for specified margins
 			
 			
 	//Define axes
@@ -779,7 +825,7 @@ function getLinegraphDomain() {
 }
 
 
-function updateTimeLineGraph(id){    //shifts vertical grey line to current year in line graph
+function updateYearLineGraph(id){    //shifts vertical grey line to current year in line graph
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};
 	//var margin = {top: 0, bottom: 0};
 	//var width = timelineWidth-timelineRightMargin;  
@@ -1977,8 +2023,8 @@ function generateBarChart(id, idX){
 		//.classed('chart',true)
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom) 		//changing this height will change height of all bars but not of chart area itself
-		.attr("transform", "translate(" + 0 + ',' + margin.top + ')'); 
+		.attr("height", height + margin.top + margin.bottom); 		//changing this height will change height of all bars but not of chart area itself
+		/* .attr("transform", "translate(" + 0 + ',' + margin.top + ')');  */
 		//.call(d3.behavior.zoom().scaleExtent([1, 5]).on("zoom", zoom));   //DON'T THINK WE NEED THIS HERE, ONLY IN UPDATE BELOW
 		 
 /* 	var g = barChart.append('g')			//create a group 'g' in the main svg/'barChart' and shift it over by left & top margins
@@ -2948,19 +2994,12 @@ function updateBarChart(id, idX, data) {
 		
 
 	}
-	
 
 	var scroll = d3.behavior.zoom()
 		.scaleExtent([1, 1])	
 		.on("zoom", scrollBars);
 
 	
-/* 	barChart.append("rect")				//Probably not needed
-		.attr("class", "overlay")
-		.attr("width", width)
-		.attr("height", height); */
-
-
 	
 	//Update axes
 	barChartXAxis.selectAll(".x.axis")
@@ -3142,7 +3181,7 @@ function updateAll(){			//gets current data for current year, calls functions to
 		default:	suffix = ''; 
 	};
 	$('#linegraph_title').html(getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ' <small>' + suffix + '</small>');
-	lineGraph = updateTimeLineGraph('#linegraph');
+	lineGraph = updateYearLineGraph('#linegraph');
 	
 	barCharts = updateBarChart('#barchart', '#barchartxaxis', data);
 	barChart = barCharts[0];
@@ -3480,21 +3519,22 @@ $(function() {
     });
 	
 	$("#slider-range-max").on("change", function(){		// each time slider value changes
-		update();
-		//$("#range").html($("#slider").val());	// change the value displayed
-		$("#range").html($("#slider").val());	
+		//update();
+		console.log("THIS IS A SLIDER .ON CHANGE");
+		$("#range").html($("#slider").val());	// change the value displayed
 		$(".ui-slider-handle" ).text( arr[$( "#slider-range-max" ).slider( "value" )-1] );    //what does this do??? - seems redundant
+		$(".ui-slider" ).append("<span class='bl_line' style='width:"+ $( ".ui-slider" ).width() + "px'></span>");  //adds in black line
 		clearInterval(playInterval);   //playInterval = rename it to timer?
-		$("#btnPlay").html("Play3");
+		$("#btnPlay").html("Play"); 
 	});
 	
 	$(".ui-slider-handle" ).text( arr[$( "#slider-range-max" ).slider( "value" )-1] );    //what does this do??? - seems redundant
-    $(".ui-slider" ).append("<span class='bl_line'style='width:"+ $( ".ui-slider" ).width() + "px'></span>");
+    $(".ui-slider" ).append("<span class='bl_line'style=' width:"+ $( ".ui-slider" ).width() + "px'></span>");  //adds in black line
 	var foo = total - 1;
     var mar = $( ".ui-slider" ).width() / (foo);    
     for (var x = 0; x < foo+1; x++){        						//this bit adds in markers at each timestep
         $(".ui-slider" ).append("<span class='dots' style='left:"+ x * mar + "px'></span>");
-    } 
+    }  
 	
 	
 /* 	update = function() {
@@ -3606,28 +3646,41 @@ var currentRegion = 'All';
 var currentStatCat = 'wast';
 var currentStatType = 'prev';
 var currentCountryLines = [];
+var countries_all = {};
 
 var map;
 var barsTranslate = 0;
 var prevBarsTranslate = 0;
  
 if($(window).width()<768){compact = true;}  
-//console.log("All data at start = ", data);  //all data
-initData = getCurrentData();    //data for currentYr only
-//console.log("initData = ", initData);
-map = generateMap('#map', initData);  
-updateLegend();
-lineGraph = generateLineGraph('#linegraph');
-barCharts = generateBarChart('#barchart', '#barchartxaxis'); 
-barChart = barCharts[0];
-barChartXAxis = barCharts[1];
-updateAll();
 
-$(window).scroll(function(){
+//load topojson data
+console.log("before loading topojson countriesGeom");
+var countriesGeomCall = $.ajax({ 
+    type: 'GET', 
+    url: 'data/countries_all.json', 
+    dataType: 'json',
+});
+$.when(countriesGeomCall).then(function(countriesGeomArgs){
+	var countriesGeom = topojson.feature(countriesGeomArgs, countriesGeomArgs.objects.countries_all); 
+	countries_all = countriesGeom;
+
+	initData = getCurrentData();    //data for currentYr only
+	map = generateMap('#map', initData);  
+	updateLegend();
+	lineGraph = generateLineGraph('#linegraph');
+	barCharts = generateBarChart('#barchart', '#barchartxaxis'); 
+	barChart = barCharts[0];
+	barChartXAxis = barCharts[1];
+	updateAll();
+
+/* $(window).scroll(function(){
     if(!compact){
 		console.log("CALLING STICKYDIV");
         stickydiv();
     }
+}); */
+
 });
 
 /* if(compact){    
