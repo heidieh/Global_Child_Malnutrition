@@ -29,9 +29,6 @@
         <script src="js/crossfilter.v1.min.js" charset="utf-8"></script> 
 		<!-- <script src="js/dc.js"></script> -->
 		<script src="js/intro.js"></script> 
-        <!-- <script src="data/countries_subsid.js"></script> -->
-		<!-- <script src="data/countries_all.js"></script> -->
-		<!-- <script src="data/countries_all.json"></script> -->
 		<script src="data/data.js"></script>
 		<script src="data/reg_data.js"></script>
 <!--         <script type="text/javascript">
@@ -62,7 +59,7 @@
         <div id="container" class="fill">
             <div class="row">
                 <div class="col-md-4">
-                    <p class="title">Global child malnutrition</p>
+                    <p class="title">Global Child Malnutrition Map</p>
 					<button title="Tour the main features of this site" id="btnIntro" class="button btn <!-- btn-primary btn-sm -->">Take a Tour</button><br/>
                 </div>
 				<div class="col-md-3">
@@ -91,7 +88,7 @@
 										
 					<div id = "timeline">
 						<button id="btnPlay" class="button play"></button>
-						<div id="slider-range-max" class="timeslider"> <!-- style="margin-left: 50px; margin-right: 10px; margin-top: 50px;"> -->
+						<div id="slider-range-max" class="timeslider"> 
 						</div>
 					</div>
 					
@@ -121,20 +118,19 @@
 					
                 </div>
 			
-				<div id="sticky-anchor"></div> 
-                <div class="col-md-8" id="map-container"> 
-					
-					<!-- <div class="row"> -->
-						
+				<div class="col-md-8"> 
+				<div id="sticky-anchor"></div>	
+				<div id = "map-container">	
+					<div class = "row">					
 						<div class="col-md-4">
 							<h4 class="map_title" id="map_title"><p style="font-size:28px"><b>Please wait while loading...</b></p></h4>
 							<p class="map_subtitle" id="map_subtitle"></p> 
-						</div>
+						</div>											
 						<div class="col-md-8">
-							<div id="regionbuttons"> <!--  do we need class or id="unicef-reg" here? -->
+							<div id="regionbuttons"> 
 								<button title="All Countries" id="btnAll" class="btnAll button_sm reg_on" onclick="btn_reg_zoom('All');" href="#" data-zoom="2" data-position="0.0,0.0">All Countries</button>							
 								<button title="West and Central Africa" id="btnWCA" class="btnWCA button_sm" onclick="btn_reg_zoom('WCA');" href="#" data-zoom="4" data-position="6.0,10.0">WCA</button>
-							    <button title="Eastern and Southern Africa" id="btnESA" class="btnESA button_sm" onclick="btn_reg_zoom('ESA');" href="#" data-zoom="4" data-position="-8.0,32.0">ESA</button>
+								<button title="Eastern and Southern Africa" id="btnESA" class="btnESA button_sm" onclick="btn_reg_zoom('ESA');" href="#" data-zoom="4" data-position="-8.0,32.0">ESA</button>
 								<button title="Middle East and North Africa" id="btnMENA" class="btnMENA button_sm" onclick="btn_reg_zoom('MENA');" href="#" data-zoom="4" data-position="28.0,25.0">MENA</button>
 								<button title="South Asia" id="btnSA" class="btnSA button_sm" onclick="btn_reg_zoom('SA');" href="#" data-zoom="4" data-position="24.0,80.0">SA</button>
 								<button title="East Asia and Pacific" id="btnEAP" class="btnEAP button_sm" onclick="btn_reg_zoom('EAP');" href="#" data-zoom="3" data-position="9.0,126.0">EAP</button>
@@ -143,15 +139,21 @@
 								<button title="Industrialized Countries" id="btnInd" class="btnInd button_sm" onclick="btn_reg_zoom('Ind');" href="#" data-zoom="2" data-position="0.0,0.0">Industrialized</button>
 								
 							</div>
-						</div>
-	
-					<!-- </div> -->
-						
-					<div class="row"> 				
-						<div id="map"></div>
+						</div>	
+					</div>
+					
+					
+					<!-- <div class="row" id="row-container"> -->
+					<div class="row"> 
+						<!-- <div id="sticky-anchor"></div>	
+						<div id = "map-container">	 -->												
+							<div id="map"></div>
+						<!-- </div>  -->
 					</div> 
+					
+				</div>
 			
-                </div>  	
+				</div>  
             </div>
         </div> 
         <script src="js/site.js"></script>        
