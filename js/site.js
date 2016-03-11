@@ -1,4 +1,3 @@
-
 /*************************************************/
 /****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
 /*************************************************/
@@ -760,7 +759,7 @@ function generateLineGraph(id){
 		
 		
 		
-	//Add intro text to linegraph to explain how to add/remove country lines	
+ 	//Add intro text to linegraph to explain how to add/remove country lines	
 	var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
 		.attr("class","linegraph_intro")
 		.attr("x", 55)
@@ -785,12 +784,50 @@ function generateLineGraph(id){
 		.attr("x", 110)
 		.attr("y", 120)
 		.style('fill', 'darkOrange')
-		.html('or here to remove');
+		.html('or here to remove'); 
 	
-		
+	
 	return lineGraph;
 					
 };
+
+
+function addLineGraphIntroText() {
+	//Add intro text to linegraph to explain how to add/remove country lines	
+	/* var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
+		.attr("class","linegraph_intro")
+		.attr("x", 55)
+		.attr("y", 50)
+		.style('fill', 'darkOrange')
+		.html('Click on country in map or barchart');
+	var g2 = lineGraph.append('text')				 
+		.attr("class","linegraph_intro")
+		.attr("x", 130)
+		.attr("y", 70)
+		.style('fill', 'darkOrange')
+		.html('to add here');
+
+	var g2 = lineGraph.append('text')
+		.attr("class","linegraph_intro")
+		.attr("x", 50)
+		.attr("y", 100)
+		.style('fill', 'darkOrange')
+		.html('Double-click country in map, barchart'); 
+	var g2 = lineGraph.append('text')				
+		.attr("class","linegraph_intro")
+		.attr("x", 110)
+		.attr("y", 120)
+		.style('fill', 'darkOrange')
+		.html('or here to remove');	 */
+		
+	lineGraph.selectAll('.linegraph_intro')
+		.style("opacity", 1);
+		
+	return lineGraph;
+	
+};
+
+
 
 function getLinegraphDomain() {
 	points = getPointData();
@@ -899,6 +936,7 @@ function updateYearLineGraph(id){    //shifts vertical grey line to current year
 
 
 
+
 function addCountryLine(id, iso_code, status){ 
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};
 	//var margin = {top: 0, bottom: 0};
@@ -980,8 +1018,10 @@ function addCountryLine(id, iso_code, status){
 	};
 	
 	if (currentCountryLines.length != 0) {
-		var linegraph_text = d3.selectAll('.linegraph_intro');
-		linegraph_text.remove();
+		/* var linegraph_text = d3.selectAll('.linegraph_intro');
+		linegraph_text.remove(); */
+		var linegraph_text = d3.selectAll('.linegraph_intro')
+			.style("opacity", 0);
 	}
 	
 	if (iso_code.substring(0,2)=="XX") {
@@ -1592,7 +1632,7 @@ function removeCountryLine(id, iso_code, status){
 	};	
 	
 	
-	//Update axes	//DO WE NEED TO UPDATE AXES HERE???
+	//Update axes	
 	lineGraph.selectAll(".x.axis")
 		.transition()
 		.duration(1000)
@@ -1603,6 +1643,9 @@ function removeCountryLine(id, iso_code, status){
 		.duration(1000)
 		.call(yAxis); 
 		
+	if (currentCountryLines.length == 0) {
+		addLineGraphIntroText();
+	}	
 	//if (currentStatType=='burd') {
 		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 	//};
@@ -1619,6 +1662,7 @@ function removeAllCountryLines() {
 		country_line.remove();				
 	};
 	currentCountryLines = [];
+	addLineGraphIntroText();
 };
 
 	
@@ -3280,12 +3324,11 @@ function updateBarChart(id, idX, data) {
 		.selectAll("line").remove();
 	barChart.selectAll(".y.axis")
 		.append("line") 
-        .attr("x1", -1)  //want x1 and x2 to be 0 but to draw line 'on top' - see http://jsbin.com/gisinomo/1/edit?html,output - this will also help with drawing in aim lines
+        .attr("x1", 0) 
         .attr("y1", 0)
-        .attr("x2", -1) 
+        .attr("x2", 0) 
         .attr("y2", allBarsHeight)
-        //.attr('stroke', 'black') //this is set in css
-		.attr("stroke-width", 1);
+		.attr("stroke-width", 2);
          
 		 
 		 
@@ -3360,13 +3403,23 @@ function updateBarChart(id, idX, data) {
 				.text("<5%: World Health Assembly global target by 2025"); 
 		
 		} else if ((currentStatCat == 'stunt') && (currentStatType == 'burd')) {			
-			var sum = 0;
+			/* var sum = 0;
 			for (i=0; i <= data.length-1; i++) {
 				sum += (data[i].Stunting/100 * data[i].Pop_und5);
 			};
-			total_stunt_burd = (d3.format(",.0f"))(sum);
+			total_stunt_burd = (d3.format(",.0f"))(sum); */
+			stunt_burd_arr = getRegionalData("XX0");   //get global data
+			console.log(stunt_burd_arr);
+			stunt_burd = "Not available";
+			for (i=0; i <= stunt_burd_arr.length-1; i++) {
+				if (stunt_burd_arr[i].Survey_yr == currentYr) {
+					console.log(stunt_burd_arr[i].Survey_yr, currentYr);
+					stunt_burd = (d3.format(",.0f"))(stunt_burd_arr[i].Stunting_burd*1000000);
+					break;
+				};
+			};			
 
-			$('.barlegend').html('<p>World Health Assembly global target (by 2025): <b><102,000,000</b><br/>Total reported for ' + currentYr + ': <b>' + total_stunt_burd + '</b>');	
+			$('.barlegend').html('<p>World Health Assembly global target (by 2025): <b><102,000,000</b><br/>Global stunding burden for ' + currentYr + ': <b>' + stunt_burd + '</b></p>');	
 		
 		} else {
 			barChart.selectAll(".targets").remove();
@@ -3441,7 +3494,7 @@ function getCurrentData() {		//gets data for current year, region, statistic; or
 	//cf.yearDim.filterAll();
 	cf.yearDim.filter(currentYr);	//filter year
 	
-	if (currentRegion=="All") {		//filter region
+	if (currentRegion=="Glob") {		//filter region
 		cf.regDim.filterAll();
 	}
 	else {
@@ -3578,10 +3631,10 @@ function btn_currentStatType(new_currentStatType) {
 
 function btn_reg_zoom(region) {
 	currentRegion = region;
-	if ((region=="All") && !($('#btnAll').hasClass('reg_on'))) {
-	 	console.log("Clicked All Countries button");
+	if ((region=="Glob") && !($('#btnGlob').hasClass('reg_on'))) {
+	 	console.log("Clicked Global button");
 		removeRegBtnClasses();
-		$('#btnAll').addClass('reg_on');
+		$('#btnGlob').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		//don't move this outside of if statement or updates even if click on same button twice
 	}	
@@ -3643,7 +3696,7 @@ function btn_reg_zoom(region) {
 };
 
 function removeRegBtnClasses() {
-	$('#btnAll').removeClass('reg_on');
+	$('#btnGlob').removeClass('reg_on');
 	$('#btnWCA').removeClass('reg_on');
 	$('#btnESA').removeClass('reg_on');
 	$('#btnMENA').removeClass('reg_on');
@@ -3657,6 +3710,7 @@ function removeRegBtnClasses() {
 
 function getRegAbbrev(reg) {
 	switch (reg) {
+		case 'Glob':	reg_name = 'Global'; break;
 		case 'WCA':		reg_name = 'WCARO'; break;
 		case 'ESA':		reg_name = 'ESARO'; break;
 		case 'MENA':	reg_name = 'MENA'; break;
@@ -3665,7 +3719,7 @@ function getRegAbbrev(reg) {
 		case 'TAC':		reg_name = 'TACRO'; break;
 		case 'CEECIS':	reg_name = 'CEECIS'; break;
 		case 'Ind': 	reg_name = 'Industrialized'; break;
-		default:		reg_name = 'All'; console.log("Error with getting region name");
+		default:		reg_name = 'Global'; console.log("Error with getting region name");
 	}
 	
 	return reg_name;
@@ -3674,7 +3728,7 @@ function getRegAbbrev(reg) {
 
 function getRegName(reg) {
 	switch (reg) {
-		case 'All':		reg_name = 'All Countries'; break;
+		case 'Glob':	reg_name = 'Global'; break;
 		case 'WCA':		reg_name = 'West and Central Africa'; break;
 		case 'ESA':		reg_name = 'Eastern and Southern Africa'; break;
 		case 'MENA':	reg_name = 'Middle East and North Africa'; break;
@@ -3683,7 +3737,7 @@ function getRegName(reg) {
 		case 'TAC':		reg_name = 'Latin America and the Caribbean'; break;
 		case 'CEECIS':	reg_name = 'Central and Eastern Europe and the Commonwealth of Independent States'; break;
 		case 'Ind': 	reg_name = 'Industrialized Countries'; break;
-		default:		reg_name = 'All Countries'; console.log("Error with getting region name");
+		default:		reg_name = 'Global'; console.log("Error with getting region name");
 	}	
 	return reg_name;
 };
@@ -3691,7 +3745,7 @@ function getRegName(reg) {
 
 function getRegISO(reg) {
 	switch (reg) {
-		case 'All':		reg_iso = 'XX0'; break;
+		case 'Glob':	reg_iso = 'XX0'; break;
 		case 'WCA':		reg_iso = 'XX2'; break;
 		case 'ESA':		reg_iso = 'XX1'; break;
 		case 'MENA':	reg_iso = 'XX3'; break;
@@ -3854,7 +3908,7 @@ function setSlide (index) {
 		  },
 		  {
 			  element: '#barchart_all',
-			  intro:"<div style='width: 400px; font: 14px sans-serif;'><h4><b>The Barchart</b></h4><p>This barchart orders countries from highest to lowest for the malnutrition statistic selected for the current year. These are indicated in the title at the top of the barchart.</p><p>Below the title, the selected region (e.g. <i>'All countries', 'South Asia'</i>) and the number of countries that data is available for, are displayed.</p><p>If relevant, a legend may appear to indicate World Health Assembly and/or Generation Nutrition targets.</p><p><i>Hovering</i> over a bar does the following:</p><ol><li style='margin-bottom: 5px;'>The bar is highlighted in yellow.</li><li style='margin-bottom: 5px;'>A tooltip appears showing the selected statistic for that country for that year.</li><li style='margin-bottom: 5px;'>The country's time series is highlighted in yellow in the line graph.</li><li>The country is highlighted in yellow in the map.</li></ol><p><i>Clicking</i> on a country adds that country's time series on the linegraph.</p><p><i>Double-clicking</i> a bar removes that country's time series from the linegraph (if it is displayed).</p><p>It is also possible to scroll down through the barchart to view all the countries that data is available for.</p></div>",
+			  intro:"<div style='width: 400px; font: 14px sans-serif;'><h4><b>The Barchart</b></h4><p>This barchart orders countries from highest to lowest for the malnutrition statistic selected for the current year. These are indicated in the title at the top of the barchart.</p><p>Below the title, the selected region (e.g. <i>'Global', 'South Asia'</i>) and the number of countries that data is available for, are displayed.</p><p>If relevant, a legend may appear to indicate World Health Assembly and/or Generation Nutrition targets.</p><p><i>Hovering</i> over a bar does the following:</p><ol><li style='margin-bottom: 5px;'>The bar is highlighted in yellow.</li><li style='margin-bottom: 5px;'>A tooltip appears showing the selected statistic for that country for that year.</li><li style='margin-bottom: 5px;'>The country's time series is highlighted in yellow in the line graph.</li><li>The country is highlighted in yellow in the map.</li></ol><p><i>Clicking</i> on a country adds that country's time series on the linegraph.</p><p><i>Double-clicking</i> a bar removes that country's time series from the linegraph (if it is displayed).</p><p>It is also possible to scroll down through the barchart to view all the countries that data is available for.</p></div>",
 			  position: 'right'
 		  },
 		  {
@@ -3877,17 +3931,17 @@ function stickydiv(){			//applies/removes 'sticky' class to #map-container depen
     var div_top = $('#sticky-anchor').offset().top;
 	var max_width = 976;		//sticky only operates when screen width is >= this
 	
-	console.log("IN STICKYDIV");
+	/* console.log("IN STICKYDIV");
 	console.log("WINDOW HEIGHT: ",window_height);
 	console.log("WINDOW TOP: ",window_top);
 	console.log("DIV TOP: ",div_top);
-	console.log("WINDOW WIDTH: ",$(window).width());
+	console.log("WINDOW WIDTH: ",$(window).width()); */
     if ((window_top > div_top) && ($(window).width() >= max_width)){     
-		console.log("  ADD STICKY HERE");
+		//console.log("  ADD STICKY HERE");
         $('#map-container').addClass('sticky');
     }
     else{
-		console.log("  REMOVE STICKY HERE");
+		//console.log("  REMOVE STICKY HERE");
         $('#map-container').removeClass('sticky');
     }
 };
@@ -3914,7 +3968,7 @@ var compact = false;
 var currentwidth=$(window).width();
 
 var currentYr = 2015;
-var currentRegion = 'All';
+var currentRegion = 'Glob';
 var currentStatCat = 'wast';
 var currentStatType = 'prev';
 var currentCountryLines = [];
@@ -3942,6 +3996,7 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 	$('#map').width($('#map').width());
 	updateLegend();
 	lineGraph = generateLineGraph('#linegraph');
+	lineGraph = addLineGraphIntroText();
 	barCharts = generateBarChart('#barchart', '#barchartxaxis'); 
 	barChart = barCharts[0];
 	barChartXAxis = barCharts[1];

@@ -7,7 +7,7 @@
 }
 
 #timeline{
-	margin-top: 40px;
+	margin-top: 30px;
 	margin-left: 10px;
 	margin-right: 20px;
     width: 95%; 
@@ -21,7 +21,7 @@
 }
 
 #linegraph{
-	margin-top: 20px;
+	margin-top: 0px;
 	/* margin-left: 20px; */
 	margin-right: 0px;
     height: 200px;
@@ -66,7 +66,8 @@
 #statbuttons {
 	margin-left: 10px;
 	margin-right: 0px; 
-	margin-top: 28px;
+	margin-top: 20px;
+	/* margin-top: 28px; */
 }
 
 #regionbuttons {
@@ -346,7 +347,7 @@
 
 .button.button_newrow {
 	/*background-color: #b652bd; */
-	margin-top: 10px;
+	margin-top: 4px;
 	/* display: block; */
 }
 
@@ -543,3 +544,8 @@
   
 
 } 
+
+/* #row-container {
+	position: relative; 	/* parent position relative 
+}  */
+
