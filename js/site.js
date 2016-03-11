@@ -1,3 +1,41 @@
+/* NOTES TO SELF:	
+	- Barchart
+			   * could show all but need to scroll down to see them? - put x- and y-axis in divs, make bars scrollable	- NEED TO DO THE EQUIVALENT OF DOUBLE-CLICKING ON BARCHART (e.g. document.getElementById('theBarChart').doubleclick() or something like that?)
+			   - redraw y-axis black line AFTER updating bars
+			   - Stunting burden legend (target) - change 'total reported' here to regional/global stats
+	- Line graph *7- add in global & regional trends
+				 - add linegraph_intro when currentCountryLines is empty again (i.e. not only on initial page load)? - see barChartLeg		
+	- Alignment issues - adjust/align for different screen sizes - including check stickyDiv & timeline
+					- make sure can see map legend at bottom of screen 
+					- reload page when changing screen size?			
+					- (Simon) check sticky div on right-hand side  - turn off/don't apply if screen size below certain width (see ebola narrative)
+					- (Simon) black line & dots don't resize when screen size changes, blue line does - ???
+					- steelblue line only goes to 2015, not 2016 (can see this when in intro.js)
+	- Other - want smoother transitions? / check direction of transitions etc
+			- check tour section for map - once alignments all done
+			* google analytics - will need to get new account number for new site
+			* update intro.js tour		
+			* do thorough data check
+			- general code clean-up
+			- push barchart up so can see top of it
+			
+	- Discuss with Ben:		
+			- Ben to send final URL for google analytics code
+			
+	- Further possible developments:
+			- Timeline  - hover tooltip for year above timeline
+			- Linegraph 
+				- add dynamic legend		 
+				- add tooltip when hovering over line, not just over point (code is there for line_tip but doesn't look good)
+				- add target lines for wasting prev (like in barchart)
+				- after last actual survey make line dotted (may need to add in data column for this?)
+			- Barchart 
+				- show position number in list for each country
+				- extend hoverability over bars to anywhere in x direction - easier for very small bars
+			
+*/
+
+
 /*************************************************/
 /****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
 /*************************************************/
@@ -28,11 +66,11 @@ cf2.yearDim = cf2.dimension(function(d) {return d.Survey_yr;});
 cf2.regionDim = cf2.dimension(function(d) {return d.ISO_3;});
 
 cf2.wastingDim = cf2.dimension(function(d){return d.Wasting;});
-//cf2.sevWastingDim = cf2.dimension(function(d){return d.Sev_wasting;});
+cf2.sevWastingDim = cf2.dimension(function(d){return d.Sev_wasting;});
 cf2.stuntingDim = cf2.dimension(function(d){return d.Stunting;});
 
 cf2.wastingBurdDim = cf2.dimension(function(d) {return d.Wasting_burd*1000000;});
-//cf2.sevWastingBurdDim = cf2.dimension(function(d) {return d.Sev_wasting_burd*1000000;});
+cf2.sevWastingBurdDim = cf2.dimension(function(d) {return d.Sev_wasting_burd*1000000;});
 cf2.stuntingBurdDim = cf2.dimension(function(d) {return d.Stunting_burd*1000000;});
 
 
@@ -372,10 +410,10 @@ function updateInfo(name, yr, val, yrs_since_surv) {
 	prev_surv_html = '<p class="mapinfo_stat">Last survey year: ' + last_surv_yr + '</p>';
 	switch(currentStatType) {
 		case 'prev':
-			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '%</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : '<p class="mapinfo_title">Hover over a country or bar to get statistics</p>')); 
+			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '%</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : "<p class='mapinfo_title'>Hover over a country, a bar, or a country's time series to get statistics</p>")); 
 			break;
 		case 'burd':
-			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : '<p class="mapinfo_title">Hover over a country or bar to get statistics</p>')); 
+			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : "<p class='mapinfo_title'>Hover over a country, a bar, or a country's time series to get statistics</p>")); 
 			break;
 		default:
 			infoUpdate = 'Error loading country statistics';
@@ -835,8 +873,7 @@ function getLinegraphDomain() {
 								} else {
 									maxY = d3.max(points, function(d) {
 										if (d.ISO_3.substring(0,2)=="XX") {
-											//return d.Sev_wasting_burd*1000000;
-											return 0;
+											return d.Sev_wasting_burd*1000000;
 										} else {
 											return (d.Sev_wasting/100)*d.Pop_und5;
 										};
@@ -959,10 +996,10 @@ function addCountryLine(id, iso_code, status){
 	
 	//set line_color for country
 	if ((status=="perm") && (in_list==false)) {			//if permanent (clicked on) but new to list then assign new color and add to currentCountryLines
-		if (iso_code=="XX0") { 	//global stat
-			line_color = '#000000';		//black
+		if (iso_code=="XX0") { 						//global stat
+			line_color = '#000000';					//black
 		} else if (iso_code.substring(0,2)=="XX") {	//regional stat
-			line_color = '#8b8a8a';		//dark grey
+			line_color = '#4b4949';					//dark grey
 		} else {
 			line_color = getNewCountryLineColor(iso_code);
 		};
@@ -977,7 +1014,6 @@ function addCountryLine(id, iso_code, status){
 		line_color = getExistingCountryLineColor(iso_code);
 	} else if ((status=="temp") && (in_list==false)) {	
 		line_color = 'none';
-		//console.log("*******************ATTENTION BLACK LINE HERE ***************");
 	};
 	
 	if (currentCountryLines.length != 0) {
@@ -1021,7 +1057,7 @@ function addCountryLine(id, iso_code, status){
 				case 'prev':
 					switch(currentStatCat) {
 						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
-						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;			//WILL NEED TO CHANGE 0 HERE TO NO DATA
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;	
 						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
 						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
 					};
@@ -1034,7 +1070,7 @@ function addCountryLine(id, iso_code, status){
 						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 					};
 					break;
-				default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+				default: stat = d.Wasting;
 			};
 			val = margin.top + yScale(stat);
 			return val;            			
@@ -1146,7 +1182,7 @@ function addCountryLine(id, iso_code, status){
 								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 							};
 							break;
-						default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+						default: stat = d.Wasting;
 					};
 					val = margin.top + yScale(stat);
 					return val;  
@@ -1167,38 +1203,14 @@ function addCountryLine(id, iso_code, status){
 				}; 
 			})	 
 			.style('opacity', function (d) {
-				/* val = 0;
+				val = 0;
 				switch(currentStatCat) {
 					case 'wast': 	if (d.Wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'sevwast': if (d.Sev_wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 					default:		val = 0; 
 				};		
-				return val; */
-				
-				val = 0;
-				switch(currentStatCat) {      				
-					case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;					
-					case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Sev_wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
-					case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Stunt_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
-					default:		val = 0; 
-				};		
-				return val;
+				return val; 
 			})
 			.on("mouseover", function (d) {
 				mouseoverPointFunction(d);
@@ -1365,38 +1377,13 @@ var mouseoutPointFunction = function(d) {
 	data_point.attr('fill', resetColor)
 		.style('opacity', function (d) {
 			val = 0;
-			/* switch(currentStatCat) {
+			switch(currentStatCat) {
 				case 'wast': 	if (d.Wast_yrs_since_surv == 0) {val=1;}; break;
 				case 'sevwast': if (d.Sev_wast_yrs_since_surv == 0) {val=1;}; break;
 				case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 				default:		val = 0; 
 			};		
-			return val; */
-			
-			val = 0;
-			switch(currentStatCat) {      				
-				case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {
-									if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-								} else {
-									if (d.Wast_yrs_since_surv == 0) {val=1;}
-								}
-								break;					
-				case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {
-									if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-								} else {
-									if (d.Sev_wast_yrs_since_surv == 0) {val=1;}
-								}
-								break;		
-				case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {
-									if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-								} else {
-									if (d.Stunt_yrs_since_surv == 0) {val=1;}
-								}
-								break;		
-				default:		val = 0; 
-			};		
-			return val;
-			
+			return val; 
 		});
 	
 	
@@ -1752,7 +1739,7 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 			switch (currentStatCat) {     
 				case 'wast':	temp = cf2.wastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
 								break;
-				case 'sevwast':	temp = [];
+				case 'sevwast':	temp = cf2.sevWastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
 								break;
 				case 'stunt':	temp = cf2.stuntingDim.filter(function(d) {return d >= 0}).top(Infinity);
 								break;
@@ -1764,7 +1751,7 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 			switch (currentStatCat) {      
 				case 'wast':	temp = cf2.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
 								break;
-				case 'sevwast':	temp = [];
+				case 'sevwast':	temp = cf2.sevWastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity); 
 								break;
 				case 'stunt':	temp = cf2.stuntingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);
 								break;
@@ -1779,8 +1766,10 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 	temp = cf2.yearDim.bottom(Infinity);   //order by chronological year
 	
 	cf2.wastingDim.filterAll(); 			//Remove any filters on stats or country so subsequent operations have a clean start
+	cf2.sevWastingDim.filterAll(); 
 	cf2.stuntingDim.filterAll();
 	cf2.wastingBurdDim.filterAll();
+	cf2.sevWastingBurdDim.filterAll(); 
 	cf2.stuntingBurdDim.filterAll();
 	cf2.regionDim.filterAll();    
 	
@@ -1875,7 +1864,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 				case 'prev':
 					switch(currentStatCat) {
 						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
-						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = d.Sev_wasting;}; break;			//WILL NEED TO CHANGE 0 HERE TO NO DATA
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;			
 						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
 						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
 					};
@@ -1883,7 +1872,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 				case 'burd':
 					switch(currentStatCat) {
 						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
-						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
 						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
 						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 					};
@@ -1925,6 +1914,16 @@ function transitionCurrentCountryLines(id, temp_iso){
 			.attr('d', transLineFunction(countryData))
 			.attr("stroke", col)
 			.attr("stroke-width", 1);
+			/* .style("stroke-dasharray", function (d,i) {				//For making part of path dashed line
+				console.log("d in stroke-dasharray: ", d);
+				if (d[i].Survey_yr > 2010) { 		
+					console.log("d[i].Survey_yr in stroke-dasharray: ", d[i].Survey_yr);				
+					return ("3, 3");
+				 } else {
+					console.log("d[i].Survey_yr in stroke-dasharray: ", d[i].Survey_yr);
+					return ("0,0");   //no dash
+				} 
+			}); */
 	
 		
 		pointData = getPointData();  //appends all countryData from countryList into pointData	
@@ -1968,15 +1967,14 @@ function transitionCurrentCountryLines(id, temp_iso){
 						case 'prev':
 							switch(currentStatCat) {
 								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
-								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = d.Sev_wasting;}; break;			//WILL NEED TO CHANGE 0 HERE TO NO DATA
-								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = Sev_wasting;} else {stat = d.Sev_wasting;}; break;											case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
 								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
 							};
 							break;
 						case 'burd':
 							switch(currentStatCat) {
 								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
-								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
 								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
 								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 							};
@@ -1994,35 +1992,11 @@ function transitionCurrentCountryLines(id, temp_iso){
 			.attr("r", 3)
 			.attr("fill", col)
 			.style('opacity', function (d) {
-				/* val = 0;
+				val = 0;
 				switch(currentStatCat) {
 					case 'wast': 	if (d.Wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'sevwast': if (d.Sev_wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
-					default:		val = 0; 
-				};		
-				return val; */
-				
-				val = 0;
-				switch(currentStatCat) {      				
-					case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;					
-					case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Sev_wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
-					case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Stunt_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
 					default:		val = 0; 
 				};		
 				return val;
@@ -2071,7 +2045,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 					case 'prev':
 						switch(currentStatCat) {
 							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
-							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = d.Sev_wasting;}; break;			//WILL NEED TO CHANGE 0 HERE TO NO DATA
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;			
 							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
 							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
 						};
@@ -2079,7 +2053,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 					case 'burd':
 						switch(currentStatCat) {
 							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
-							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = 0;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
 							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
 							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 						};
@@ -2095,38 +2069,14 @@ function transitionCurrentCountryLines(id, temp_iso){
 			.attr("r", 3)
 			.attr("fill", col)
 			.style('opacity', function (d) {
-				/* val = 0;
+				val = 0;
 				switch(currentStatCat) {
 					case 'wast': 	if (d.Wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'sevwast': if (d.Sev_wast_yrs_since_surv == 0) {val=1;}; break;
 					case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 					default:		val = 0; 
 				};		
-				return val; */
-				
-				val = 0;
-				switch(currentStatCat) {      				
-					case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;					
-					case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Sev_wast_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
-					case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {
-										if ([1990,2010,2011].indexOf(d.Survey_yr)>=0) {val=1;}
-									} else {
-										if (d.Stunt_yrs_since_surv == 0) {val=1;}
-									}
-									break;		
-					default:		val = 0; 
-				};		
-				return val;
+				return val; 
 			});
 		
 	};
