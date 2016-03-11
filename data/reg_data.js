@@ -5,8 +5,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":7.7,
     "Wasting_burd":3.3,
-    "Stunting":51.6,
-    "Stunting_burd":22.5
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":52.4,
+    "Stunting_burd":23.59577981,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"ESA",
@@ -14,8 +19,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":7.665,
     "Wasting_burd":3.35,
-    "Stunting":51.035,
-    "Stunting_burd":22.63
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":51.72,
+    "Stunting_burd":23.65034596,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"ESA",
@@ -23,8 +33,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":7.63,
     "Wasting_burd":3.4,
-    "Stunting":50.47,
-    "Stunting_burd":22.76
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":51.04,
+    "Stunting_burd":23.7049121,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"ESA",
@@ -32,8 +47,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":7.595,
     "Wasting_burd":3.45,
-    "Stunting":49.905,
-    "Stunting_burd":22.89
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":50.36,
+    "Stunting_burd":23.75947825,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"ESA",
@@ -41,8 +61,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":7.56,
     "Wasting_burd":3.5,
-    "Stunting":49.34,
-    "Stunting_burd":23.02
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":49.68,
+    "Stunting_burd":23.8140444,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"ESA",
@@ -50,8 +75,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":7.525,
     "Wasting_burd":3.55,
-    "Stunting":48.775,
-    "Stunting_burd":23.15
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":49,
+    "Stunting_burd":23.86861054,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"ESA",
@@ -59,8 +89,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":7.49,
     "Wasting_burd":3.6,
-    "Stunting":48.21,
-    "Stunting_burd":23.28
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":48.32,
+    "Stunting_burd":23.18861054,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"ESA",
@@ -68,8 +103,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":7.455,
     "Wasting_burd":3.65,
-    "Stunting":47.645,
-    "Stunting_burd":23.41
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":47.64,
+    "Stunting_burd":23.46111043,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"ESA",
@@ -77,8 +117,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":7.42,
     "Wasting_burd":3.7,
-    "Stunting":47.08,
-    "Stunting_burd":23.54
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":46.96,
+    "Stunting_burd":23.73361032,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"ESA",
@@ -86,8 +131,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":7.385,
     "Wasting_burd":3.75,
-    "Stunting":46.515,
-    "Stunting_burd":23.67
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":46.28,
+    "Stunting_burd":24.00611022,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"ESA",
@@ -95,8 +145,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":7.35,
     "Wasting_burd":3.8,
-    "Stunting":45.95,
-    "Stunting_burd":23.8
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":45.6,
+    "Stunting_burd":25.23111,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"ESA",
@@ -104,8 +159,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":7.315,
     "Wasting_burd":3.85,
-    "Stunting":45.385,
-    "Stunting_burd":23.93
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":44.92,
+    "Stunting_burd":25.39845987,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"ESA",
@@ -113,8 +173,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":7.28,
     "Wasting_burd":3.9,
-    "Stunting":44.82,
-    "Stunting_burd":24.06
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":44.24,
+    "Stunting_burd":25.56580975,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"ESA",
@@ -122,8 +187,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":7.245,
     "Wasting_burd":3.95,
-    "Stunting":44.255,
-    "Stunting_burd":24.19
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":43.56,
+    "Stunting_burd":25.73315962,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"ESA",
@@ -131,8 +201,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":7.21,
     "Wasting_burd":4,
-    "Stunting":43.69,
-    "Stunting_burd":24.32
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":42.88,
+    "Stunting_burd":25.90050949,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"ESA",
@@ -140,8 +215,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":7.175,
     "Wasting_burd":4.05,
-    "Stunting":43.125,
-    "Stunting_burd":24.45
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":42.2,
+    "Stunting_burd":26.06785937,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"ESA",
@@ -149,8 +229,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":7.14,
     "Wasting_burd":4.1,
-    "Stunting":42.56,
-    "Stunting_burd":24.58
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.54,
+    "Stunting_burd":26.20921673,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"ESA",
@@ -158,8 +243,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":7.105,
     "Wasting_burd":4.15,
-    "Stunting":41.995,
-    "Stunting_burd":24.71
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":40.88,
+    "Stunting_burd":26.35057409,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"ESA",
@@ -167,8 +257,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":7.07,
     "Wasting_burd":4.2,
-    "Stunting":41.43,
-    "Stunting_burd":24.84
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":40.22,
+    "Stunting_burd":26.49193145,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"ESA",
@@ -176,8 +271,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":7.035,
     "Wasting_burd":4.25,
-    "Stunting":40.865,
-    "Stunting_burd":24.97
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":39.56,
+    "Stunting_burd":26.63328881,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"ESA",
@@ -185,8 +285,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":7,
     "Wasting_burd":4.3,
-    "Stunting":40.3,
-    "Stunting_burd":25.1
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.9,
+    "Stunting_burd":26.77464617,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"ESA",
@@ -194,8 +299,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":6.9,
     "Wasting_burd":4.4,
-    "Stunting":39.8,
-    "Stunting_burd":25.2
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.25,
+    "Stunting_burd":26.80005592,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"ESA",
+    "ISO_3":"XX1",
+    "Survey_yr":2012,
+    "Wasting":6.7,
+    "Wasting_burd":4.466666667,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":37.6,
+    "Stunting_burd":26.82546567,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"ESA",
+    "ISO_3":"XX1",
+    "Survey_yr":2013,
+    "Wasting":6.5,
+    "Wasting_burd":4.533333333,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":36.95,
+    "Stunting_burd":26.85087542,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"ESA",
+    "ISO_3":"XX1",
+    "Survey_yr":2014,
+    "Wasting":6.3,
+    "Wasting_burd":4.6,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":1.9,
+    "Sev_wasting_burd":1.4,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":36.3,
+    "Stunting_burd":26.87628517,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -203,8 +355,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":12.9,
     "Wasting_burd":5.7,
-    "Stunting":44,
-    "Stunting_burd":19.5
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":45.9,
+    "Stunting_burd":19.89097191,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -212,8 +369,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":12.83,
     "Wasting_burd":5.815,
-    "Stunting":43.765,
-    "Stunting_burd":19.89
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":45.42,
+    "Stunting_burd":20.19670787,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"WCA",
@@ -221,8 +383,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":12.76,
     "Wasting_burd":5.93,
-    "Stunting":43.53,
-    "Stunting_burd":20.28
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":44.94,
+    "Stunting_burd":20.50244382,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"WCA",
@@ -230,8 +397,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":12.69,
     "Wasting_burd":6.045,
-    "Stunting":43.295,
-    "Stunting_burd":20.67
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":44.46,
+    "Stunting_burd":20.80817978,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"WCA",
@@ -239,8 +411,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":12.62,
     "Wasting_burd":6.16,
-    "Stunting":43.06,
-    "Stunting_burd":21.06
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":43.98,
+    "Stunting_burd":21.11391573,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"WCA",
@@ -248,8 +425,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":12.55,
     "Wasting_burd":6.275,
-    "Stunting":42.825,
-    "Stunting_burd":21.45
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":43.5,
+    "Stunting_burd":21.41965169,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -257,8 +439,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":12.48,
     "Wasting_burd":6.39,
-    "Stunting":42.59,
-    "Stunting_burd":21.84
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":43.04,
+    "Stunting_burd":21.72537138,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"WCA",
@@ -266,8 +453,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":12.41,
     "Wasting_burd":6.505,
-    "Stunting":42.355,
-    "Stunting_burd":22.23
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":42.58,
+    "Stunting_burd":22.03109108,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"WCA",
@@ -275,8 +467,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":12.34,
     "Wasting_burd":6.62,
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
     "Stunting":42.12,
-    "Stunting_burd":22.62
+    "Stunting_burd":22.33681077,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"WCA",
@@ -284,8 +481,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":12.27,
     "Wasting_burd":6.735,
-    "Stunting":41.885,
-    "Stunting_burd":23.01
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.66,
+    "Stunting_burd":22.64253047,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"WCA",
@@ -293,8 +495,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":12.2,
     "Wasting_burd":6.85,
-    "Stunting":41.65,
-    "Stunting_burd":23.4
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.2,
+    "Stunting_burd":22.94825017,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -302,8 +509,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":12.13,
     "Wasting_burd":6.965,
-    "Stunting":41.415,
-    "Stunting_burd":23.79
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":40.74,
+    "Stunting_burd":23.33717139,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"WCA",
@@ -311,8 +523,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":12.06,
     "Wasting_burd":7.08,
-    "Stunting":41.18,
-    "Stunting_burd":24.18
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":40.28,
+    "Stunting_burd":23.72609262,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"WCA",
@@ -320,8 +537,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":11.99,
     "Wasting_burd":7.195,
-    "Stunting":40.945,
-    "Stunting_burd":24.57
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":39.82,
+    "Stunting_burd":24.11501385,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"WCA",
@@ -329,8 +551,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":11.92,
     "Wasting_burd":7.31,
-    "Stunting":40.71,
-    "Stunting_burd":24.96
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":39.36,
+    "Stunting_burd":24.50393508,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"WCA",
@@ -338,8 +565,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":11.85,
     "Wasting_burd":7.425,
-    "Stunting":40.475,
-    "Stunting_burd":25.35
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.9,
+    "Stunting_burd":24.89285631,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -347,8 +579,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":11.78,
     "Wasting_burd":7.54,
-    "Stunting":40.24,
-    "Stunting_burd":25.74
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.44,
+    "Stunting_burd":25.25331705,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"WCA",
@@ -356,8 +593,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":11.71,
     "Wasting_burd":7.655,
-    "Stunting":40.005,
-    "Stunting_burd":26.13
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":37.98,
+    "Stunting_burd":25.61377779,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"WCA",
@@ -365,8 +607,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":11.64,
     "Wasting_burd":7.77,
-    "Stunting":39.77,
-    "Stunting_burd":26.52
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":37.52,
+    "Stunting_burd":25.97423854,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"WCA",
@@ -374,8 +621,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":11.57,
     "Wasting_burd":7.885,
-    "Stunting":39.535,
-    "Stunting_burd":26.91
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":37.06,
+    "Stunting_burd":26.33469928,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"WCA",
@@ -383,8 +635,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":11.5,
     "Wasting_burd":8,
-    "Stunting":39.3,
-    "Stunting_burd":27.3
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":36.6,
+    "Stunting_burd":26.69516002,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"WCA",
@@ -392,8 +649,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":11.5,
     "Wasting_burd":8.1,
-    "Stunting":39.1,
-    "Stunting_burd":27.7
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":36.175,
+    "Stunting_burd":27.02086378,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"WCA",
+    "ISO_3":"XX2",
+    "Survey_yr":2012,
+    "Wasting":11.03333333,
+    "Wasting_burd":8.1,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":35.75,
+    "Stunting_burd":27.34656753,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"WCA",
+    "ISO_3":"XX2",
+    "Survey_yr":2013,
+    "Wasting":10.56666667,
+    "Wasting_burd":8.1,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":35.325,
+    "Stunting_burd":27.67227129,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"WCA",
+    "ISO_3":"XX2",
+    "Survey_yr":2014,
+    "Wasting":10.1,
+    "Wasting_burd":8.1,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":3.5,
+    "Sev_wasting_burd":2.8,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":34.9,
+    "Stunting_burd":27.99797504,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -401,8 +705,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":5.7,
     "Wasting_burd":2.5,
-    "Stunting":30.8,
-    "Stunting_burd":13.6
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":30.9,
+    "Stunting_burd":13.44781361,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -410,8 +719,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":5.865,
     "Wasting_burd":2.59,
-    "Stunting":30.29,
-    "Stunting_burd":13.41
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":30.3,
+    "Stunting_burd":13.12764409,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"MENA",
@@ -419,8 +733,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":6.03,
     "Wasting_burd":2.68,
-    "Stunting":29.78,
-    "Stunting_burd":13.22
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":29.7,
+    "Stunting_burd":12.80747457,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"MENA",
@@ -428,8 +747,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":6.195,
     "Wasting_burd":2.77,
-    "Stunting":29.27,
-    "Stunting_burd":13.03
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":29.1,
+    "Stunting_burd":12.48730505,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"MENA",
@@ -437,8 +761,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":6.36,
     "Wasting_burd":2.86,
-    "Stunting":28.76,
-    "Stunting_burd":12.84
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":28.5,
+    "Stunting_burd":12.16713553,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"MENA",
@@ -446,8 +775,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":6.525,
     "Wasting_burd":2.95,
-    "Stunting":28.25,
-    "Stunting_burd":12.65
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":27.9,
+    "Stunting_burd":11.84696601,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -455,8 +789,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":6.69,
     "Wasting_burd":3.04,
-    "Stunting":27.74,
-    "Stunting_burd":12.46
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":27.34,
+    "Stunting_burd":11.55742546,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"MENA",
@@ -464,8 +803,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":6.855,
     "Wasting_burd":3.13,
-    "Stunting":27.23,
-    "Stunting_burd":12.27
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":26.78,
+    "Stunting_burd":11.26788491,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"MENA",
@@ -473,8 +817,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":7.02,
     "Wasting_burd":3.22,
-    "Stunting":26.72,
-    "Stunting_burd":12.08
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":26.22,
+    "Stunting_burd":10.97834436,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"MENA",
@@ -482,8 +831,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":7.185,
     "Wasting_burd":3.31,
-    "Stunting":26.21,
-    "Stunting_burd":11.89
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":25.66,
+    "Stunting_burd":10.68880381,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"MENA",
@@ -491,8 +845,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":7.35,
     "Wasting_burd":3.4,
-    "Stunting":25.7,
-    "Stunting_burd":11.7
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":25.1,
+    "Stunting_burd":10.39926326,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -500,8 +859,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":7.515,
     "Wasting_burd":3.49,
-    "Stunting":25.19,
-    "Stunting_burd":11.51
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":24.58,
+    "Stunting_burd":10.2187307,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"MENA",
@@ -509,8 +873,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":7.68,
     "Wasting_burd":3.58,
-    "Stunting":24.68,
-    "Stunting_burd":11.32
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":24.06,
+    "Stunting_burd":10.03819813,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"MENA",
@@ -518,8 +887,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":7.845,
     "Wasting_burd":3.67,
-    "Stunting":24.17,
-    "Stunting_burd":11.13
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":23.54,
+    "Stunting_burd":9.857665562,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"MENA",
@@ -527,8 +901,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":8.01,
     "Wasting_burd":3.76,
-    "Stunting":23.66,
-    "Stunting_burd":10.94
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":23.02,
+    "Stunting_burd":9.677132994,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"MENA",
@@ -536,8 +915,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":8.175,
     "Wasting_burd":3.85,
-    "Stunting":23.15,
-    "Stunting_burd":10.75
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.5,
+    "Stunting_burd":9.496600427,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -545,8 +929,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":8.34,
     "Wasting_burd":3.94,
-    "Stunting":22.64,
-    "Stunting_burd":10.56
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.02,
+    "Stunting_burd":9.499342263,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"MENA",
@@ -554,8 +943,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":8.505,
     "Wasting_burd":4.03,
-    "Stunting":22.13,
-    "Stunting_burd":10.37
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.54,
+    "Stunting_burd":9.502084098,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"MENA",
@@ -563,8 +957,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":8.67,
     "Wasting_burd":4.12,
-    "Stunting":21.62,
-    "Stunting_burd":10.18
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.06,
+    "Stunting_burd":9.504825934,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"MENA",
@@ -572,8 +971,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":8.835,
     "Wasting_burd":4.21,
-    "Stunting":21.11,
-    "Stunting_burd":9.99
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.58,
+    "Stunting_burd":9.507567769,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"MENA",
@@ -581,8 +985,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":9,
     "Wasting_burd":4.3,
-    "Stunting":20.6,
-    "Stunting_burd":9.8
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.1,
+    "Stunting_burd":9.510309605,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"MENA",
@@ -590,8 +999,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":9.2,
     "Wasting_burd":4.4,
-    "Stunting":20.1,
-    "Stunting_burd":9.7
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":19.65,
+    "Stunting_burd":9.533398568,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"MENA",
+    "ISO_3":"XX3",
+    "Survey_yr":2012,
+    "Wasting":8.866666667,
+    "Wasting_burd":4.366666667,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":19.2,
+    "Stunting_burd":9.556487532,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"MENA",
+    "ISO_3":"XX3",
+    "Survey_yr":2013,
+    "Wasting":8.533333333,
+    "Wasting_burd":4.333333333,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":18.75,
+    "Stunting_burd":9.579576495,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"MENA",
+    "ISO_3":"XX3",
+    "Survey_yr":2014,
+    "Wasting":8.2,
+    "Wasting_burd":4.3,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":3.2,
+    "Sev_wasting_burd":1.7,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":18.3,
+    "Stunting_burd":9.602665458,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -599,8 +1055,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":18.8,
     "Wasting_burd":31,
-    "Stunting":61.3,
-    "Stunting_burd":101
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":61.2,
+    "Stunting_burd":100.1071946,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -608,8 +1069,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":18.665,
     "Wasting_burd":30.86,
-    "Stunting":60.235,
-    "Stunting_burd":99.455
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":60.2,
+    "Stunting_burd":99.08798709,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"SA",
@@ -617,8 +1083,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":18.53,
     "Wasting_burd":30.72,
-    "Stunting":59.17,
-    "Stunting_burd":97.91
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":59.2,
+    "Stunting_burd":98.06877959,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"SA",
@@ -626,8 +1097,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":18.395,
     "Wasting_burd":30.58,
-    "Stunting":58.105,
-    "Stunting_burd":96.365
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":58.2,
+    "Stunting_burd":97.04957209,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"SA",
@@ -635,8 +1111,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":18.26,
     "Wasting_burd":30.44,
-    "Stunting":57.04,
-    "Stunting_burd":94.82
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":57.2,
+    "Stunting_burd":96.03036459,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"SA",
@@ -644,8 +1125,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":18.125,
     "Wasting_burd":30.3,
-    "Stunting":55.975,
-    "Stunting_burd":93.275
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":56.2,
+    "Stunting_burd":95.01115709,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -653,8 +1139,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":17.99,
     "Wasting_burd":30.16,
-    "Stunting":54.91,
-    "Stunting_burd":91.73
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":55.2,
+    "Stunting_burd":93.79129725,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"SA",
@@ -662,8 +1153,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":17.855,
     "Wasting_burd":30.02,
-    "Stunting":53.845,
-    "Stunting_burd":90.185
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":54.2,
+    "Stunting_burd":92.5714374,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"SA",
@@ -671,8 +1167,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":17.72,
     "Wasting_burd":29.88,
-    "Stunting":52.78,
-    "Stunting_burd":88.64
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":53.2,
+    "Stunting_burd":91.35157756,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"SA",
@@ -680,8 +1181,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":17.585,
     "Wasting_burd":29.74,
-    "Stunting":51.715,
-    "Stunting_burd":87.095
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":52.2,
+    "Stunting_burd":90.13171772,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"SA",
@@ -689,8 +1195,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":17.45,
     "Wasting_burd":29.6,
-    "Stunting":50.65,
-    "Stunting_burd":85.55
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":51.2,
+    "Stunting_burd":88.91185787,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -698,8 +1209,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":17.315,
     "Wasting_burd":29.46,
-    "Stunting":49.585,
-    "Stunting_burd":84.005
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":50.18,
+    "Stunting_burd":87.37012194,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"SA",
@@ -707,8 +1223,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":17.18,
     "Wasting_burd":29.32,
-    "Stunting":48.52,
-    "Stunting_burd":82.46
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":49.16,
+    "Stunting_burd":85.82838601,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"SA",
@@ -716,8 +1237,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":17.045,
     "Wasting_burd":29.18,
-    "Stunting":47.455,
-    "Stunting_burd":80.915
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":48.14,
+    "Stunting_burd":84.28665008,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"SA",
@@ -725,8 +1251,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":16.91,
     "Wasting_burd":29.04,
-    "Stunting":46.39,
-    "Stunting_burd":79.37
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":47.12,
+    "Stunting_burd":82.74491415,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"SA",
@@ -734,8 +1265,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":16.775,
     "Wasting_burd":28.9,
-    "Stunting":45.325,
-    "Stunting_burd":77.825
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":46.1,
+    "Stunting_burd":81.20317821,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -743,8 +1279,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":16.64,
     "Wasting_burd":28.76,
-    "Stunting":44.26,
-    "Stunting_burd":76.28
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":45.1,
+    "Stunting_burd":79.47442495,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"SA",
@@ -752,8 +1293,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":16.505,
     "Wasting_burd":28.62,
-    "Stunting":43.195,
-    "Stunting_burd":74.735
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":44.1,
+    "Stunting_burd":77.74567169,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"SA",
@@ -761,8 +1307,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":16.37,
     "Wasting_burd":28.48,
-    "Stunting":42.13,
-    "Stunting_burd":73.19
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":43.1,
+    "Stunting_burd":76.01691842,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"SA",
@@ -770,8 +1321,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":16.235,
     "Wasting_burd":28.34,
-    "Stunting":41.065,
-    "Stunting_burd":71.645
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":42.1,
+    "Stunting_burd":74.28816516,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"SA",
@@ -779,8 +1335,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":16.1,
     "Wasting_burd":28.2,
-    "Stunting":40,
-    "Stunting_burd":70.1
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.1,
+    "Stunting_burd":72.5594119,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"SA",
@@ -788,8 +1349,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":16,
     "Wasting_burd":28.1,
-    "Stunting":39,
-    "Stunting_burd":68.7
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.175,
+    "Stunting_burd":74.68658263,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"SA",
+    "ISO_3":"XX4",
+    "Survey_yr":2012,
+    "Wasting":15.63333333,
+    "Wasting_burd":27.36666667,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.25,
+    "Stunting_burd":76.81375337,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"SA",
+    "ISO_3":"XX4",
+    "Survey_yr":2013,
+    "Wasting":15.26666667,
+    "Wasting_burd":26.63333333,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.325,
+    "Stunting_burd":78.94092411,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"SA",
+    "ISO_3":"XX4",
+    "Survey_yr":2014,
+    "Wasting":14.9,
+    "Wasting_burd":25.9,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":4.7,
+    "Sev_wasting_burd":8.1,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":37.2,
+    "Stunting_burd":64.59825232,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -797,8 +1405,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":5.9,
     "Wasting_burd":11.1,
-    "Stunting":42.4,
-    "Stunting_burd":79.8
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":41.4,
+    "Stunting_burd":81.06809485,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -806,8 +1419,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":5.79,
     "Wasting_burd":10.805,
-    "Stunting":40.935,
-    "Stunting_burd":76.74
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":39.7,
+    "Stunting_burd":76.17298506,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"EAP",
@@ -815,8 +1433,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":5.68,
     "Wasting_burd":10.51,
-    "Stunting":39.47,
-    "Stunting_burd":73.68
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38,
+    "Stunting_burd":71.27787528,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"EAP",
@@ -824,8 +1447,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":5.57,
     "Wasting_burd":10.215,
-    "Stunting":38.005,
-    "Stunting_burd":70.62
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":36.3,
+    "Stunting_burd":66.38276549,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"EAP",
@@ -833,8 +1461,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":5.46,
     "Wasting_burd":9.92,
-    "Stunting":36.54,
-    "Stunting_burd":67.56
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":34.6,
+    "Stunting_burd":61.48765571,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"EAP",
@@ -842,8 +1475,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":5.35,
     "Wasting_burd":9.625,
-    "Stunting":35.075,
-    "Stunting_burd":64.5
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":32.9,
+    "Stunting_burd":56.59254593,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -851,8 +1489,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":5.24,
     "Wasting_burd":9.33,
-    "Stunting":33.61,
-    "Stunting_burd":61.44
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":31.4,
+    "Stunting_burd":52.44157099,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"EAP",
@@ -860,8 +1503,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":5.13,
     "Wasting_burd":9.035,
-    "Stunting":32.145,
-    "Stunting_burd":58.38
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":29.9,
+    "Stunting_burd":48.29059605,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"EAP",
@@ -869,8 +1517,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":5.02,
     "Wasting_burd":8.74,
-    "Stunting":30.68,
-    "Stunting_burd":55.32
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":28.4,
+    "Stunting_burd":44.13962112,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"EAP",
@@ -878,8 +1531,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":4.91,
     "Wasting_burd":8.445,
-    "Stunting":29.215,
-    "Stunting_burd":52.26
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":26.9,
+    "Stunting_burd":39.98864618,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"EAP",
@@ -887,8 +1545,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":4.8,
     "Wasting_burd":8.15,
-    "Stunting":27.75,
-    "Stunting_burd":49.2
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":25.4,
+    "Stunting_burd":35.83767124,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -896,8 +1559,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":4.69,
     "Wasting_burd":7.855,
-    "Stunting":26.285,
-    "Stunting_burd":46.14
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":24.14,
+    "Stunting_burd":33.92255126,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"EAP",
@@ -905,8 +1573,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":4.58,
     "Wasting_burd":7.56,
-    "Stunting":24.82,
-    "Stunting_burd":43.08
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.88,
+    "Stunting_burd":32.00743127,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"EAP",
@@ -914,8 +1587,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":4.47,
     "Wasting_burd":7.265,
-    "Stunting":23.355,
-    "Stunting_burd":40.02
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.62,
+    "Stunting_burd":30.09231128,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"EAP",
@@ -923,8 +1601,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":4.36,
     "Wasting_burd":6.97,
-    "Stunting":21.89,
-    "Stunting_burd":36.96
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.36,
+    "Stunting_burd":28.1771913,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"EAP",
@@ -932,8 +1615,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":4.25,
     "Wasting_burd":6.675,
-    "Stunting":20.425,
-    "Stunting_burd":33.9
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":19.1,
+    "Stunting_burd":26.26207131,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -941,8 +1629,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":4.14,
     "Wasting_burd":6.38,
-    "Stunting":18.96,
-    "Stunting_burd":30.84
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":18.1,
+    "Stunting_burd":24.95349835,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"EAP",
@@ -950,8 +1643,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":4.03,
     "Wasting_burd":6.085,
-    "Stunting":17.495,
-    "Stunting_burd":27.78
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":17.1,
+    "Stunting_burd":23.6449254,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"EAP",
@@ -959,8 +1657,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":3.92,
     "Wasting_burd":5.79,
-    "Stunting":16.03,
-    "Stunting_burd":24.72
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":16.1,
+    "Stunting_burd":22.33635244,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"EAP",
@@ -968,8 +1671,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":3.81,
     "Wasting_burd":5.495,
-    "Stunting":14.565,
-    "Stunting_burd":21.66
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":15.1,
+    "Stunting_burd":21.02777948,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"EAP",
@@ -977,8 +1685,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":3.7,
     "Wasting_burd":5.2,
-    "Stunting":13.1,
-    "Stunting_burd":18.6
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":14.1,
+    "Stunting_burd":19.71920652,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"EAP",
@@ -986,8 +1699,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":3.6,
     "Wasting_burd":5.1,
-    "Stunting":12.2,
-    "Stunting_burd":17.4
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":13.3,
+    "Stunting_burd":18.77465118,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"EAP",
+    "ISO_3":"XX5",
+    "Survey_yr":2012,
+    "Wasting":3.566666667,
+    "Wasting_burd":5.1,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":12.5,
+    "Stunting_burd":17.83009584,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"EAP",
+    "ISO_3":"XX5",
+    "Survey_yr":2013,
+    "Wasting":3.533333333,
+    "Wasting_burd":5.1,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11.7,
+    "Stunting_burd":16.8855405,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"EAP",
+    "ISO_3":"XX5",
+    "Survey_yr":2014,
+    "Wasting":3.5,
+    "Wasting_burd":5.1,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":0.9,
+    "Sev_wasting_burd":1.4,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":10.9,
+    "Stunting_burd":15.94098516,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -995,8 +1755,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":3.2,
     "Wasting_burd":1.8,
-    "Stunting":22.4,
-    "Stunting_burd":12.5
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.5,
+    "Stunting_burd":12.61394478,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -1004,8 +1769,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":3.12,
     "Wasting_burd":1.755,
-    "Stunting":21.885,
-    "Stunting_burd":12.2
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.88,
+    "Stunting_burd":12.26305262,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"TAC",
@@ -1013,8 +1783,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":3.04,
     "Wasting_burd":1.71,
-    "Stunting":21.37,
-    "Stunting_burd":11.9
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.26,
+    "Stunting_burd":11.91216045,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"TAC",
@@ -1022,8 +1797,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":2.96,
     "Wasting_burd":1.665,
-    "Stunting":20.855,
-    "Stunting_burd":11.6
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.64,
+    "Stunting_burd":11.56126828,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"TAC",
@@ -1031,8 +1811,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":2.88,
     "Wasting_burd":1.62,
-    "Stunting":20.34,
-    "Stunting_burd":11.3
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.02,
+    "Stunting_burd":11.21037611,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"TAC",
@@ -1040,8 +1825,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":2.8,
     "Wasting_burd":1.575,
-    "Stunting":19.825,
-    "Stunting_burd":11
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":19.4,
+    "Stunting_burd":10.85948395,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -1049,8 +1839,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":2.72,
     "Wasting_burd":1.53,
-    "Stunting":19.31,
-    "Stunting_burd":10.7
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":18.84,
+    "Stunting_burd":10.56988957,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"TAC",
@@ -1058,8 +1853,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":2.64,
     "Wasting_burd":1.485,
-    "Stunting":18.795,
-    "Stunting_burd":10.4
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":18.28,
+    "Stunting_burd":10.28029519,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"TAC",
@@ -1067,8 +1867,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":2.56,
     "Wasting_burd":1.44,
-    "Stunting":18.28,
-    "Stunting_burd":10.1
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":17.72,
+    "Stunting_burd":9.990700809,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"TAC",
@@ -1076,8 +1881,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":2.48,
     "Wasting_burd":1.395,
-    "Stunting":17.765,
-    "Stunting_burd":9.8
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":17.16,
+    "Stunting_burd":9.701106431,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"TAC",
@@ -1085,8 +1895,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":2.4,
     "Wasting_burd":1.35,
-    "Stunting":17.25,
-    "Stunting_burd":9.5
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":16.6,
+    "Stunting_burd":9.411512052,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -1094,8 +1909,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":2.32,
     "Wasting_burd":1.305,
-    "Stunting":16.735,
-    "Stunting_burd":9.2
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":16.1,
+    "Stunting_burd":9.11549057,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"TAC",
@@ -1103,8 +1923,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":2.24,
     "Wasting_burd":1.26,
-    "Stunting":16.22,
-    "Stunting_burd":8.9
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":15.6,
+    "Stunting_burd":8.819469089,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"TAC",
@@ -1112,8 +1937,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":2.16,
     "Wasting_burd":1.215,
-    "Stunting":15.705,
-    "Stunting_burd":8.6
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":15.1,
+    "Stunting_burd":8.523447607,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"TAC",
@@ -1121,8 +1951,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":2.08,
     "Wasting_burd":1.17,
-    "Stunting":15.19,
-    "Stunting_burd":8.3
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":14.6,
+    "Stunting_burd":8.227426126,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"TAC",
@@ -1130,8 +1965,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":2,
     "Wasting_burd":1.125,
-    "Stunting":14.675,
-    "Stunting_burd":8
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":14.1,
+    "Stunting_burd":7.931404644,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -1139,8 +1979,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":1.92,
     "Wasting_burd":1.08,
-    "Stunting":14.16,
-    "Stunting_burd":7.7
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":13.66,
+    "Stunting_burd":7.627602872,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"TAC",
@@ -1148,8 +1993,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":1.84,
     "Wasting_burd":1.035,
-    "Stunting":13.645,
-    "Stunting_burd":7.4
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":13.22,
+    "Stunting_burd":7.3238011,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"TAC",
@@ -1157,8 +2007,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":1.76,
     "Wasting_burd":0.99,
-    "Stunting":13.13,
-    "Stunting_burd":7.1
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":12.78,
+    "Stunting_burd":7.019999329,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"TAC",
@@ -1166,8 +2021,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":1.68,
     "Wasting_burd":0.945,
-    "Stunting":12.615,
-    "Stunting_burd":6.8
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":12.34,
+    "Stunting_burd":6.716197557,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"TAC",
@@ -1175,8 +2035,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":1.6,
     "Wasting_burd":0.9,
-    "Stunting":12.1,
-    "Stunting_burd":6.5
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11.9,
+    "Stunting_burd":6.412395785,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"TAC",
@@ -1184,8 +2049,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":1.6,
     "Wasting_burd":0.8,
-    "Stunting":11.7,
-    "Stunting_burd":6.3
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11.525,
+    "Stunting_burd":6.195176495,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"TAC",
+    "ISO_3":"XX6",
+    "Survey_yr":2012,
+    "Wasting":1.5,
+    "Wasting_burd":0.866666667,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11.15,
+    "Stunting_burd":5.977957205,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"TAC",
+    "ISO_3":"XX6",
+    "Survey_yr":2013,
+    "Wasting":1.4,
+    "Wasting_burd":0.933333333,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":10.775,
+    "Stunting_burd":5.760737915,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"TAC",
+    "ISO_3":"XX6",
+    "Survey_yr":2014,
+    "Wasting":1.3,
+    "Wasting_burd":1,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":0.3,
+    "Sev_wasting_burd":0.2,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":10.4,
+    "Stunting_burd":5.543518625,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"CEECIS",
@@ -1193,8 +2105,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":8.1,
     "Wasting_burd":2.9,
-    "Stunting":27.1,
-    "Stunting_burd":9.9
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":-99,
+    "Stunting_burd":-99,
+    "Stunt_yrs_since_surv":-99
   },
   {
     "Region":"CEECIS",
@@ -1202,8 +2119,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":7.77,
     "Wasting_burd":2.775,
-    "Stunting":26.35,
-    "Stunting_burd":9.575
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":-99,
+    "Stunting_burd":-99,
+    "Stunt_yrs_since_surv":-99
   },
   {
     "Region":"CEECIS",
@@ -1211,8 +2133,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":7.44,
     "Wasting_burd":2.65,
-    "Stunting":25.6,
-    "Stunting_burd":9.25
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":-99,
+    "Stunting_burd":-99,
+    "Stunt_yrs_since_surv":-99
   },
   {
     "Region":"CEECIS",
@@ -1220,8 +2147,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":7.11,
     "Wasting_burd":2.525,
-    "Stunting":24.85,
-    "Stunting_burd":8.925
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":-99,
+    "Stunting_burd":-99,
+    "Stunt_yrs_since_surv":-99
   },
   {
     "Region":"CEECIS",
@@ -1229,8 +2161,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":6.78,
     "Wasting_burd":2.4,
-    "Stunting":24.1,
-    "Stunting_burd":8.6
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":-99,
+    "Stunting_burd":-99,
+    "Stunt_yrs_since_surv":-99
   },
   {
     "Region":"CEECIS",
@@ -1238,8 +2175,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":6.45,
     "Wasting_burd":2.275,
-    "Stunting":23.35,
-    "Stunting_burd":8.275
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.9,
+    "Stunting_burd":6.837144029,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"CEECIS",
@@ -1247,8 +2189,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":6.12,
     "Wasting_burd":2.15,
-    "Stunting":22.6,
-    "Stunting_burd":7.95
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":22.04,
+    "Stunting_burd":6.434378295,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"CEECIS",
@@ -1256,8 +2203,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":5.79,
     "Wasting_burd":2.025,
-    "Stunting":21.85,
-    "Stunting_burd":7.625
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":21.18,
+    "Stunting_burd":6.031612561,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"CEECIS",
@@ -1265,8 +2217,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":5.46,
     "Wasting_burd":1.9,
-    "Stunting":21.1,
-    "Stunting_burd":7.3
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":20.32,
+    "Stunting_burd":5.628846827,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"CEECIS",
@@ -1274,8 +2231,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":5.13,
     "Wasting_burd":1.775,
-    "Stunting":20.35,
-    "Stunting_burd":6.975
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":19.46,
+    "Stunting_burd":5.226081093,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"CEECIS",
@@ -1283,8 +2245,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":4.8,
     "Wasting_burd":1.65,
-    "Stunting":19.6,
-    "Stunting_burd":6.65
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":18.6,
+    "Stunting_burd":4.823315359,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"CEECIS",
@@ -1292,8 +2259,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":4.47,
     "Wasting_burd":1.525,
-    "Stunting":18.85,
-    "Stunting_burd":6.325
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":17.88,
+    "Stunting_burd":4.624363965,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"CEECIS",
@@ -1301,8 +2273,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":4.14,
     "Wasting_burd":1.4,
-    "Stunting":18.1,
-    "Stunting_burd":6
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":17.16,
+    "Stunting_burd":4.425412571,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"CEECIS",
@@ -1310,8 +2287,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":3.81,
     "Wasting_burd":1.275,
-    "Stunting":17.35,
-    "Stunting_burd":5.675
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":16.44,
+    "Stunting_burd":4.226461177,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"CEECIS",
@@ -1319,8 +2301,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":3.48,
     "Wasting_burd":1.15,
-    "Stunting":16.6,
-    "Stunting_burd":5.35
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":15.72,
+    "Stunting_burd":4.027509783,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"CEECIS",
@@ -1328,8 +2315,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":3.15,
     "Wasting_burd":1.025,
-    "Stunting":15.85,
-    "Stunting_burd":5.025
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":15,
+    "Stunting_burd":3.828558389,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"CEECIS",
@@ -1337,8 +2329,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":2.82,
     "Wasting_burd":0.9,
-    "Stunting":15.1,
-    "Stunting_burd":4.7
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":14.4,
+    "Stunting_burd":3.732795712,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"CEECIS",
@@ -1346,8 +2343,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":2.49,
     "Wasting_burd":0.775,
-    "Stunting":14.35,
-    "Stunting_burd":4.375
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":13.8,
+    "Stunting_burd":3.637033035,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"CEECIS",
@@ -1355,8 +2357,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":2.16,
     "Wasting_burd":0.65,
-    "Stunting":13.6,
-    "Stunting_burd":4.05
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":13.2,
+    "Stunting_burd":3.541270359,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"CEECIS",
@@ -1364,8 +2371,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":1.83,
     "Wasting_burd":0.525,
-    "Stunting":12.85,
-    "Stunting_burd":3.725
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":12.6,
+    "Stunting_burd":3.445507682,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"CEECIS",
@@ -1373,8 +2385,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":1.5,
     "Wasting_burd":0.4,
-    "Stunting":12.1,
-    "Stunting_burd":3.4
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":12,
+    "Stunting_burd":3.349745005,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"CEECIS",
@@ -1382,8 +2399,55 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":1.4,
     "Wasting_burd":0.4,
-    "Stunting":11.6,
-    "Stunting_burd":3.3
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11.5,
+    "Stunting_burd":3.2757919,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"CEECIS",
+    "ISO_3":"XX7",
+    "Survey_yr":2012,
+    "Wasting":1.5,
+    "Wasting_burd":0.433333333,
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":11,
+    "Stunting_burd":3.201838795,
+    "Stunt_yrs_since_surv":2
+  },
+  {
+    "Region":"CEECIS",
+    "ISO_3":"XX7",
+    "Survey_yr":2013,
+    "Wasting":1.6,
+    "Wasting_burd":0.466666667,
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":10.5,
+    "Stunting_burd":3.12788569,
+    "Stunt_yrs_since_surv":3
+  },
+  {
+    "Region":"CEECIS",
+    "ISO_3":"XX7",
+    "Survey_yr":2014,
+    "Wasting":1.7,
+    "Wasting_burd":0.5,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":0.6,
+    "Sev_wasting_burd":0.2,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":10,
+    "Stunting_burd":3.053932585,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1391,8 +2455,13 @@ var reg_data = [
     "Survey_yr":1990,
     "Wasting":9.1,
     "Wasting_burd":58,
-    "Stunting":39.9,
-    "Stunting_burd":253.1
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":39.6,
+    "Stunting_burd":254.5,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1400,8 +2469,13 @@ var reg_data = [
     "Survey_yr":1991,
     "Wasting":9.05,
     "Wasting_burd":57.675,
-    "Stunting":39.22,
-    "Stunting_burd":248.8
+    "Wast_yrs_since_surv":1,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.82,
+    "Stunting_burd":248.34,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"Global",
@@ -1409,8 +2483,13 @@ var reg_data = [
     "Survey_yr":1992,
     "Wasting":9,
     "Wasting_burd":57.35,
-    "Stunting":38.54,
-    "Stunting_burd":244.5
+    "Wast_yrs_since_surv":2,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":38.04,
+    "Stunting_burd":242.18,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"Global",
@@ -1418,8 +2497,13 @@ var reg_data = [
     "Survey_yr":1993,
     "Wasting":8.95,
     "Wasting_burd":57.025,
-    "Stunting":37.86,
-    "Stunting_burd":240.2
+    "Wast_yrs_since_surv":3,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":37.26,
+    "Stunting_burd":236.02,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"Global",
@@ -1427,8 +2511,13 @@ var reg_data = [
     "Survey_yr":1994,
     "Wasting":8.9,
     "Wasting_burd":56.7,
-    "Stunting":37.18,
-    "Stunting_burd":235.9
+    "Wast_yrs_since_surv":4,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":36.48,
+    "Stunting_burd":229.86,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"Global",
@@ -1436,8 +2525,13 @@ var reg_data = [
     "Survey_yr":1995,
     "Wasting":8.85,
     "Wasting_burd":56.375,
-    "Stunting":36.5,
-    "Stunting_burd":231.6
+    "Wast_yrs_since_surv":5,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":35.7,
+    "Stunting_burd":223.7,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1445,8 +2539,13 @@ var reg_data = [
     "Survey_yr":1996,
     "Wasting":8.8,
     "Wasting_burd":56.05,
-    "Stunting":35.82,
-    "Stunting_burd":227.3
+    "Wast_yrs_since_surv":6,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":35.1,
+    "Stunting_burd":218.56,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"Global",
@@ -1454,8 +2553,13 @@ var reg_data = [
     "Survey_yr":1997,
     "Wasting":8.75,
     "Wasting_burd":55.725,
-    "Stunting":35.14,
-    "Stunting_burd":223
+    "Wast_yrs_since_surv":7,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":34.5,
+    "Stunting_burd":213.42,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"Global",
@@ -1463,8 +2567,13 @@ var reg_data = [
     "Survey_yr":1998,
     "Wasting":8.7,
     "Wasting_burd":55.4,
-    "Stunting":34.46,
-    "Stunting_burd":218.7
+    "Wast_yrs_since_surv":8,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":33.9,
+    "Stunting_burd":208.28,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"Global",
@@ -1472,8 +2581,13 @@ var reg_data = [
     "Survey_yr":1999,
     "Wasting":8.65,
     "Wasting_burd":55.075,
-    "Stunting":33.78,
-    "Stunting_burd":214.4
+    "Wast_yrs_since_surv":9,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":33.3,
+    "Stunting_burd":203.14,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"Global",
@@ -1481,8 +2595,13 @@ var reg_data = [
     "Survey_yr":2000,
     "Wasting":8.6,
     "Wasting_burd":54.75,
-    "Stunting":33.1,
-    "Stunting_burd":210.1
+    "Wast_yrs_since_surv":10,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":32.7,
+    "Stunting_burd":198,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1490,8 +2609,13 @@ var reg_data = [
     "Survey_yr":2001,
     "Wasting":8.55,
     "Wasting_burd":54.425,
-    "Stunting":32.42,
-    "Stunting_burd":205.8
+    "Wast_yrs_since_surv":11,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":32.04,
+    "Stunting_burd":194.8,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"Global",
@@ -1499,8 +2623,13 @@ var reg_data = [
     "Survey_yr":2002,
     "Wasting":8.5,
     "Wasting_burd":54.1,
-    "Stunting":31.74,
-    "Stunting_burd":201.5
+    "Wast_yrs_since_surv":12,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":31.38,
+    "Stunting_burd":191.6,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"Global",
@@ -1508,8 +2637,13 @@ var reg_data = [
     "Survey_yr":2003,
     "Wasting":8.45,
     "Wasting_burd":53.775,
-    "Stunting":31.06,
-    "Stunting_burd":197.2
+    "Wast_yrs_since_surv":13,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":30.72,
+    "Stunting_burd":188.4,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"Global",
@@ -1517,8 +2651,13 @@ var reg_data = [
     "Survey_yr":2004,
     "Wasting":8.4,
     "Wasting_burd":53.45,
-    "Stunting":30.38,
-    "Stunting_burd":192.9
+    "Wast_yrs_since_surv":14,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":30.06,
+    "Stunting_burd":185.2,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"Global",
@@ -1526,8 +2665,13 @@ var reg_data = [
     "Survey_yr":2005,
     "Wasting":8.35,
     "Wasting_burd":53.125,
-    "Stunting":29.7,
-    "Stunting_burd":188.6
+    "Wast_yrs_since_surv":15,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":29.4,
+    "Stunting_burd":182,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1535,8 +2679,13 @@ var reg_data = [
     "Survey_yr":2006,
     "Wasting":8.3,
     "Wasting_burd":52.8,
-    "Stunting":29.02,
-    "Stunting_burd":184.3
+    "Wast_yrs_since_surv":16,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":28.76,
+    "Stunting_burd":179.34,
+    "Stunt_yrs_since_surv":1
   },
   {
     "Region":"Global",
@@ -1544,8 +2693,13 @@ var reg_data = [
     "Survey_yr":2007,
     "Wasting":8.25,
     "Wasting_burd":52.475,
-    "Stunting":28.34,
-    "Stunting_burd":180
+    "Wast_yrs_since_surv":17,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":28.12,
+    "Stunting_burd":176.68,
+    "Stunt_yrs_since_surv":2
   },
   {
     "Region":"Global",
@@ -1553,8 +2707,13 @@ var reg_data = [
     "Survey_yr":2008,
     "Wasting":8.2,
     "Wasting_burd":52.15,
-    "Stunting":27.66,
-    "Stunting_burd":175.7
+    "Wast_yrs_since_surv":18,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":27.48,
+    "Stunting_burd":174.02,
+    "Stunt_yrs_since_surv":3
   },
   {
     "Region":"Global",
@@ -1562,8 +2721,13 @@ var reg_data = [
     "Survey_yr":2009,
     "Wasting":8.15,
     "Wasting_burd":51.825,
-    "Stunting":26.98,
-    "Stunting_burd":171.4
+    "Wast_yrs_since_surv":19,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":26.84,
+    "Stunting_burd":171.36,
+    "Stunt_yrs_since_surv":4
   },
   {
     "Region":"Global",
@@ -1571,8 +2735,13 @@ var reg_data = [
     "Survey_yr":2010,
     "Wasting":8.1,
     "Wasting_burd":51.5,
-    "Stunting":26.3,
-    "Stunting_burd":167.1
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":26.2,
+    "Stunting_burd":168.7,
+    "Stunt_yrs_since_surv":0
   },
   {
     "Region":"Global",
@@ -1580,7 +2749,54 @@ var reg_data = [
     "Survey_yr":2011,
     "Wasting":8,
     "Wasting_burd":51.5,
-    "Stunting":25.7,
-    "Stunting_burd":164.8
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":-99,
+    "Sev_wasting_burd":-99,
+    "Sev_wast_yrs_since_surv":-99,
+    "Stunting":25.6,
+    "Stunting_burd":165.35,
+    "Stunt_yrs_since_surv":1
+  },
+  {
+    "Region":"Global",
+    "ISO_3":"XX0",
+    "Survey_yr":2012,
+    "Wasting":8,
+    "Wasting_burd":51,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":3,
+    "Sev_wasting_burd":17,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":25,
+    "Stunting_burd":162,
+    "Stunt_yrs_since_surv":0
+  },
+  {
+    "Region":"Global",
+    "ISO_3":"XX0",
+    "Survey_yr":2013,
+    "Wasting":8,
+    "Wasting_burd":51,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":3,
+    "Sev_wasting_burd":17,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":25,
+    "Stunting_burd":161,
+    "Stunt_yrs_since_surv":0
+  },
+  {
+    "Region":"Global",
+    "ISO_3":"XX0",
+    "Survey_yr":2014,
+    "Wasting":7.5,
+    "Wasting_burd":50,
+    "Wast_yrs_since_surv":0,
+    "Sev_wasting":2.4,
+    "Sev_wasting_burd":16.3,
+    "Sev_wast_yrs_since_surv":0,
+    "Stunting":23.8,
+    "Stunting_burd":158.6,
+    "Stunt_yrs_since_surv":0
   }
 ]
