@@ -1,3 +1,4 @@
+
 /*************************************************/
 /****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
 /*************************************************/
@@ -9,12 +10,8 @@ var barHeight = 12;
 
 
 var cf = crossfilter(data);
-
-
 cf.yearDim = cf.dimension(function(d) {return d.Survey_yr;});
-
 cf.regDim = cf.dimension(function(d){return d.UNICEF_reg;});
-
 cf.countryDim = cf.dimension(function(d) {return d.ISO_3;});
 
 cf.wastingDim = cf.dimension(function(d){return d.Wasting;});
@@ -25,9 +22,19 @@ cf.wastingBurdDim = cf.dimension(function(d) {return ((d.Wasting/100)*d.Pop_und5
 cf.sevWastingBurdDim = cf.dimension(function(d) {return ((d.Sev_wasting/100)*d.Pop_und5)});
 cf.stuntingBurdDim = cf.dimension(function(d) {return ((d.Stunting/100)*d.Pop_und5)});
 
-/* cf.wastingSurvDim = cf.dimension(function(d){ return d.Wast_yrs_since_surv; });
-cf.sevWastingSurvDim = cf.dimension(function(d){ return d.Sev_wast_yrs_since_surv; });
-cf.stuntingSurvDim = cf.dimension(function(d){ return d.Stunt_yrs_since_surv; }); */
+
+
+var cf2 = crossfilter(reg_data);
+cf2.yearDim = cf2.dimension(function(d) {return d.Survey_yr;});
+cf2.regionDim = cf2.dimension(function(d) {return d.ISO_3;});
+
+cf2.wastingDim = cf2.dimension(function(d){return d.Wasting;});
+cf2.sevWastingDim = cf2.dimension(function(d){return d.Sev_wasting;});
+cf2.stuntingDim = cf2.dimension(function(d){return d.Stunting;});
+
+cf2.wastingBurdDim = cf2.dimension(function(d) {return d.Wasting_burd*1000000;});
+cf2.sevWastingBurdDim = cf2.dimension(function(d) {return d.Sev_wasting_burd*1000000;});
+cf2.stuntingBurdDim = cf2.dimension(function(d) {return d.Stunting_burd*1000000;});
 
 
 
@@ -243,7 +250,7 @@ function getColor(d) {
 					d >= 2   ? col='#FED976' :
 							   col='#FFFFB2';   
 					break;
-				case 'sevwast': 			//Severe wasting prevalence 0-15.9  (>10)
+				case 'sevwast': 			//Severe Wasting prevalence 0-15.9  (>10)
 					d == -99 ? col='#d3d3d3' :   //color scheme = purple to pink
 /* 					d >= 10  ? col='#980043' :  
 					d >= 5  ? col='#dd1c77' :  
@@ -283,7 +290,7 @@ function getColor(d) {
 					d >= 250000    ? col='#FED976' :
 							         col='#FFFFB2';   //'#FFEDA0';
 					break;
-				case 'sevwast': 			//Severe wasting burden 0 - 8,828,803.936  (>5,000,000)
+				case 'sevwast': 			//Severe Wasting burden 0 - 8,828,803.936  (>5,000,000)
 					d == -99 ? col='#d3d3d3' :   //change color scheme
 					/* d >= 5000000  ? col='#67001f' :  
 					d >= 1000000  ? col='#980043' :  
@@ -366,10 +373,10 @@ function updateInfo(name, yr, val, yrs_since_surv) {
 	prev_surv_html = '<p class="mapinfo_stat">Last survey year: ' + last_surv_yr + '</p>';
 	switch(currentStatType) {
 		case 'prev':
-			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '%</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : '<p class="mapinfo_title">Hover over a country or bar to get statistics</p>')); 
+			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '%</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : "<p class='mapinfo_title'>Hover over a country, a bar, or a country's time series to get statistics</p>")); 
 			break;
 		case 'burd':
-			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : '<p class="mapinfo_title">Hover over a country or bar to get statistics</p>')); 
+			infoUpdate = ((name && yr && val) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': ' + val + '</p>' + prev_surv_html) : ((name && yr) ?  ('<p class="mapinfo_title">' + name + ', ' + yr + '</p><p class="mapinfo_stat">' + getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ': <i>No data</i></p>') : "<p class='mapinfo_title'>Hover over a country, a bar, or a country's time series to get statistics</p>")); 
 			break;
 		default:
 			infoUpdate = 'Error loading country statistics';
@@ -787,7 +794,7 @@ function generateLineGraph(id){
 
 function getLinegraphDomain() {
 	points = getPointData();
-	console.log("points = ", points);
+	//console.log("points = ", points);
 	switch (currentStatType) {
 		case 'prev':
 			/* switch(currentStatCat) {
@@ -810,9 +817,45 @@ function getLinegraphDomain() {
 			//points = getPointData();
 			//console.log("points = ", points);
 			switch(currentStatCat) {			//here we want to get max each time its checked - max from getPointData()?
-				case 'wast': 	if (points.length==0) {maxY = 26000000;} else {maxY = d3.max(points, function(d) {return (d.Wasting/100)*d.Pop_und5;})}; break;
-				case 'sevwast': if (points.length==0) {maxY = 9000000;} else {maxY = d3.max(points, function(d) {return (d.Sev_wasting/100)*d.Pop_und5;})}; break;
-				case 'stunt':	if (points.length==0) {maxY = 76000000;} else {maxY = d3.max(points, function(d) {return (d.Stunting/100)*d.Pop_und5;})}; break;
+				//case 'wast': 	if (points.length==0) {maxY = 26000000;} else {maxY = d3.max(points, function(d) {return (d.Wasting/100)*d.Pop_und5;})}; break;
+				case 'wast': 	if (points.length==0) {
+									maxY = 26000000;
+								} else {
+									maxY = d3.max(points, function(d) {
+										if (d.ISO_3.substring(0,2)=="XX") {
+											return d.Wasting_burd*1000000;
+										} else {
+											return (d.Wasting/100)*d.Pop_und5;
+										};
+									});
+								};										
+								break;						
+				//case 'sevwast': if (points.length==0) {maxY = 9000000;} else {maxY = d3.max(points, function(d) {return (d.Sev_wasting/100)*d.Pop_und5;})}; break;
+				case 'sevwast': if (points.length==0) {
+									maxY = 9000000;
+								} else {
+									maxY = d3.max(points, function(d) {
+										if (d.ISO_3.substring(0,2)=="XX") {
+											return d.Sev_wasting_burd*1000000;
+										} else {
+											return (d.Sev_wasting/100)*d.Pop_und5;
+										};
+									});
+								};										
+								break;	
+				//case 'stunt':	if (points.length==0) {maxY = 76000000;} else {maxY = d3.max(points, function(d) {return (d.Stunting/100)*d.Pop_und5;})}; break;
+				case 'stunt': 	if (points.length==0) {
+									maxY = 76000000;
+								} else {
+									maxY = d3.max(points, function(d) {
+										if (d.ISO_3.substring(0,2)=="XX") {
+											return d.Stunting_burd*1000000;
+										} else {
+											return (d.Stunting/100)*d.Pop_und5;
+										};
+									});
+								};										
+								break;	
 				default:		maxY = 0; break;
 			};
 			domX = 0;
@@ -820,7 +863,7 @@ function getLinegraphDomain() {
 			break;
 		default: domX = 0; domY = 0;
 	}; 
-	console.log("[domX, domY] = ", domX, domY);
+	//console.log("[domX, domY] = ", domX, domY);
 	return [domX, domY];
 }
 
@@ -876,7 +919,7 @@ function addCountryLine(id, iso_code, status){
 			
 	var lineDom = getLinegraphDomain();
 	var yScale = d3.scale.linear()   
-			.domain([lineDom[0],lineDom[1]]) 			
+			.domain([lineDom[0],lineDom[1]]) 							
             .range([height, 0]);	
 			
 	//Define axes
@@ -903,7 +946,7 @@ function addCountryLine(id, iso_code, status){
 	//console.log("*************************************************************IN UPDATE LINEGRAPH, currentYr = ", currentYr);	
 	//console.log("******************************************************** add country = ", iso_code);
 	//console.log("********************************** add ", iso_code, " to currentCountryLines = ", currentCountryLines, "?");
-	console.log("********************************** IN addCountryLine: ", iso_code, status, " *****************");
+	//console.log("********************************** IN addCountryLine: ", iso_code, status, " *****************");
 	
 	//check whether country is in currentCountryLines array
 	in_list = false;
@@ -916,21 +959,24 @@ function addCountryLine(id, iso_code, status){
 	
 	//set line_color for country
 	if ((status=="perm") && (in_list==false)) {			//if permanent (clicked on) but new to list then assign new color and add to currentCountryLines
-		//console.log("**** should add in country here: ", iso_code);
-		line_color = getNewCountryLineColor(iso_code);
-		//console.log("**** should add in country here: ", iso_code,  line_color);
+		if (iso_code=="XX0") { 						//global stat
+			line_color = '#000000';					//black
+		} else if (iso_code.substring(0,2)=="XX") {	//regional stat
+			line_color = '#4b4949';					//dark grey
+		} else {
+			line_color = getNewCountryLineColor(iso_code);
+		};
 		countryLine = {};
 		countryLine.iso = iso_code;
 		countryLine.color = line_color;
 		currentCountryLines.push(countryLine);
-		console.log("******************************************************** added ", iso_code, ", to list,  currentCountryLines = ", currentCountryLines);
+		//console.log("******************************************************** added ", iso_code, ", to list,  currentCountryLines = ", currentCountryLines);
 	} else if ((status=="perm") && (in_list==true)) {		
 		line_color = getExistingCountryLineColor(iso_code);
 	} else if ((status=="temp") && (in_list==true)) {		
 		line_color = getExistingCountryLineColor(iso_code);
 	} else if ((status=="temp") && (in_list==false)) {	
 		line_color = 'none';
-		//console.log("*******************ATTENTION BLACK LINE HERE ***************");
 	};
 	
 	if (currentCountryLines.length != 0) {
@@ -938,13 +984,16 @@ function addCountryLine(id, iso_code, status){
 		linegraph_text.remove();
 	}
 	
-	
-	countryData = getCountryData(iso_code);
-	console.log("******************************************************** countryData = ", countryData);
+	if (iso_code.substring(0,2)=="XX") {
+		countryData = getRegionalData(iso_code);
+	} else {
+		countryData = getCountryData(iso_code);
+		//console.log("******************************************************** countryData = ", countryData);
+	};
 	
 	var lineFunction = d3.svg.line()
 		.x(function(d) {return margin.left + yrScale(d.Survey_yr)})
-		.y(function(d) {
+/* 		.y(function(d) {
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -965,29 +1014,30 @@ function addCountryLine(id, iso_code, status){
 				default: val = margin.top + yScale(d.Wasting);
 			};
 			return val;            			
-		}) 
-		/* .y(function(d) {
+		})  */
+		.y(function(d) {
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
-						case 'wast': 	if (d.Wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale(d.Wasting);}; break;						
-						case 'sevwast': if (d.Sev_wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale(d.Sev_wasting);}; break;
-						case 'stunt':	if (d.Stunting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale(d.Stunting);}; break;
-						default:		if (d.Wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale(d.Wasting);}; 
+						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;	
+						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
 					};
 					break;
 				case 'burd':
 					switch(currentStatCat) {
-						case 'wast': 	if (d.Wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale((d.Wasting/100) * d.Pop_und5);}; break;
-						case 'sevwast': if (d.Sev_wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5);}; break;
-						case 'stunt':	if (d.Stunting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale((d.Stunting/100) * d.Pop_und5);}; break;
-						default:		if (d.Wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale((d.Wasting/100) * d.Pop_und5);}; 
+						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
 					};
 					break;
-				default: if (d.Wasting==-99) {val = margin.top + yScale(0);} else {val = margin.top + yScale(d.Wasting);};
+				default: stat = d.Wasting;
 			};
+			val = margin.top + yScale(stat);
 			return val;            			
-		}) */
+		}) 
 		.interpolate('linear');
 		
 		
@@ -999,10 +1049,10 @@ function addCountryLine(id, iso_code, status){
  	lineGraph.append('path')
         .datum(countryData)
         .attr('class', function (d) {
-			console.log("1 - Creating line in lineGraph for: ", d[0].ISO_3);
+			//console.log("1 - Creating line in lineGraph for: ", d[0].ISO_3);
 			//console.log("All countryData: ", d);
 			if (status=='perm') {
-				console.log("2- Creating line in lineGraph for: ", d[0].ISO_3);
+				//console.log("2- Creating line in lineGraph for: ", d[0].ISO_3);
 				return 'country_line country_line' + d[0].ISO_3;	//adding class for country's ISO - to link individual country line to individual country in map/barchart 
 			} else if (status=='temp') {
 				return 'country_line country_line' + d[0].ISO_3 + '_temp';
@@ -1057,7 +1107,7 @@ function addCountryLine(id, iso_code, status){
 					};
 				})	
 			.attr("cy", function(d){
-					switch(currentStatType) {
+/* 					switch(currentStatType) {
 						case 'prev':
 							switch(currentStatCat) {
 								case 'wast': 	val = margin.top + yScale(d.Wasting); break;
@@ -1076,7 +1126,30 @@ function addCountryLine(id, iso_code, status){
 							break;
 						default: val = margin.top + yScale(d.Wasting);
 					};
-					return val;            			
+					return val;     */
+
+					switch(currentStatType) {
+						case 'prev':
+							switch(currentStatCat) {
+								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;  
+								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
+							};
+							break;
+						case 'burd':
+							switch(currentStatCat) {
+								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
+							};
+							break;
+						default: stat = d.Wasting;
+					};
+					val = margin.top + yScale(stat);
+					return val;  
+        			
 				})
 			.attr("cx", function(d){
 					return margin.left + yrScale(d.Survey_yr);
@@ -1100,7 +1173,7 @@ function addCountryLine(id, iso_code, status){
 					case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 					default:		val = 0; 
 				};		
-				return val;
+				return val; 
 			})
 			.on("mouseover", function (d) {
 				mouseoverPointFunction(d);
@@ -1150,24 +1223,27 @@ var mouseoverCountryLineFunction = function(d) {
 	country_line.attr('stroke', highlightColor)
 		.attr("stroke-width", 3);
 		
-	//highlight bars on barchart	
-	var lowBars = d3.selectAll('rect.lower_bar'+ d[0].ISO_3); 
-	var uppBars = d3.selectAll('rect.upper_bar'+ d[0].ISO_3);
-	lowBars.attr('fill', highlightColor);
-	uppBars.attr('fill', highlightColor);
-	
-	//highlight country in map
-	d3.selectAll('.dashgeom'+d[0].ISO_3)
-		.attr('fill', highlightColor)
-		.attr('fillOpacity', '0.5'); //not working
-	
-	//update info box in map
-	infodata = getInfoData(d[0].ISO_3);
-	if (infodata[0]=='') {
-		infodata[0] = d[0].Country,
-		infodata[1] = currentYr
-	};  
-	updateInfo(infodata[0], infodata[1], infodata[2], infodata[3]);
+	if (d[0].ISO_3.substring(0,2)!="XX") {
+		
+		//highlight bars on barchart	
+		var lowBars = d3.selectAll('rect.lower_bar'+ d[0].ISO_3); 
+		var uppBars = d3.selectAll('rect.upper_bar'+ d[0].ISO_3);
+		lowBars.attr('fill', highlightColor);
+		uppBars.attr('fill', highlightColor);
+		
+		//highlight country in map
+		d3.selectAll('.dashgeom'+d[0].ISO_3)
+			.attr('fill', highlightColor)
+			.attr('fillOpacity', '0.5'); //not working
+		
+		//update info box in map
+		infodata = getInfoData(d[0].ISO_3);
+		if (infodata[0]=='') {
+			infodata[0] = d[0].Country,
+			infodata[1] = currentYr
+		};  
+		updateInfo(infodata[0], infodata[1], infodata[2], infodata[3]);
+	};
 		
 };
 
@@ -1185,23 +1261,26 @@ var mouseoutCountryLineFunction = function(d) {
 	country_line.attr('stroke', resetColor)
 		.attr("stroke-width", 1);
 		
-	//reset color for bars in barchart
-	var origBarColor = colorDataOneCountry(d[0].ISO_3);
-	var lowBars = d3.selectAll('rect.lower_bar'+ d[0].ISO_3); 
-	var uppBars = d3.selectAll('rect.upper_bar'+ d[0].ISO_3);
-	lowBars.attr('fill', origBarColor);
-	uppBars.attr('fill', origBarColor);	
-	
-	//revert country highlight back to original
-	d3.selectAll('.dashgeom'+d[0].ISO_3)
-		.attr('stroke-width', '1')
-		.attr('stroke-opacity', '0.5')
-		.attr('stroke', 'black')
-		.attr('fill', origBarColor)
-		.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
-	
-	//clear info box in map
-	updateInfo('','','','');
+		
+	if (d[0].ISO_3.substring(0,2)!="XX") {	
+		//reset color for bars in barchart
+		var origBarColor = colorDataOneCountry(d[0].ISO_3);
+		var lowBars = d3.selectAll('rect.lower_bar'+ d[0].ISO_3); 
+		var uppBars = d3.selectAll('rect.upper_bar'+ d[0].ISO_3);
+		lowBars.attr('fill', origBarColor);
+		uppBars.attr('fill', origBarColor);	
+		
+		//revert country highlight back to original
+		d3.selectAll('.dashgeom'+d[0].ISO_3)
+			.attr('stroke-width', '1')
+			.attr('stroke-opacity', '0.5')
+			.attr('stroke', 'black')
+			.attr('fill', origBarColor)
+			.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
+		
+		//clear info box in map
+		updateInfo('','','','');
+	}
 };
 
 
@@ -1221,24 +1300,26 @@ var mouseoverPointFunction = function(d) {		//have inserted (countryData[i])
 	data_point.attr('fill', highlightColor)
 		.style('opacity', 1);
 		
-	//highlight bars on barchart	
-	var lowBars = d3.selectAll('rect.lower_bar'+ d.ISO_3); 
-	var uppBars = d3.selectAll('rect.upper_bar'+ d.ISO_3);
-	lowBars.attr('fill', highlightColor);
-	uppBars.attr('fill', highlightColor);
-	
-	//highlight country in map
-	d3.selectAll('.dashgeom'+d.ISO_3)
-		.attr('fill', highlightColor)
-		.attr('fillOpacity', '0.5'); //not working
-	
-	//update info box in map
-	infodata = getInfoData(d.ISO_3);
-	if (infodata[0]=='') {
-		infodata[0] = d.Country,
-		infodata[1] = currentYr
-	};  
-	updateInfo(infodata[0], infodata[1], infodata[2], infodata[3]);
+	if (d.ISO_3.substring(0,2)!="XX") {
+		//highlight bars on barchart	
+		var lowBars = d3.selectAll('rect.lower_bar'+ d.ISO_3); 
+		var uppBars = d3.selectAll('rect.upper_bar'+ d.ISO_3);
+		lowBars.attr('fill', highlightColor);
+		uppBars.attr('fill', highlightColor);
+		
+		//highlight country in map
+		d3.selectAll('.dashgeom'+d.ISO_3)
+			.attr('fill', highlightColor)
+			.attr('fillOpacity', '0.5'); //not working
+		
+		//update info box in map
+		infodata = getInfoData(d.ISO_3);
+		if (infodata[0]=='') {
+			infodata[0] = d.Country,
+			infodata[1] = currentYr
+		};  
+		updateInfo(infodata[0], infodata[1], infodata[2], infodata[3]);
+	};
 	
 	
 };
@@ -1265,27 +1346,29 @@ var mouseoutPointFunction = function(d) {
 				case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 				default:		val = 0; 
 			};		
-			return val;
-			
+			return val; 
 		});
 	
-	//reset color for bars in barchart
-	var origBarColor = colorDataOneCountry(d.ISO_3);
-	var lowBars = d3.selectAll('rect.lower_bar'+ d.ISO_3); 
-	var uppBars = d3.selectAll('rect.upper_bar'+ d.ISO_3);
-	lowBars.attr('fill', origBarColor);
-	uppBars.attr('fill', origBarColor);	
 	
-	//revert country highlight back to original
-	d3.selectAll('.dashgeom'+d.ISO_3)
-		.attr('stroke-width', '1')
-		.attr('stroke-opacity', '0.5')
-		.attr('stroke', 'black')
-		.attr('fill', origBarColor)
-		.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
-	
-	//clear info box in map
-	updateInfo('','','','');
+	if (d.ISO_3.substring(0,2)!="XX") {
+		//reset color for bars in barchart
+		var origBarColor = colorDataOneCountry(d.ISO_3);
+		var lowBars = d3.selectAll('rect.lower_bar'+ d.ISO_3); 
+		var uppBars = d3.selectAll('rect.upper_bar'+ d.ISO_3);
+		lowBars.attr('fill', origBarColor);
+		uppBars.attr('fill', origBarColor);	
+		
+		//revert country highlight back to original
+		d3.selectAll('.dashgeom'+d.ISO_3)
+			.attr('stroke-width', '1')
+			.attr('stroke-opacity', '0.5')
+			.attr('stroke', 'black')
+			.attr('fill', origBarColor)
+			.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
+		
+		//clear info box in map
+		updateInfo('','','','');
+	};
 }; 
 
 
@@ -1300,28 +1383,49 @@ var tip = d3.tip()
 	.html(function(d) {
 		tip_text = '';
 		//if (d.ISO_3=="XXX") {tip_text = d.Country}
-		//else {
-			switch(currentStatType) {
-				case 'prev':
-					switch(currentStatCat) {
-						case 'wast': 	statVal = (d3.format(".3n"))(d.Wasting); break;
-						case 'sevwast': statVal = (d3.format(".3n"))(d.Sev_wasting); break;
-						case 'stunt':	statVal = (d3.format(".3n"))(d.Stunting); break;
-						default:		statVal = -99; console.log("Error creating tooltip");       
-					};
-					tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "%</span>";
-					break;
-				case 'burd':
-					switch(currentStatCat) {
-						case 'wast': 	statVal = (d3.format(",.0f"))((d.Wasting/100) * d.Pop_und5); break;
-						case 'sevwast': statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5); break;
-						case 'stunt':	statVal = (d3.format(",.0f"))((d.Stunting/100) * d.Pop_und5); break;
-						default:		statVal = -99; console.log("Error creating tooltip");       
-					};
-					tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": " + statVal + "</span>";
-					break;
-				default: tip_text = "<span style='color:black'>" + d.Country + ", " + d.Survey_yr + ": <i>Error</i></span>"; console.log("Error creating tooltip");
-			}; 
+		//else {		
+		if (d.ISO_3.substring(0,2)=="XX") {
+			name = getRegName(d.Region);
+		} else {
+			name = d.Country;
+		}
+		switch(currentStatType) {
+			case 'prev':
+				switch(currentStatCat) {
+					case 'wast': 	statVal = (d3.format(".3n"))(d.Wasting); break;
+					case 'sevwast': statVal = (d3.format(".3n"))(d.Sev_wasting); break;
+					case 'stunt':	statVal = (d3.format(".3n"))(d.Stunting); break;
+					default:		statVal = -99; console.log("Error creating tooltip");       
+				};
+				tip_text = "<span style='color:black'>" + name + ", " + d.Survey_yr + ": " + statVal + "%</span>";
+				break;
+			case 'burd':
+				switch(currentStatCat) {
+					case 'wast': 	if (d.ISO_3.substring(0,2)=="XX") {
+										statVal = (d3.format(",.0f"))(d.Wasting_burd*1000000);
+									} else {
+										statVal = (d3.format(",.0f"))((d.Wasting/100) * d.Pop_und5);
+									}; 
+									break;						
+					//case 'sevwast': statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5); break;
+					case 'sevwast': if (d.ISO_3.substring(0,2)=="XX") {
+										statVal = (d3.format(",.0f"))(d.Sev_wasting_burd*1000000);
+									} else {
+										statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5);
+									}; 
+									break;
+					case 'stunt':	if (d.ISO_3.substring(0,2)=="XX") {
+										statVal = (d3.format(",.0f"))(d.Stunting_burd*1000000);
+									} else {
+										statVal = (d3.format(",.0f"))((d.Stunting/100) * d.Pop_und5);
+									}; 
+									break;	
+					default:		statVal = -99; console.log("Error creating tooltip");       
+				};
+				tip_text = "<span style='color:black'>" + name + ", " + d.Survey_yr + ": " + statVal + "</span>";
+				break;
+			default: tip_text = "<span style='color:black'>" + name + ", " + d.Survey_yr + ": <i>Error</i></span>"; console.log("Error creating tooltip");
+		}; 
 		//};
 		return tip_text;
 	}); 			
@@ -1347,7 +1451,7 @@ function getExistingCountryLineColor(iso_code) {
 	if (countryPos!=-1) {		
 		col = currentCountryLines[countryPos].color;		
 	}
-	console.log("Existing country line ", iso_code, "   country position ", countryPos, " = ", col);
+	//console.log("Existing country line ", iso_code, "   country position ", countryPos, " = ", col);
 	return col;
 };
 
@@ -1359,16 +1463,18 @@ function getNewCountryLineColor(iso_code) {
 	currentCountryLineColors = allCountryLineColors;
 	
 	currentCountryLines.forEach(function(d,i) {
-		currentCountryLineColors.push(d.color);		//list of all colors currently in use
+		if (d.color != '#000000') {
+			currentCountryLineColors.push(d.color);		//list of all colors currently in use except black
+		};
 	});
 	
-	console.log("currentCountryLineColors: ", currentCountryLineColors);
+	//console.log("currentCountryLineColors: ", currentCountryLineColors);
 	
 	freq_asc = currentCountryLineColors.leastFrequent();
 	//console.log("Frequency array: ", freq_asc);	
 	col = freq_asc[0].key;	
 	//console.log("Least frequent color: ", col);
-	console.log("New country line ", iso_code, col);
+	//console.log("New country line ", iso_code, col);
 	
 	return col;
 };
@@ -1436,6 +1542,7 @@ function removeCountryLine(id, iso_code, status){
 	} else {
 		in_list = true;
 	}; 	
+
 	
 	//set line_color for country	
 	if ((status=="perm") && (in_list==true)) {		
@@ -1500,7 +1607,7 @@ function removeCountryLine(id, iso_code, status){
 		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 	//};
 	
-	console.log("******************************************************** currentCountryLines = ", currentCountryLines);
+	//console.log("******************************************************** currentCountryLines = ", currentCountryLines);
 };
 
 function removeAllCountryLines() {
@@ -1518,12 +1625,18 @@ function removeAllCountryLines() {
 function getPointData() {
 	points = [];
 	currentCountryLines.forEach(function(d,i) {
-		data = getCountryData(d.iso);             
+		if (d.iso.substring(0,2)=="XX") {
+			if (statCat != 'sevwast') {
+				data = getRegionalData(d.iso);
+			};
+		} else {
+			data = getCountryData(d.iso);
+		}           
 		data.forEach(function(d,i) {
 			points.push(d);
 		});
 	});
-	console.log("all points: ", points);
+	//console.log("all points: ", points);
 	return points;
 };
 
@@ -1545,7 +1658,7 @@ function getCountryData(iso_code) {	  //returns data for any specified country, 
 				case 'stunt':	temp = cf.stuntingDim.filter(function(d) {return d >= 0}).top(Infinity);
 								break;
 				default:	temp = cf.wastingDim.filter(function(d) {return d >= 0}).top(Infinity);	
-							console.log("Error in getting year stats");
+							console.log("Error in getting country stats");
 			};
 			break;
 		case 'burd':
@@ -1557,11 +1670,11 @@ function getCountryData(iso_code) {	  //returns data for any specified country, 
 				case 'stunt':	temp = cf.stuntingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);
 								break;
 				default:	temp = cf.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
-							console.log("Error in getting year stats");
+							console.log("Error in getting country stats");
 			};
 			break;
 		default: 	temp = cf.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
-					console.log("Error in getting year stats")
+					console.log("Error in getting country stats")
 	};  
 	
 	temp = cf.yearDim.bottom(Infinity);   //order by chronological year
@@ -1576,8 +1689,56 @@ function getCountryData(iso_code) {	  //returns data for any specified country, 
 	
 	//console.log("getCountryData = ", temp);  
 	return temp;
+		
+};
+
+
+function getRegionalData(iso_code) {	  //returns data for any specified region, for current stat, ordered by chronological year						
+	cf2.yearDim.filterAll();
+	cf2.regionDim.filter(iso_code);
 	
+	switch (currentStatType) {			//filter statistic
+		case 'prev':
+			switch (currentStatCat) {     
+				case 'wast':	temp = cf2.wastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
+								break;
+				case 'sevwast':	temp = cf2.sevWastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
+								break;
+				case 'stunt':	temp = cf2.stuntingDim.filter(function(d) {return d >= 0}).top(Infinity);
+								break;
+				default:	temp = cf2.wastingDim.filter(function(d) {return d >= 0}).top(Infinity);	
+							console.log("Error in getting regional stats");
+			};
+			break;
+		case 'burd':
+			switch (currentStatCat) {      
+				case 'wast':	temp = cf2.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
+								break;
+				case 'sevwast':	temp = cf2.sevWastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity); 
+								break;
+				case 'stunt':	temp = cf2.stuntingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);
+								break;
+				default:	temp = cf2.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
+							console.log("Error in getting regional stats");
+			};
+			break;
+		default: 	temp = cf2.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
+					console.log("Error in getting regional stats")
+	};  
 	
+	temp = cf2.yearDim.bottom(Infinity);   //order by chronological year
+	
+	cf2.wastingDim.filterAll(); 			//Remove any filters on stats or country so subsequent operations have a clean start
+	cf2.sevWastingDim.filterAll(); 
+	cf2.stuntingDim.filterAll();
+	cf2.wastingBurdDim.filterAll();
+	cf2.sevWastingBurdDim.filterAll(); 
+	cf2.stuntingBurdDim.filterAll();
+	cf2.regionDim.filterAll();    
+	
+	//console.log("getRegionalData = ", temp);  
+	return temp;
+		
 };
 
 
@@ -1633,29 +1794,13 @@ function transitionCurrentCountryLines(id, temp_iso){
 		.duration(1000)
 		.call(yAxis);  				
 	
-
-	//Note this just removes & adds - it doesn't transition so countries don't necessarily keep the same color:
-	//tempCountryLines = naiveShallowCopy(currentCountryLines);
-/* 	tempCountryLines = currentCountryLines;
-	removeAllCountryLines();
-	
-	//console.log("currentCountryLines: ", currentCountryLines);
-	//console.log("tempCountryLines (length: ", tempCountryLines.length, "): ", tempCountryLines);
-	for (i=0; i <= tempCountryLines.length-1; i++) {		
-		iso = tempCountryLines[i].iso;
-		//col = tempCountryLines[i].color;
-		addCountryLine('#linegraph', iso, 'perm');
-		//console.log(i, ": Just added line for: ", iso);
-	};
-	tempCountryLines = []; */
-	
 	
 	
 	var transLineFunction = d3.svg.line()			
 		.x(function(d) {
 			return margin.left + yrScale(d.Survey_yr)
 		})
-		.y(function(d) {
+		/* .y(function(d) {
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -1676,6 +1821,29 @@ function transitionCurrentCountryLines(id, temp_iso){
 				default: val = margin.top + yScale(d.Wasting);
 			};
 			return val;            			
+		})  */
+		.y(function(d) {
+			switch(currentStatType) {
+				case 'prev':
+					switch(currentStatCat) {
+						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;			
+						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
+					};
+					break;
+				case 'burd':
+					switch(currentStatCat) {
+						case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+						case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+						case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+						default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
+					};
+					break;
+				default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+			};
+			val = margin.top + yScale(stat);
+			return val;            			
 		}) 
 		.interpolate('linear');
 		
@@ -1683,9 +1851,18 @@ function transitionCurrentCountryLines(id, temp_iso){
 	for (i=0; i <= currentCountryLines.length-1; i++) {
 		iso = currentCountryLines[i].iso;
 		col = currentCountryLines[i].color;
-		countryData = getCountryData(iso);
-		//console.log("******************************************************** country = ", iso, currentStatCat, currentStatType, col);
-		//console.log("******************************************************** countryData = ", countryData);
+		//console.log("******************************************************** country/reg = ", iso, currentStatCat, currentStatType, col);
+		
+		if (iso.substring(0,2)=="XX") {
+			if (statCat != 'sevwast') {
+				countryData = getRegionalData(iso);
+			};
+			//countryData = getRegionalData(iso);
+			//console.log("******************************************************** regionalData = ", countryData);
+		} else {
+			countryData = getCountryData(iso);
+			//console.log("******************************************************** countryData = ", countryData);
+		};
 		
 	
 		var path = lineGraph.selectAll('path.country_line'+iso); 
@@ -1693,13 +1870,23 @@ function transitionCurrentCountryLines(id, temp_iso){
 		path.transition()
 			.duration(500)  
 			.attr('class', function (d) {
-				console.log("d: ", d);
+				//console.log("d: ", d);
 				return 'country_line country_line' + iso;
 			})
 			.ease("linear")
 			.attr('d', transLineFunction(countryData))
 			.attr("stroke", col)
 			.attr("stroke-width", 1);
+			/* .style("stroke-dasharray", function (d,i) {				//For making part of path dashed line
+				console.log("d in stroke-dasharray: ", d);
+				if (d[i].Survey_yr > 2010) { 		
+					console.log("d[i].Survey_yr in stroke-dasharray: ", d[i].Survey_yr);				
+					return ("3, 3");
+				 } else {
+					console.log("d[i].Survey_yr in stroke-dasharray: ", d[i].Survey_yr);
+					return ("0,0");   //no dash
+				} 
+			}); */
 	
 		
 		pointData = getPointData();  //appends all countryData from countryList into pointData	
@@ -1718,7 +1905,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 				return 'country_line country_line' + d.ISO_3 + ' data_point data_point' + d.ISO_3 + ' data_point' + d.ISO_3 + d.Survey_yr;		
 			})
 			.attr("cy", function(d){
-					switch(currentStatType) {
+					/* switch(currentStatType) {
 						case 'prev':
 							switch(currentStatCat) {
 								case 'wast': 	val = margin.top + yScale(d.Wasting); break;
@@ -1737,7 +1924,30 @@ function transitionCurrentCountryLines(id, temp_iso){
 							break;
 						default: val = margin.top + yScale(d.Wasting);
 					};
-					return val;            			
+					return val;  */ 
+
+					switch(currentStatType) {
+						case 'prev':
+							switch(currentStatCat) {
+								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = Sev_wasting;} else {stat = d.Sev_wasting;}; break;											case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
+							};
+							break;
+						case 'burd':
+							switch(currentStatCat) {
+								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
+							};
+							break;
+						default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+					};
+					val = margin.top + yScale(stat);
+					return val;        
+
+          			
 				})
 			.attr("cx", function(d){
 					return margin.left + yrScale(d.Survey_yr);
@@ -1773,7 +1983,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 				return 'country_line country_line' + d.ISO_3 + ' data_point data_point' + d.ISO_3 + ' data_point' + d.ISO_3 + d.Survey_yr;	
 			})	
 			.attr("cy", function(d){
-				switch(currentStatType) {
+				/* switch(currentStatType) {
 					case 'prev':
 						switch(currentStatCat) {
 							case 'wast': 	val = margin.top + yScale(d.Wasting); break;
@@ -1792,7 +2002,29 @@ function transitionCurrentCountryLines(id, temp_iso){
 						break;
 					default: val = margin.top + yScale(d.Wasting);
 				};
-				return val;            			
+				return val;     */     
+
+				switch(currentStatType) {
+					case 'prev':
+						switch(currentStatCat) {
+							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting;} else {stat = d.Sev_wasting;}; break;			
+							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
+						};
+						break;
+					case 'burd':
+						switch(currentStatCat) {
+							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
+						};
+						break;
+					default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+				};
+				val = margin.top + yScale(stat);
+				return val;        
 			})
 			.attr("cx", function(d){
 				return margin.left + yrScale(d.Survey_yr);
@@ -1807,13 +2039,20 @@ function transitionCurrentCountryLines(id, temp_iso){
 					case 'stunt':	if (d.Stunt_yrs_since_surv == 0) {val=1;}; break;
 					default:		val = 0; 
 				};		
-				return val;
+				return val; 
 			});
 		
 	};
 	
 	//transition the temp (yellow hovered) path
- 	countryData = getCountryData(temp_iso);
+	if (temp_iso.substr(0,2)=="XX") {
+		if (statCat != 'sevwast') {
+			countryData = getRegionalData(temp_iso);
+		};
+		//countryData = getRegionalData(temp_iso);
+	} else {
+		countryData = getCountryData(temp_iso);
+	};
 	var path = lineGraph.selectAll('path.country_line'+temp_iso+'_temp');  
 		path.transition()
 			.duration(500)  
@@ -2275,10 +2514,10 @@ function updateBarChart(id, idX, data) {
 
 	function getYAxis() {
 		if (currentDomain().length >=20) {
-			console.log("currentDomain length >= 20: ", currentDomain().length);
+			//console.log("currentDomain length >= 20: ", currentDomain().length);
 			return yAxis;
 		} else {
-			console.log("currentDomain length < 20: ", currentDomain().length);
+			//console.log("currentDomain length < 20: ", currentDomain().length);
 			return yAxisLess20;
 		}	
 	};
@@ -2503,10 +2742,10 @@ function updateBarChart(id, idX, data) {
 			//console.log("Entering rect for: ", d.Country);
 			//return yScale(d.Country);
 			if (currentDomain().length>=20) {
-				console.log("currentDomain length >= 20: ", currentDomain().length);
+				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				console.log("currentDomain length < 20: ", currentDomain().length);
+				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  				
 		//.attr('height', yScale.rangeBand())
@@ -2613,10 +2852,10 @@ function updateBarChart(id, idX, data) {
 			//console.log("Transitioning rect for: ", d.Country);
 			//return yScale(d.Country);
 			if (currentDomain().length>=20) {
-				console.log("currentDomain length >= 20: ", currentDomain().length);
+				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				console.log("currentDomain length < 20: ", currentDomain().length);
+				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  
 		//.attr('height', yScale.rangeBand())
@@ -2711,10 +2950,10 @@ function updateBarChart(id, idX, data) {
 			//console.log("Transitioning rect for: ", d.Country);
 			//return yScale(d.Country);
 			if (currentDomain().length>=20) {
-				console.log("currentDomain length >= 20: ", currentDomain().length);
+				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				console.log("currentDomain length < 20: ", currentDomain().length);
+				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  				
 		//.attr('height', yScale.rangeBand())
@@ -2867,7 +3106,7 @@ function updateBarChart(id, idX, data) {
 		var maxPix = yScale.range()[max] + 14;		//bottom pix of last bar in list (i.e. top pix of last bar + 14 to take to bottom of bar)
 		var zoomScale = 1;						//could set this to d3.event.scale
 			
-		console.log("***** IN scrollBars()");	
+		//console.log("***** IN scrollBars()");	
 		//console.log("min: ", min, "       max: ", max);
 		//console.log("minPix: ", minPix, "         maxPix: ", maxPix);
 		//console.log("barsTranslate = ", barsTranslate);
@@ -2886,7 +3125,7 @@ function updateBarChart(id, idX, data) {
 		
 		zoomYTranslate = d3.event.translate[1];		
 
-		console.log("barsTranslate = ", barsTranslate, "     zoomYTranslate = ", zoomYTranslate);		
+		//console.log("barsTranslate = ", barsTranslate, "     zoomYTranslate = ", zoomYTranslate);		
 			
 		if (currentDomain().length<=20) {				//if <=20 countries in list, don't translate bars
 			barsTranslate = 0;
@@ -2929,8 +3168,8 @@ function updateBarChart(id, idX, data) {
 		}
 		
 		prevBarsTranslate = barsTranslate;	
-		console.log("prevBarsTranslate = ", prevBarsTranslate);
-		console.log("***** END scrollBars()");
+		//console.log("prevBarsTranslate = ", prevBarsTranslate);
+		//console.log("***** END scrollBars()");
 	}	
 	
 	
@@ -2941,39 +3180,39 @@ function updateBarChart(id, idX, data) {
 		var maxPix = yScale.range()[max] + 14;		//bottom pix in list
 		var zoomScale = 1;						//could set this to d3.event.scale
 		
-		console.log("****** IN adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
+		/* console.log("****** IN adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
 		console.log("min: ", min, "       max: ", max);
 		console.log("minPix: ", minPix, "         maxPix: ", maxPix);
-		console.log("currentDomain().length: ", currentDomain().length);
+		console.log("currentDomain().length: ", currentDomain().length); */
 		//console.log("currentDomain(): ", currentDomain());
 		
 		zoomYTranslate = prevBarsTranslate;
-		console.log("prevBarsTranslate = ", prevBarsTranslate);
+		//console.log("prevBarsTranslate = ", prevBarsTranslate);
 		//console.log("allBarsHeight = ", allBarsHeight);
 		
 		if ((currentDomain().length > 20) && (minPix + zoomYTranslate > 0)){    //if >20 countries in list and user scrolls down beyond first one, don't translate bars
-			console.log("CAN'T MOVE DOWN ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[min]), " + ", minPix);
+			//console.log("CAN'T MOVE DOWN ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[min]), " + ", minPix);
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[min]) + minPix; 
 			
 			barsTranslate = 0;
-			console.log("1 - barsTranslate = ", barsTranslate); 
+			//console.log("1 - barsTranslate = ", barsTranslate); 
 			scroll.translate([0, barsTranslate]);
 			
 		//} else if ((currentDomain().length > 20) && (maxPix + zoomYTranslate < height)) {	 //THIS IS WRONG *** NEEDS TO SAY IF PREVZOOM IS > CURRENT MAX THEN SHIFT IT //if >20 countries in list and user scrolls up beyond last one, don't translate bars
 		} else if ((currentDomain().length > 20) && (zoomYTranslate + maxPix +14 < height)) {	//zoomYTranslate > maxPix
 			//console.log("CAN'T MOVE UP ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[max]), " + ", maxPix);
-			console.log("CAN'T MOVE UP ANYMORE!!!!!    ", zoomYTranslate, " < -", maxPix);
+			//console.log("CAN'T MOVE UP ANYMORE!!!!!    ", zoomYTranslate, " < -", maxPix);
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[max]) + maxPix;
 			//barsTranslate = (-maxPix + height) + (((-maxPix+height)-prevBarsTranslate)*14);   // 14 = barHeight   //don't want to use prevBarsTranslate here
 			barsTranslate = -maxPix + height;
 			//barsTranslate = barsTranslate2 - prevBarsTranslate;
-			console.log("**** NEED TO MOVE IT DOWN HERE: 2 - barsTranslate =  -", maxPix, " + ", height, " = ", barsTranslate); 
+			//console.log("**** NEED TO MOVE IT DOWN HERE: 2 - barsTranslate =  -", maxPix, " + ", height, " = ", barsTranslate); 
 			scroll.translate([0, barsTranslate]);
 			
 		} else if (currentDomain().length > 20) {										//if >20 countries in list and user scrolls within limits, translate bars accordingly
-			console.log("SCROLL OK HERE   ", barsTranslate);
+			//console.log("SCROLL OK HERE   ", barsTranslate);
 			barsTranslate = zoomYTranslate;		
-			console.log("3 - barsTranslate = ", barsTranslate); 
+			//console.log("3 - barsTranslate = ", barsTranslate); 
 		};	
 		
 
@@ -2990,7 +3229,7 @@ function updateBarChart(id, idX, data) {
 		}
 		
 		prevBarsTranslate = barsTranslate;		
-		console.log("****** END adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
+		//console.log("****** END adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
 		
 
 	}
@@ -3343,48 +3582,56 @@ function btn_reg_zoom(region) {
 	 	console.log("Clicked All Countries button");
 		removeRegBtnClasses();
 		$('#btnAll').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		//don't move this outside of if statement or updates even if click on same button twice
 	}	
 	else if  ((region=="WCA") && !($('#btnWCA').hasClass('reg_on'))) {
 		console.log("Clicked WCA button");
 		removeRegBtnClasses();
 		$('#btnWCA').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="ESA") && !($('#btnESA').hasClass('reg_on'))) {
 		console.log("Clicked ESA button");
 		removeRegBtnClasses();
 		$('#btnESA').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if ((region=="MENA") && !($('#btnMENA').hasClass('reg_on'))) {
 	 	console.log("Clicked MENA button");
 		removeRegBtnClasses();
 		$('#btnMENA').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		
 	}
 	else if  ((region=="SA") && !($('#btnSA').hasClass('reg_on'))) {
 		console.log("Clicked SA button");
 		removeRegBtnClasses();
 		$('#btnSA').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="EAP") && !($('#btnEAP').hasClass('reg_on'))) {
 		console.log("Clicked EAP button");
 		removeRegBtnClasses();
 		$('#btnEAP').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="TAC") && !($('#btnTAC').hasClass('reg_on'))) {
 		console.log("Clicked TAC button");
 		removeRegBtnClasses();
 		$('#btnTAC').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="CEECIS") && !($('#btnCEECIS').hasClass('reg_on'))) {
 		console.log("Clicked CEECIS button");
 		removeRegBtnClasses();
 		$('#btnCEECIS').addClass('reg_on');
+		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="Ind") && !($('#btnInd').hasClass('reg_on'))) {
@@ -3437,9 +3684,24 @@ function getRegName(reg) {
 		case 'CEECIS':	reg_name = 'Central and Eastern Europe and the Commonwealth of Independent States'; break;
 		case 'Ind': 	reg_name = 'Industrialized Countries'; break;
 		default:		reg_name = 'All Countries'; console.log("Error with getting region name");
-	}
-	
+	}	
 	return reg_name;
+};
+
+
+function getRegISO(reg) {
+	switch (reg) {
+		case 'All':		reg_iso = 'XX0'; break;
+		case 'WCA':		reg_iso = 'XX2'; break;
+		case 'ESA':		reg_iso = 'XX1'; break;
+		case 'MENA':	reg_iso = 'XX3'; break;
+		case 'SA':		reg_iso = 'XX4'; break;
+		case 'EAP':		reg_iso = 'XX5'; break;
+		case 'TAC':		reg_iso = 'XX6'; break;
+		case 'CEECIS':	reg_iso = 'XX7'; break;
+		default:		reg_iso = 'XX0'; console.log("Error with getting region code");
+	}	
+	return reg_iso;
 };
 
 	
@@ -3563,11 +3825,11 @@ function setSlide (index) {
     intro.setOptions({
 		steps: [
 		  {
-			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Global child malnutrition dashboard</b></h4><p>This dashboard displays various child malnutrition estimates jointly published by UNICEF, the WHO, and the World Bank Group. It was created as a resource for Action Against Hunger's <a href='http://www.generation-nutrition.org/en'  target='_blank'>Generation Nutrition</a> campaign.</p><p>This tour will take you through the main features of the site...</p></div>",
+			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Global Child Malnutrition, map and dashboard</b></h4><p>This map and dashboard displays various child malnutrition estimates jointly published by UNICEF, the WHO, and the World Bank Group. It was created as a resource for the <a href='http://www.generation-nutrition.org/en'  target='_blank'>Generation Nutrition</a> campaign.</p><p>This tour will take you through the main features of the site...</p></div>",
 		  } ,
 		  {
 			  element: '#statbuttons',
-			  intro:"<div style='width: 400px; font: 14px sans-serif;'><h4><b>Select malnutrition statistic for display</b></h4><p>Use these buttons to toggle between different types of malnutrition estimates.</p><p>The three statistics available here are <i>Wasting, Severe wasting,</i> and <i>Stunting.</i> Each of these can be presented as either <i>Prevalence</i> (i.e. percentage) or <i>Burden</i> (i.e. total numbers).</p><p>Definitions for each of these can be seen when hovering over the respective button.</p></div>",
+			  intro:"<div style='width: 400px; font: 14px sans-serif;'><h4><b>Select malnutrition statistic for display</b></h4><p>Use these buttons to toggle between different types of malnutrition estimates.</p><p>The three statistics available here are <i>Wasting, Severe Wasting,</i> and <i>Stunting.</i> Each of these can be presented as either <i>Prevalence</i> (i.e. percentage) or <i>Burden</i> (i.e. total numbers).</p><p>Definitions for each of these can be seen when hovering over the respective button.</p></div>",
 			  position: 'right'
 		  },
 		  {
@@ -3596,7 +3858,7 @@ function setSlide (index) {
 			  position: 'right'
 		  },
 		  {
-			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Further information:</b></h4><ul><li style='margin-bottom: 5px;'>A 'child' is defined as being 0-59 months old.</li><li style='margin-bottom: 5px;'>For all countries, linear interpolations of prevalence estimates are assumed for the years between actual survey years.</li><li style='margin-bottom: 5px;'>For all countries, constant prevalence estimates are assumed after the last survey year until the most recent year <i>(i.e. 2015)</i>.</li><li>Population estimates were not available from the UN Dept of Economic and Social Affairs for the islands of Tuvalu and Nauru. Instead the single population estimate given by the Joint child Malnutrition Estimates (JME) for a single year in 2007 was kept constant until the most recent year.</li></ul></div>",
+			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Further information:</b></h4><ul><li style='margin-bottom: 5px;'>Statistics pertain to children aged between 0 and 59 months of age. This is the age group for which countries gather statistics on wasting and stunting.</li><li style='margin-bottom: 5px;'>For all countries, linear interpolations of prevalence and burden estimates are assumed for the years between actual survey years.</li><li style='margin-bottom: 5px;'>For all countries, constant prevalence and burden estimates are assumed after the last survey year until the most recent year <i>(i.e. 2015)</i>.</li><li>Population estimates were not available from the UN Dept of Economic and Social Affairs for the islands of Tuvalu and Nauru. Instead the single population estimate given by the Joint child Malnutrition Estimates (JME) for a single year in 2007 was kept constant until the most recent year.</li></ul></div>",
 		  } ,
  		]
 	});
@@ -3606,33 +3868,43 @@ function setSlide (index) {
 
 
 /************************************************/
-/****  WINDOW RESIZE EVENTS & STICKY DIV  ****/
+/******  WINDOW RESIZE EVENTS & STICKY DIV  *****/
 /************************************************/	
 
-function stickydiv(){
+function stickydiv(){			//applies/removes 'sticky' class to #map-container depending on width of current screen
+	var window_height = $(window).height();
     var window_top = $(window).scrollTop();
     var div_top = $('#sticky-anchor').offset().top;
-    if (window_top > div_top){
+	var max_width = 976;		//sticky only operates when screen width is >= this
+	
+	console.log("IN STICKYDIV");
+	console.log("WINDOW HEIGHT: ",window_height);
+	console.log("WINDOW TOP: ",window_top);
+	console.log("DIV TOP: ",div_top);
+	console.log("WINDOW WIDTH: ",$(window).width());
+    if ((window_top > div_top) && ($(window).width() >= max_width)){     
+		console.log("  ADD STICKY HERE");
         $('#map-container').addClass('sticky');
     }
     else{
+		console.log("  REMOVE STICKY HERE");
         $('#map-container').removeClass('sticky');
     }
 };
 
-$(window).scroll(function(){
+$(window).scroll(function(){	
     stickydiv();
 }); 
 
 
 
-function resizedw(){	//can reload most of page here so it loads properly
-    if($(window).width()<768){compact = true;} else {compact = false;}
+/* function resizedw(){	//can reload most of page here so it loads properly
+    if($(window).width()<=976){compact = true;} else {compact = false;}		//set compact
     if($(window).width()<currentwidth-20 || $(window).width()>currentwidth+20){
         currentwidth = $(window).width();
         $('#map-container').removeClass('sticky');
     }
-}
+} */
 	
       
 /**********************/
@@ -3652,10 +3924,10 @@ var map;
 var barsTranslate = 0;
 var prevBarsTranslate = 0;
  
-if($(window).width()<768){compact = true;}  
+$('#map').width($('#map').width());
+
 
 //load topojson data
-console.log("before loading topojson countriesGeom");
 var countriesGeomCall = $.ajax({ 
     type: 'GET', 
     url: 'data/countries_all.json', 
@@ -3666,29 +3938,37 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 	countries_all = countriesGeom;
 
 	initData = getCurrentData();    //data for currentYr only
-	map = generateMap('#map', initData);  
+	map = generateMap('#map', initData);
+	$('#map').width($('#map').width());
 	updateLegend();
 	lineGraph = generateLineGraph('#linegraph');
 	barCharts = generateBarChart('#barchart', '#barchartxaxis'); 
 	barChart = barCharts[0];
 	barChartXAxis = barCharts[1];
 	updateAll();
+	//addCountryLine('#linegraph', 'XX0', 'perm');   //add global stat line
 
-/* $(window).scroll(function(){
-    if(!compact){
-		console.log("CALLING STICKYDIV");
-        stickydiv();
-    }
-}); */
-
+	
+	/* var currentwidth=$(window).width();
+	if ($(window).width()<=976) {compact = true;} else {compact = false;};
+	$(window).scroll(function(){
+		if(!compact){
+			console.log("CALLING STICKYDIV");
+			stickydiv();
+		}
+	}); */ 
+	
+	//$(window).resize(function(){location.reload();});
+	window.onresize = function(){ location.reload(); }
+	
+	/* var doit;
+	window.onresize = function(){
+	  clearTimeout(doit);
+	  doit = setTimeout(resizedw, 100);
+	};  */
+	
 });
 
 /* if(compact){    
 }; */
 
-/* var doit;
-
-window.onresize = function(){
-  clearTimeout(doit);
-  doit = setTimeout(resizedw, 100);
-}; */
