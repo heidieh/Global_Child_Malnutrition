@@ -1,5 +1,5 @@
 #map{
-	height: 750px;
+	height: 650px;
 	width: 100%;  
 	margin-left: 0px;
 	margin-right: 0px;   
@@ -7,7 +7,7 @@
 }
 
 #timeline{
- 	margin-top: 30px; 
+ 	margin-top: 15px; 
 	margin-left: 20px;
 	margin-right: 20px;
     width: 90%; 
@@ -70,7 +70,7 @@
 #statbuttons {
 	margin-left: 10px;
 	margin-right: 0px; 
-	margin-top: 20px;
+	margin-top: 5px;
 	/* margin-top: 28px; */
 }
 
@@ -94,7 +94,7 @@
 .title{
 	font: 28px sans-serif;
 	font-weight: bold;
-	margin-top: 30px;
+	margin-top: 20px;
 	margin-left: 30px;
 	margin-bottom: 4px;
 }
@@ -179,7 +179,7 @@
 	display: inline-block;
 	font: 16px sans-serif;
 	font-weight: bold;
-	margin-top: 20px;
+	margin-top: 15px;
 	margin-left: 30px;
 	margin-bottom: 0px;
 }
@@ -233,7 +233,7 @@
 }  
 
 .spacersm {
-    margin-top:20px;
+    margin-top:10px;
 }
 
 .d3-tip {
@@ -252,7 +252,7 @@
 	outline: none;
 	/*outline-color: #ffff00;*/
     color: black; /* white; */
-    padding: 6px 15px;
+    padding: 4px 12px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
