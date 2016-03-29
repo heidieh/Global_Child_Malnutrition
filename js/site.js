@@ -1,13 +1,6 @@
-/*************************************************/
-/****  SET UP GLOBAL VARIABLES / CROSSFILTER  ****/
-/*************************************************/
-
-var minYr = d3.min(data, function(d) { return d.Survey_yr; }) 
-var maxYr = d3.max(data, function(d) { return d.Survey_yr; })
-var maxBarsDisplayed = Infinity;   
-var barHeight = 12;
-
-
+/******************************/
+/****  SET UP CROSSFILTER  ****/
+/******************************/
 var cf = crossfilter(data);
 cf.yearDim = cf.dimension(function(d) {return d.Survey_yr;});
 cf.regDim = cf.dimension(function(d){return d.UNICEF_reg;});
@@ -20,7 +13,6 @@ cf.stuntingDim = cf.dimension(function(d){return d.Stunting;});
 cf.wastingBurdDim = cf.dimension(function(d) {return ((d.Wasting/100)*d.Pop_und5)});
 cf.sevWastingBurdDim = cf.dimension(function(d) {return ((d.Sev_wasting/100)*d.Pop_und5)});
 cf.stuntingBurdDim = cf.dimension(function(d) {return ((d.Stunting/100)*d.Pop_und5)});
-
 
 
 var cf2 = crossfilter(reg_data);
@@ -37,112 +29,6 @@ cf2.stuntingBurdDim = cf2.dimension(function(d) {return d.Stunting_burd*1000000;
 
 
 
-/********************/
-/****  TIMELINE  ****/
-/********************/	
-	
-var timelineRightMargin = 30;	
-var timelineWidth = $('#timeline').width()-10; 
-	
-function generateTimeline(id){  
-    var width = timelineWidth;   
-    var height = 70;
-	
-    var svg = d3.select(id)
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .append("g")
-            .attr("transform", "translate(" + 12 + ",0)");
-			
-    var yrScale = d3.scale.linear()
-            .range([0, width-timelineRightMargin])    
-            .domain([minYr,maxYr]);              
-			
-	var years = function (y) {      //create array years = [minYr,...,maxYr]
-		var years = [];
-		for (i = minYr; i <= maxYr; i++) {
-			years.push(i);
-		}
-		return years;
-	};
-	//console.log("generating timeline, years = ", years);
-        
-    svg.selectAll("g1")   //years text on timeline
-        .data(years)
-        .enter()
-        .append("text")
-        .attr("x", function(d) {return yrScale(d);})     //pixel position - x
-        .attr("y", 50)									 //pixel position - y
-		.attr("dx", "-1.1em")							 //translate(shift over) on x-axis
-        .attr("dy", "0.35em")							 //translate(shift down) on y-axis
-        .attr("class","xlabel")
-        .text(function(d,i) {
-			if (i%4 == 0) {return d;}     				 //print every 4th year
-		});
-            
-/*     svg.selectAll("g1")   //drop down marks from timeline to year
-	    .data(years)
-	    .enter()
-	    .append("line")
-	    .attr("x1", function(d) {return yrScale(d);})
-	    .attr("y1", 30)
-	    .attr("x2", function(d) {return yrScale(d);})
-	    .attr("y2", 40)
-	    .attr("stroke-width", 1)
-	    .attr("stroke", "black");  */                 
-
-/*     svg.append("line")   //black line of timeline
-        .attr("x1", 1)
-        .attr("y1", 30)
-        .attr("x2", width-timelineRightMargin)
-        .attr("y2", 30)
-        .attr("stroke-width", 2)
-        .attr("stroke", "black");      */   
-
-/*      svg.selectAll("circle")	//static grey circles for each year on timeline
-        .data(years)
-        .enter()
-        .append("circle")
-        .attr("cx", function(d) {return yrScale(d);})
-		.attr("cy", 30)
-        .attr("r", 3.5)
-        .attr("fill","#999999")
-        .on("click",function(d){
-			console.log("Clicked timeline on " + d);
-            //if(compact){ 
-            //updateAll(d);         *******************THIS IS IMPORTANT
-            //} 
-		});
-		//.append("svg:title").text(function(d) {return d;});  //How to add hover tooltip?
-       */  
-/*    svg.append("circle")		//selected circle on timeline
-        .attr("cx", 0)
-        .attr("cy", 30)
-        .attr("r", 10)
-        .attr("id","selectedcircle")    //give id to be able to access it later
-        .attr("opacity","0.5")
-        .attr("fill","#4682B4"); */
-        
-/*     svg.selectAll("g2")				//Hover tooltip?
-        .data(years)
-        .enter()
-        .append("text")
-        .attr("x", function(d) {return yrScale(d);})
-        .attr("y", 10)
-        .attr("dy", ".35em")
-        .attr("id",function(d,i){
-			//console.log("timelinedate"+ d)
-			return "timelinedate"+ d;
-		})
-        .attr("class","ylabel hidden")
-        .text(function(d,i) {return d;});  */
-         
-}
-
-
-
-
 /***************/
 /****  MAP  ****/
 /***************/
@@ -154,8 +40,6 @@ function colorAllGeoms(data) {
 	});
 }
 	
-	
- 
 	
 function colorData(data) {
 	data.forEach(function(d,i) {
@@ -271,7 +155,7 @@ function getColor(d) {
 					d >= 30  ? col='#41B6C4' :  
 					d >= 20   ? col='#7FCDBB' :  
 					d >= 10   ? col='#C7E9B4' :
-							   col='#EDF4C4'; //'#EDF8B1';   
+							   col='#EDF4C4'; //'#F0F9E8'; //'#EDF4C4'; //'#EDF8B1';   
 					break;		
 				default:		
 					col='#ddd8d8'; 
@@ -312,7 +196,7 @@ function getColor(d) {
 					d >= 5000000   ? col='#41B6C4' :  
 					d >= 1000000   ? col='#7FCDBB' :  
 					d >= 500000    ? col='#C7E9B4' :
-							         col='#FFFFCC';   
+							         col='#EDF4C4'; //'#FFFFCC'; //'#F0F9E8'; //'#FFFFCC';   
 					break;		
 				default:		
 					col='#ddd8d8'; 
@@ -334,7 +218,7 @@ function updateLegend() {
 		case 'prev':
 			switch(currentStatCat) {
 				case 'wast': 	statCat = wastingPrevCat; break;
-				case 'sevwast': statCat = sevWastingPrevCat; console.log("sevWastingPrevCat = " , sevWastingPrevCat); break;
+				case 'sevwast': statCat = sevWastingPrevCat; break;
 				case 'stunt':	statCat = stuntingPrevCat; break;
 				default:		statCat = [0,0,0,0,0,0];       
 			}; 
@@ -382,8 +266,6 @@ function updateInfo(name, yr, val, yrs_since_surv) {
 	};
 	$('.mapinfo').html(infoUpdate);	
 }; 
-
-
 
 
 function getInfoData(iso) {
@@ -437,33 +319,17 @@ function getInfoData(iso) {
 }
 
 
-
-
-function generateMap(id,data){ 
- /* 	var base_hotosm = L.tileLayer(
-	'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',{
-	attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://hot.openstreetmap.org/">Humanitarian OpenStreetMap Team</a>'
-	}); */
-
-/* 	var base_osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-		maxZoom: 18
-    });
-		 */	
-		 
+function generateMap(id,data){ 		 
 	var baselayer = L.tileLayer('https://data.hdx.rwlabs.org/mapbox-base-tiles/{z}/{x}/{y}.png', {
 		//attribution: '<a href="https://data.hdx.rwlabs.org/" target="_blank">HDX</a>',
-	});
-		 
+	});	 
 
 	var map = L.map('map', {
-        center: [0,0],  //[30, 25],
+        center: [0,0],  
         zoom: 2,
-        //layers: [base_osm],
 		layers: [baselayer],
     }); 
 	
-
 	var mapInfo = L.control({position: 'topright'});	
 	mapInfo.onAdd = function (map) {
 		var infoDiv = L.DomUtil.create('infoDiv', 'mapinfo');   //create a div with class'mapinfo'
@@ -472,16 +338,12 @@ function generateMap(id,data){
 		};
 	mapInfo.addTo(map);	
 	
-
-	
 	wastingPrevCat = [0,2,5,10,15,20];
 	sevWastingPrevCat = [0,0.5,1,2,5,10];
 	stuntingPrevCat = [0,10,20,30,45,60];
 	wastingBurdCat = [0,250000,500000,1000000,5000000,10000000];
 	sevWastingBurdCat = [0,100000,200000,500000,1000000,5000000];
-	stuntingBurdCat = [0,500000,1000000,5000000,20000000,50000000];
-	
-	
+	stuntingBurdCat = [0,500000,1000000,5000000,20000000,50000000];	
 	
 	var mapLegend = L.control({position: 'bottomleft'});			
 	mapLegend.onAdd = function (map) {	
@@ -490,60 +352,14 @@ function generateMap(id,data){
 		return legendDiv;
 	};
 	mapLegend.addTo(map);
-			
-	/* L.TopoJSON = L.GeoJSON.extend({  
-		addData: function(jsonData) {    
-			if (jsonData.type === "Topology") {
-				for (key in jsonData.objects) {
-					geojson = topojson.feature(jsonData, jsonData.objects[key]);
-					L.GeoJSON.prototype.addData.call(this, geojson);
-				}
-			}    
-			else {
-				L.GeoJSON.prototype.addData.call(this, jsonData);
-			}
-		}  
-	});	
 	
-	var topoLayer = new L.TopoJSON();
-
-	$.getJSON('data/countries_all.json')
-	    .done(addTopoData);
-
-	function addTopoData(topoData){  
-		topoLayer.addData(topoData);
-		topoLayer.addTo(map);
-	};
-	
-	topoLayer.eachLayer(handleLayer);
-*/
-	
-//	function handleLayer(layer){  
-	  /* var randomValue = Math.random(),
-		fillColor = colorScale(randomValue).hex();
-
-	  layer.setStyle({
-		fillColor : fillColor,
-		fillOpacity: 1,
-		color:'#555',
-		weight:1,
-		opacity:0.5
-	  });
-
-	  layer.on({
-		mouseover: enterLayer,
-		mouseout: leaveLayer
-	  }); */
-//	} 
-	
-	var overlay = L.geoJson(countries_all,{
+	var the_overlay = L.geoJson(countries_all,{
                 style: baseStyle,
                 onEachFeature: onEachFeature
             }).addTo(map);  
-			
-			
-	document.getElementById('regionbuttons').onclick = function(abc) {
-		//console.log("CLICKED ON LINK TO ACCESS MAP");
+						
+	document.getElementById('regionbuttons').onclick = function(abc) {    //zoom to region when user clicks on region button
+		//console.log("CLICKED ON ZOOM TO REGION");
         var pos = abc.target.getAttribute('data-position');
         var zoom = abc.target.getAttribute('data-zoom');
         if (pos && zoom) {
@@ -558,24 +374,16 @@ function generateMap(id,data){
 	return map;
 	
 	
-	function onEachFeature(feature, layer) {
-		//has_data = true;	
-		
+	function onEachFeature(feature, layer) {	
 		layer.on("mouseover", function(f,l) {
 			infodata = getInfoData(f.target.feature.properties.adm0_iso);
 			if (infodata[0]=='') {
 				infodata[0] = f.target.feature.properties.name_eng,
 				infodata[1] = currentYr
 			}; 
-			//console.log("mouseover " + f.target.feature.properties.adm0_iso);
-			//console.log("mouseover " + infodata[0], infodata[1], infodata[2]);
-			//mapInfo.update(infodata[0], infodata[1], infodata[2], infodata[3]);  
 			updateInfo(infodata[0], infodata[1], infodata[2], infodata[3]);
-
 		});
 		layer.on("mouseout", function(f,l) {
-			//console.log("mouseout " + f.target.feature.properties.adm0_iso);
-			//mapInfo.update('','','','');
 			updateInfo('','','','');
 		}); 
 		layer.on("click", function(f,l) {
@@ -583,9 +391,7 @@ function generateMap(id,data){
 				addCountryLine('#linegraph', f.target.feature.properties.adm0_iso, 'perm');
 			};
 		}); 
-		layer.on("dblclick", function(f,l) {
-			
-			//console.log("***************************************************************************  IN DBLCLICK");
+		layer.on("dblclick", function(f,l) {			
 			if (getInfoData(f.target.feature.properties.adm0_iso)[0] != '') {		//if there exists data for this feature
 				removeCountryLine('#linegraph', f.target.feature.properties.adm0_iso, 'perm');
 			};
@@ -593,8 +399,8 @@ function generateMap(id,data){
 		}); 
 		layer.on({
 			mouseover: highlightFeature,
-			mouseout:  resetHighlight,      //remove info update?
-			//dblclick: zoomToFeature		   // could do on click
+			mouseout:  resetHighlight,      
+			//dblclick: zoomToFeature		  
 		});
 	}
 	
@@ -656,12 +462,8 @@ function generateMap(id,data){
 
 
 function updateMap(id,data){ 
- 	console.log("In updateMap, map object = ", map);
-	//console.log("updateMap data = ", data);
-	//console.log("updateMap eachLayer = ", map.eachLayer);
-
+ 	//console.log("In updateMap, map object = ", map);
 	colorAllGeoms(countries_all);
-	//colorAllGeoms(topoLayer);
 	colorData(data);
 	
 }
@@ -673,29 +475,17 @@ function updateMap(id,data){
 
 function generateLineGraph(id){ 
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};  //margins of actual x- and y-axes within the svg
-	//var margin = {top: 0, bottom: 0};
-	//var width = timelineWidth-timelineRightMargin;  
 	var width = $(id).width() - margin.left - margin.right;  	//width of main svg
-	var height = $(id).height() - margin.top - margin.bottom;   //height of main svg
-	
-	
+	var height = $(id).height() - margin.top - margin.bottom;   //height of main svg	
 			
 	var yrScale = d3.scale.linear()
             .range([0, width])    		//x-axis width, accounting for specified margins
             .domain([minYr,maxYr]);              
-			
-/* 	var years = function (y) {      //create array years = [minYr,...,maxYr]
-		var years = [];
-		for (i = minYr; i <= maxYr; i++) {
-			years.push(i);
-		}
-		return years;
-	}; */
 	
 	var lineDom = getLinegraphDomain();
 	var yScale = d3.scale.linear()   
 			.domain([lineDom[0],lineDom[1]]) 			
-            .range([height, 0]);			   //y-axis height, accounting for specified margins
+            .range([height, 0]);	    //y-axis height, accounting for specified margins
 			
 			
 	//Define axes
@@ -721,19 +511,16 @@ function generateLineGraph(id){
 	
 	//Render main SVG
 	var lineGraph = d3.select(id)           //create a d3.svg called 'lineGraph' - could classed as e.g. 'chart' (prob just for css?)  
-		//.classed('chart',true)
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom);
-
 		  
  	var g = lineGraph.append('g')			//create a group 'g' in the main svg/'lineGraph' and shift it over by left & top margins
 		//.attr('fill', 'blue')
 		.attr("width", width)
 		.attr("height", height)
 		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); 
-	
-			
+				
 	
 	//Render axes
 	g.append('g')
@@ -758,12 +545,12 @@ function generateLineGraph(id){
 		.attr("stroke-width", 1);	
 		
 		
-		
  	//Add intro text to linegraph to explain how to add/remove country lines	
 	var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
 		.attr("class","linegraph_intro")
 		.attr("x", 55)
 		.attr("y", 50)
+		//.attr('font-size', '12px')
 		.style('fill', 'darkOrange')
 		.html('Click on country in map or barchart');
 	var g2 = lineGraph.append('text')				 
@@ -785,41 +572,13 @@ function generateLineGraph(id){
 		.attr("y", 120)
 		.style('fill', 'darkOrange')
 		.html('or here to remove'); 
-	
-	
+		
 	return lineGraph;
 					
 };
 
 
 function addLineGraphIntroText() {
-	//Add intro text to linegraph to explain how to add/remove country lines	
-	/* var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
-		.attr("class","linegraph_intro")
-		.attr("x", 55)
-		.attr("y", 50)
-		.style('fill', 'darkOrange')
-		.html('Click on country in map or barchart');
-	var g2 = lineGraph.append('text')				 
-		.attr("class","linegraph_intro")
-		.attr("x", 130)
-		.attr("y", 70)
-		.style('fill', 'darkOrange')
-		.html('to add here');
-
-	var g2 = lineGraph.append('text')
-		.attr("class","linegraph_intro")
-		.attr("x", 50)
-		.attr("y", 100)
-		.style('fill', 'darkOrange')
-		.html('Double-click country in map, barchart'); 
-	var g2 = lineGraph.append('text')				
-		.attr("class","linegraph_intro")
-		.attr("x", 110)
-		.attr("y", 120)
-		.style('fill', 'darkOrange')
-		.html('or here to remove');	 */
-		
 	lineGraph.selectAll('.linegraph_intro')
 		.style("opacity", 1);
 		
@@ -834,14 +593,7 @@ function getLinegraphDomain() {
 	//console.log("points = ", points);
 	switch (currentStatType) {
 		case 'prev':
-			/* switch(currentStatCat) {
-				case 'wast': 	domX = 0; domY = 26; break;
-				case 'sevwast': domX = 0; domY = 16; break;
-				case 'stunt':	domX = 0; domY = 74; break;
-				default:		domX = 0; domY = 0; break;
-			};
-			break; */
-			switch(currentStatCat) {			//here we want to get max each time its checked - max from getPointData()?
+			switch(currentStatCat) {			//get max each time linegraph domain is accessed
 				case 'wast': 	if (points.length==0) {maxY = 26;} else {maxY = d3.max(points, function(d) {return d.Wasting;})}; break;
 				case 'sevwast': if (points.length==0) {maxY = 16;} else {maxY = d3.max(points, function(d) {return d.Sev_wasting;})}; break;
 				case 'stunt':	if (points.length==0) {maxY = 74;} else {maxY = d3.max(points, function(d) {return d.Stunting;})}; break;
@@ -851,10 +603,7 @@ function getLinegraphDomain() {
 			domY = maxY;
 			break;
 		case 'burd':
-			//points = getPointData();
-			//console.log("points = ", points);
-			switch(currentStatCat) {			//here we want to get max each time its checked - max from getPointData()?
-				//case 'wast': 	if (points.length==0) {maxY = 26000000;} else {maxY = d3.max(points, function(d) {return (d.Wasting/100)*d.Pop_und5;})}; break;
+			switch(currentStatCat) {		
 				case 'wast': 	if (points.length==0) {
 									maxY = 26000000;
 								} else {
@@ -867,7 +616,6 @@ function getLinegraphDomain() {
 									});
 								};										
 								break;						
-				//case 'sevwast': if (points.length==0) {maxY = 9000000;} else {maxY = d3.max(points, function(d) {return (d.Sev_wasting/100)*d.Pop_und5;})}; break;
 				case 'sevwast': if (points.length==0) {
 									maxY = 9000000;
 								} else {
@@ -880,7 +628,6 @@ function getLinegraphDomain() {
 									});
 								};										
 								break;	
-				//case 'stunt':	if (points.length==0) {maxY = 76000000;} else {maxY = d3.max(points, function(d) {return (d.Stunting/100)*d.Pop_und5;})}; break;
 				case 'stunt': 	if (points.length==0) {
 									maxY = 76000000;
 								} else {
@@ -907,8 +654,6 @@ function getLinegraphDomain() {
 
 function updateYearLineGraph(id){    //shifts vertical grey line to current year in line graph
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};
-	//var margin = {top: 0, bottom: 0};
-	//var width = timelineWidth-timelineRightMargin;  
 	var width = $(id).width() - margin.left - margin.right;  
 	var height = $(id).height() - margin.top - margin.bottom;  
 	
@@ -916,16 +661,15 @@ function updateYearLineGraph(id){    //shifts vertical grey line to current year
             .range([0, width])    
             .domain([minYr,maxYr]);  
 			
-	//shift grey line to currentYr
 	var year_line = lineGraph.selectAll('.year_line');
 
 	year_line.transition()
 	    .duration(1000)  
 		.attr("class", "year_line")
 		.attr("x1", margin.left + yrScale(currentYr))  
-		.attr("y1", margin.top)    			//+ve value moves down from top
+		.attr("y1", margin.top)    		
 		.attr("x2", margin.left + yrScale(currentYr))  
-		.attr("y2", height + margin.top)			//-ve value moves up from bottom
+		.attr("y2", height + margin.top)		
 		.attr('stroke', '#c7c9c9')  //light grey
 		//.attr('stroke-dasharray', '5, 5')
 		.attr("stroke-width", 1);
@@ -935,25 +679,14 @@ function updateYearLineGraph(id){    //shifts vertical grey line to current year
 };
 
 
-
-
 function addCountryLine(id, iso_code, status){ 
 	var margin = {top: 10, left: 40, right: 20, bottom: 20};
-	//var margin = {top: 0, bottom: 0};
-	//var width = timelineWidth-timelineRightMargin;  
 	var width = $(id).width() - margin.left - margin.right;  
 	var height = $(id).height() - margin.top - margin.bottom;  
 	
 	var yrScale = d3.scale.linear()
             .range([0, width])    
             .domain([minYr,maxYr]);  
-			
-
-	/* var domainX = 0;
-	var domainY = 30;	
-	var yScale = d3.scale.linear()   			
-			.domain([domainX,domainY]) 			 		
-            .range([height, 0]); */
 			
 	var lineDom = getLinegraphDomain();
 	var yScale = d3.scale.linear()   
@@ -980,12 +713,6 @@ function addCountryLine(id, iso_code, status){
 				 })
 				.ticks(5);
 	
-			
-	//console.log("*************************************************************IN UPDATE LINEGRAPH, currentYr = ", currentYr);	
-	//console.log("******************************************************** add country = ", iso_code);
-	//console.log("********************************** add ", iso_code, " to currentCountryLines = ", currentCountryLines, "?");
-	//console.log("********************************** IN addCountryLine: ", iso_code, status, " *****************");
-	
 	//check whether country is in currentCountryLines array
 	in_list = false;
 	pos_currentCountryLines = get_pos_currentCountryLines(iso_code);	
@@ -996,11 +723,11 @@ function addCountryLine(id, iso_code, status){
 	};
 	
 	//set line_color for country
-	if ((status=="perm") && (in_list==false)) {			//if permanent (clicked on) but new to list then assign new color and add to currentCountryLines
+	if ((status=="perm") && (in_list==false)) {		//if permanent (i.e. clicked on) but new to list then assign new color and add to currentCountryLines
 		if (iso_code=="XX0") { 						//global stat
-			line_color = '#000000';					//black
+			line_color = '#000000';						//black
 		} else if (iso_code.substring(0,2)=="XX") {	//regional stat
-			line_color = '#4b4949';					//dark grey
+			line_color = '#4b4949';						//dark grey
 		} else {
 			line_color = getNewCountryLineColor(iso_code);
 		};
@@ -1018,8 +745,6 @@ function addCountryLine(id, iso_code, status){
 	};
 	
 	if (currentCountryLines.length != 0) {
-		/* var linegraph_text = d3.selectAll('.linegraph_intro');
-		linegraph_text.remove(); */
 		var linegraph_text = d3.selectAll('.linegraph_intro')
 			.style("opacity", 0);
 	}
@@ -1028,33 +753,10 @@ function addCountryLine(id, iso_code, status){
 		countryData = getRegionalData(iso_code);
 	} else {
 		countryData = getCountryData(iso_code);
-		//console.log("******************************************************** countryData = ", countryData);
 	};
 	
 	var lineFunction = d3.svg.line()
 		.x(function(d) {return margin.left + yrScale(d.Survey_yr)})
-/* 		.y(function(d) {
-			switch(currentStatType) {
-				case 'prev':
-					switch(currentStatCat) {
-						case 'wast': 	val = margin.top + yScale(d.Wasting); break;
-						case 'sevwast': val = margin.top + yScale(d.Sev_wasting); break;
-						case 'stunt':	val = margin.top + yScale(d.Stunting); break;
-						default:		val = margin.top + yScale(d.Wasting); 
-					};
-					break;
-				case 'burd':
-					switch(currentStatCat) {
-						case 'wast': 	val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); break;
-						case 'sevwast': val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5); break;
-						case 'stunt':	val = margin.top + yScale((d.Stunting/100) * d.Pop_und5); break;
-						default:		val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); 
-					};
-					break;
-				default: val = margin.top + yScale(d.Wasting);
-			};
-			return val;            			
-		})  */
 		.y(function(d) {
 			switch(currentStatType) {
 				case 'prev':
@@ -1081,19 +783,11 @@ function addCountryLine(id, iso_code, status){
 		.interpolate('linear');
 		
 		
-
-		
-
-	 
-		
  	lineGraph.append('path')
         .datum(countryData)
         .attr('class', function (d) {
-			//console.log("1 - Creating line in lineGraph for: ", d[0].ISO_3);
-			//console.log("All countryData: ", d);
 			if (status=='perm') {
-				//console.log("2- Creating line in lineGraph for: ", d[0].ISO_3);
-				return 'country_line country_line' + d[0].ISO_3;	//adding class for country's ISO - to link individual country line to individual country in map/barchart 
+				return 'country_line country_line' + d[0].ISO_3;	//adding class for country's ISO
 			} else if (status=='temp') {
 				return 'country_line country_line' + d[0].ISO_3 + '_temp';
 			};
@@ -1101,13 +795,10 @@ function addCountryLine(id, iso_code, status){
         .attr('d', lineFunction)
         //.attr("stroke", "red")
 		 .attr("stroke", function (d) {
-			if ((status=='perm')) {// && (in_list==false)) {
-				//console.log("3 - Creating line in lineGraph for: ", d[0].ISO_3);
+			if ((status=='perm')) {
 				return line_color;	
 			} else if (status=='temp') {
 				return 'yellow';
-			//} else {
-			//	return 'none';
 			};
 		})	 
         //.attr("stroke-width", 1)
@@ -1132,9 +823,8 @@ function addCountryLine(id, iso_code, status){
 		
 		
 	if (status=='perm') {	
-		pointData = getPointData();  //need this to append all countryData from countryList into pointData
-		lineGraph.selectAll("circle")   //NEED TO ADD NEW CIRCLES, NOT TO REPLACE OLD ONES AS DOING HERE - append new country data into countryData?
-			//.data(countryData)
+		pointData = getPointData();  
+		lineGraph.selectAll("circle")  
 			.data(pointData)
 			.enter()
 			.append("circle") 
@@ -1147,27 +837,6 @@ function addCountryLine(id, iso_code, status){
 					};
 				})	
 			.attr("cy", function(d){
-/* 					switch(currentStatType) {
-						case 'prev':
-							switch(currentStatCat) {
-								case 'wast': 	val = margin.top + yScale(d.Wasting); break;
-								case 'sevwast': val = margin.top + yScale(d.Sev_wasting); break;
-								case 'stunt':	val = margin.top + yScale(d.Stunting); break;
-								default:		val = margin.top + yScale(d.Wasting); 
-							};
-							break;
-						case 'burd':
-							switch(currentStatCat) {
-								case 'wast': 	val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); break;
-								case 'sevwast': val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5); break;
-								case 'stunt':	val = margin.top + yScale((d.Stunting/100) * d.Pop_und5); break;
-								default:		val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); 
-							};
-							break;
-						default: val = margin.top + yScale(d.Wasting);
-					};
-					return val;     */
-
 					switch(currentStatType) {
 						case 'prev':
 							switch(currentStatCat) {
@@ -1195,14 +864,11 @@ function addCountryLine(id, iso_code, status){
 					return margin.left + yrScale(d.Survey_yr);
 				})
 			.attr("r", 3)
-			//.attr("fill", 'red')
 			.attr("fill", function (d) {
-				if ((status=='perm')) { // && (in_list==false)) {
+				if ((status=='perm')) { 
 					return line_color;	
 				} else if (status=='temp') {
 					return 'yellow';
-				//} else {
-				//	return 'none';
 				}; 
 			})	 
 			.style('opacity', function (d) {
@@ -1239,9 +905,7 @@ function addCountryLine(id, iso_code, status){
 		.duration(1000)
 		.call(yAxis);  	
 		
-	//if (currentStatType=='burd') {
-		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
-	//};
+	transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 		
 	lineGraph.call(tip);
 
@@ -1251,8 +915,7 @@ function addCountryLine(id, iso_code, status){
 var mouseoverCountryLineFunction = function(d) {   
 	console.log("In mouseoverCountryLineFunction for ", d[0].ISO_3, "  d = ", d);
 	var highlightColor = '#ffff00';
-	
-	
+		
 	//Create tooltip variable for path on linegraph:	
 /* 	var line_tip = {Country: d[0].Country,
 					ISO_3:"XXX"};
@@ -1293,17 +956,14 @@ var mouseoutCountryLineFunction = function(d) {
 	/* var line_tip = {Country: d[0].Country,
 					ISO_3:"XXX"};
 	tip.hide(line_tip); */
-	
-	
+		
 	//reset color for country_line
 	var resetColor = getExistingCountryLineColor(d[0].ISO_3);
 	var country_line = d3.selectAll('.country_line'+ d[0].ISO_3); 
 	country_line.attr('stroke', resetColor)
 		.attr("stroke-width", 1);
-		
-		
-	if (d[0].ISO_3.substring(0,2)!="XX") {	
-		//reset color for bars in barchart
+				
+	if (d[0].ISO_3.substring(0,2)!="XX") {	  //reset color for bars in barchart
 		var origBarColor = colorDataOneCountry(d[0].ISO_3);
 		var lowBars = d3.selectAll('rect.lower_bar'+ d[0].ISO_3); 
 		var uppBars = d3.selectAll('rect.upper_bar'+ d[0].ISO_3);
@@ -1316,7 +976,7 @@ var mouseoutCountryLineFunction = function(d) {
 			.attr('stroke-opacity', '0.5')
 			.attr('stroke', 'black')
 			.attr('fill', origBarColor)
-			.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
+			.attr('fillOpacity', '1');    //not working - probably need a different attr name not fillOpacity
 		
 		//clear info box in map
 		updateInfo('','','','');
@@ -1324,9 +984,7 @@ var mouseoutCountryLineFunction = function(d) {
 };
 
 
-var mouseoverPointFunction = function(d) {		//have inserted (countryData[i])
-	//console.log("**** HOVERED OVER POINT: ", d);
-	//console.log("**** HOVERED OVER POINT: ", d.Country, d.Survey_yr, d.Wasting);
+var mouseoverPointFunction = function(d) {	
 	var highlightColor = '#ffff00';
 	
 	tip.show(d);
@@ -1335,6 +993,7 @@ var mouseoverPointFunction = function(d) {		//have inserted (countryData[i])
 	var country_line = d3.selectAll('.country_line'+ d.ISO_3); 
 	country_line.attr('stroke', highlightColor)
 		.attr("stroke-width", 3);
+		
 	//set highlight color for data_point
 	var data_point = d3.selectAll('.data_point'+ d.ISO_3 + d.Survey_yr); 
 	data_point.attr('fill', highlightColor)
@@ -1365,8 +1024,6 @@ var mouseoverPointFunction = function(d) {		//have inserted (countryData[i])
 };
 
 var mouseoutPointFunction = function(d) {	
-	//console.log("**** HOVERED OUT OF POINT: ", d);	
-	//console.log("**** HOVERED OUT OF POINT: ", d.Country, d.Survey_yr, d.Wasting);
 	
 	tip.hide(d);
 	
@@ -1375,6 +1032,7 @@ var mouseoutPointFunction = function(d) {
 	var country_line = d3.selectAll('.country_line'+ d.ISO_3); 
 	country_line.attr('stroke', resetColor)
 		.attr("stroke-width", 1);
+		
 	//reset highlight color for data_point
 	var data_point = d3.selectAll('.data_point'+ d.ISO_3 + d.Survey_yr); 
 	data_point.attr('fill', resetColor)
@@ -1447,7 +1105,6 @@ var tip = d3.tip()
 										statVal = (d3.format(",.0f"))((d.Wasting/100) * d.Pop_und5);
 									}; 
 									break;						
-					//case 'sevwast': statVal = (d3.format(",.0f"))((d.Sev_wasting/100) * d.Pop_und5); break;
 					case 'sevwast': if (d.ISO_3.substring(0,2)=="XX") {
 										statVal = (d3.format(",.0f"))(d.Sev_wasting_burd*1000000);
 									} else {
@@ -1471,20 +1128,18 @@ var tip = d3.tip()
 	}); 			
 		
 		
-
 function get_pos_currentCountryLines(iso_code) {			//returns position in list, otherwise -1 if not in list
 	pos = -1;
 	currentCountryLines.forEach(function(d,i) {
 		if (d.iso == iso_code) {
 			pos = i;
-			//break;
 		};
 	});
 	return pos;
 };
 
-//get line color for existing country lines
-function getExistingCountryLineColor(iso_code) {
+
+function getExistingCountryLineColor(iso_code) {		//get line color for existing country lines
 	countryPos = get_pos_currentCountryLines(iso_code);
 	col = 'black';
 	
@@ -1495,26 +1150,20 @@ function getExistingCountryLineColor(iso_code) {
 	return col;
 };
 
-//get line color for new country lines
-function getNewCountryLineColor(iso_code) {
+
+function getNewCountryLineColor(iso_code) {			    //get line color for new country lines
 	allCountryLineColors = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf','#999999','#1b9e77','#d95f02','#e7298a','#e6ab02'];
-	//countryPos = get_pos_currentCountryLines(iso_code);
-	//col = 'black';
 	currentCountryLineColors = allCountryLineColors;
 	
 	currentCountryLines.forEach(function(d,i) {
 		if (d.color != '#000000') {
 			currentCountryLineColors.push(d.color);		//list of all colors currently in use except black
 		};
-	});
-	
+	});	
 	//console.log("currentCountryLineColors: ", currentCountryLineColors);
 	
 	freq_asc = currentCountryLineColors.leastFrequent();
-	//console.log("Frequency array: ", freq_asc);	
 	col = freq_asc[0].key;	
-	//console.log("Least frequent color: ", col);
-	//console.log("New country line ", iso_code, col);
 	
 	return col;
 };
@@ -1535,15 +1184,11 @@ Array.prototype.leastFrequent = function() {
 
 
 function removeCountryLine(id, iso_code, status){ 
-	var margin = {top: 10, left: 40, right: 20, bottom: 20};
-	//var margin = {top: 0, bottom: 0};
-	//var width = timelineWidth-timelineRightMargin;  
+	var margin = {top: 10, left: 40, right: 20, bottom: 20}; 
 	var width = $(id).width() - margin.left - margin.right;  
 	var height = $(id).height() - margin.top - margin.bottom;  
 
 	//console.log("******************************************************** remove country = ", iso_code);
-	//countryData = getCountryData(iso_code);
-	//console.log("******************************************************** country data = ", countryData);
 
 	var yrScale = d3.scale.linear()
             .range([0, width])    
@@ -1594,7 +1239,6 @@ function removeCountryLine(id, iso_code, status){
 	} else {
 		console.log("*************** ERROR SHOULDN'T BE HERE!!!!! ******************");
 	};	
-	//line_color = getCountryLineColor(iso_code);
 	var resetColor = line_color;
 	
 	
@@ -1606,28 +1250,14 @@ function removeCountryLine(id, iso_code, status){
 			   currentCountryLines.splice(i, 1);
 			}
 		};	
-		
-		/* if (currentCountryLines.length == 0) {						  //add in linegraph intro text when no countries left in list
-			console.log("SHOULD ADD IN LINEGRAPH INTRO TEXT HERE");   //also need to add in after pushing clear all button 
-			var linegraph_text = d3.selectAll('g2');
-			linegraph_text.append("text")
-				.attr("class","linegraph_intro")
-				.attr("x", 20)
-				.attr("y", 40)
-				//.attr("dy", ".35em")
-				.html("Click on country in map or barchart to add here" + "<br/>" + "Double-click to remove");
-		}; */
-		
 	} else if ((status=='temp')&&(!in_list)) {
 		var country_line = d3.selectAll('.country_line'+ iso_code + '_temp'); 
 		country_line.remove();
-	} else if ((status=='temp')&&(in_list)) {										//should we add/remove data points here also?
-		//console.log("SHOULD ADD IN LINE FOR COUNTRY ", iso_code, " HERE");
+	} else if ((status=='temp')&&(in_list)) {							
 		var country_line = d3.selectAll('.country_line'+ iso_code + '_temp'); 
 		country_line.remove();
 		var country_line = d3.selectAll('.country_line'+ iso_code); 
 		country_line.attr('stroke', resetColor)
-		//country_line.attr('stroke', 'red')
 			.attr("stroke-width", 1);
 	};	
 	
@@ -1646,19 +1276,14 @@ function removeCountryLine(id, iso_code, status){
 	if (currentCountryLines.length == 0) {
 		addLineGraphIntroText();
 	}	
-	//if (currentStatType=='burd') {
-		transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
-	//};
+	transitionCurrentCountryLines('#linegraph', iso_code);  //add iso_code for temp hovered country
 	
 	//console.log("******************************************************** currentCountryLines = ", currentCountryLines);
 };
 
 function removeAllCountryLines() {
-	//console.log("Number of countries in list: ", currentCountryLines.length);
 	for (i=0; i <= currentCountryLines.length-1; i++) {
-		console.log("REMOVE LINE FOR: ", currentCountryLines[i].iso);
-		//removeCountryLine('#linegraph', d.iso, 'perm');
-		var country_line = d3.selectAll('.country_line'+ currentCountryLines[i].iso); 	//delete line
+		var country_line = d3.selectAll('.country_line'+ currentCountryLines[i].iso); 
 		country_line.remove();				
 	};
 	currentCountryLines = [];
@@ -1692,7 +1317,7 @@ function getCountryData(iso_code) {	  //returns data for any specified country, 
 	cf.regDim.filterAll();
 	cf.countryDim.filter(iso_code);
 	
-	switch (currentStatType) {			//filter statistic
+	switch (currentStatType) {		
 		case 'prev':
 			switch (currentStatCat) {     
 				case 'wast':	temp = cf.wastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
@@ -1723,7 +1348,7 @@ function getCountryData(iso_code) {	  //returns data for any specified country, 
 	
 	temp = cf.yearDim.bottom(Infinity);   //order by chronological year
 	
-	cf.wastingDim.filterAll(); 			//Remove any filters on stats or country so subsequent operations have a clean start
+	cf.wastingDim.filterAll(); 			//remove any filters on stats or country so subsequent operations have a clean start
 	cf.sevWastingDim.filterAll();
 	cf.stuntingDim.filterAll();
 	cf.wastingBurdDim.filterAll();
@@ -1741,7 +1366,7 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 	cf2.yearDim.filterAll();
 	cf2.regionDim.filter(iso_code);
 	
-	switch (currentStatType) {			//filter statistic
+	switch (currentStatType) {		
 		case 'prev':
 			switch (currentStatCat) {     
 				case 'wast':	temp = cf2.wastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
@@ -1772,7 +1397,7 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 	
 	temp = cf2.yearDim.bottom(Infinity);   //order by chronological year
 	
-	cf2.wastingDim.filterAll(); 			//Remove any filters on stats or country so subsequent operations have a clean start
+	cf2.wastingDim.filterAll(); 			//remove any filters on stats or country so subsequent operations have a clean start
 	cf2.sevWastingDim.filterAll(); 
 	cf2.stuntingDim.filterAll();
 	cf2.wastingBurdDim.filterAll();
@@ -1788,9 +1413,7 @@ function getRegionalData(iso_code) {	  //returns data for any specified region, 
 
 
 function transitionCurrentCountryLines(id, temp_iso){ 
-	var margin = {top: 10, left: 40, right: 20, bottom: 20};
-	//var margin = {top: 0, bottom: 0};
-	//var width = timelineWidth-timelineRightMargin;  
+	var margin = {top: 10, left: 40, right: 20, bottom: 20}; 
 	var width = $(id).width() - margin.left - margin.right;  
 	var height = $(id).height() - margin.top - margin.bottom; 
 
@@ -1825,8 +1448,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 						default:		return d3.format(",.0f")(d);
 					};
 				 })
-				.ticks(5);
-	
+				.ticks(5);	
 	
 	lineGraph.selectAll(".x.axis")
 		.transition()
@@ -1838,34 +1460,11 @@ function transitionCurrentCountryLines(id, temp_iso){
 		.duration(1000)
 		.call(yAxis);  				
 	
-	
-	
+		
 	var transLineFunction = d3.svg.line()			
 		.x(function(d) {
 			return margin.left + yrScale(d.Survey_yr)
 		})
-		/* .y(function(d) {
-			switch(currentStatType) {
-				case 'prev':
-					switch(currentStatCat) {
-						case 'wast': 	val = margin.top + yScale(d.Wasting); break;
-						case 'sevwast': val = margin.top + yScale(d.Sev_wasting); break;
-						case 'stunt':	val = margin.top + yScale(d.Stunting); break;
-						default:		val = margin.top + yScale(d.Wasting); 
-					};
-					break;
-				case 'burd':
-					switch(currentStatCat) {
-						case 'wast': 	val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); break;
-						case 'sevwast': val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5); break;
-						case 'stunt':	val = margin.top + yScale((d.Stunting/100) * d.Pop_und5); break;
-						default:		val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); 
-					};
-					break;
-				default: val = margin.top + yScale(d.Wasting);
-			};
-			return val;            			
-		})  */
 		.y(function(d) {
 			switch(currentStatType) {
 				case 'prev':
@@ -1901,7 +1500,6 @@ function transitionCurrentCountryLines(id, temp_iso){
 			if (statCat != 'sevwast') {
 				countryData = getRegionalData(iso);
 			};
-			//countryData = getRegionalData(iso);
 			//console.log("******************************************************** regionalData = ", countryData);
 		} else {
 			countryData = getCountryData(iso);
@@ -1914,7 +1512,6 @@ function transitionCurrentCountryLines(id, temp_iso){
 		path.transition()
 			.duration(500)  
 			.attr('class', function (d) {
-				//console.log("d: ", d);
 				return 'country_line country_line' + iso;
 			})
 			.ease("linear")
@@ -1949,53 +1546,31 @@ function transitionCurrentCountryLines(id, temp_iso){
 				return 'country_line country_line' + d.ISO_3 + ' data_point data_point' + d.ISO_3 + ' data_point' + d.ISO_3 + d.Survey_yr;		
 			})
 			.attr("cy", function(d){
-					/* switch(currentStatType) {
-						case 'prev':
-							switch(currentStatCat) {
-								case 'wast': 	val = margin.top + yScale(d.Wasting); break;
-								case 'sevwast': val = margin.top + yScale(d.Sev_wasting); break;
-								case 'stunt':	val = margin.top + yScale(d.Stunting); break;
-								default:		val = margin.top + yScale(d.Wasting); 
-							};
-							break;
-						case 'burd':
-							switch(currentStatCat) {
-								case 'wast': 	val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); break;
-								case 'sevwast': val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5); break;
-								case 'stunt':	val = margin.top + yScale((d.Stunting/100) * d.Pop_und5); break;
-								default:		val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); 
-							};
-							break;
-						default: val = margin.top + yScale(d.Wasting);
-					};
-					return val;  */ 
-
-					switch(currentStatType) {
-						case 'prev':
-							switch(currentStatCat) {
-								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
-								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = Sev_wasting;} else {stat = d.Sev_wasting;}; break;											case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
-								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
-							};
-							break;
-						case 'burd':
-							switch(currentStatCat) {
-								case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
-								case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
-								case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
-								default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
-							};
-							break;
-						default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
-					};
-					val = margin.top + yScale(stat);
-					return val;        
-
-          			
-				})
+				switch(currentStatType) {
+					case 'prev':
+						switch(currentStatCat) {
+							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; break;
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = Sev_wasting;} else {stat = d.Sev_wasting;}; break;
+							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting;} else {stat = d.Stunting;}; break;
+							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {stat = d.Wasting;}; 
+						};
+						break;
+					case 'burd':
+						switch(currentStatCat) {
+							case 'wast': 	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; break;
+							case 'sevwast': if (d.ISO_3.substr(0,2)=="XX") {stat = d.Sev_wasting_burd*1000000;} else {stat = ((d.Sev_wasting/100) * d.Pop_und5);}; break;
+							case 'stunt':	if (d.ISO_3.substr(0,2)=="XX") {stat = d.Stunting_burd*1000000;} else {stat = ((d.Stunting/100) * d.Pop_und5);}; break;
+							default:		if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting_burd*1000000;} else {stat = ((d.Wasting/100) * d.Pop_und5);}; 
+						};
+						break;
+					default: if (d.ISO_3.substr(0,2)=="XX") {stat = d.Wasting;} else {d.Wasting;};
+				};
+				val = margin.top + yScale(stat);
+				return val;            			
+			})
 			.attr("cx", function(d){
-					return margin.left + yrScale(d.Survey_yr);
-				})
+				return margin.left + yrScale(d.Survey_yr);
+			})
 			.attr("r", 3)
 			.attr("fill", col)
 			.style('opacity', function (d) {
@@ -2026,28 +1601,7 @@ function transitionCurrentCountryLines(id, temp_iso){
 			.attr('class', function (d) {
 				return 'country_line country_line' + d.ISO_3 + ' data_point data_point' + d.ISO_3 + ' data_point' + d.ISO_3 + d.Survey_yr;	
 			})	
-			.attr("cy", function(d){
-				/* switch(currentStatType) {
-					case 'prev':
-						switch(currentStatCat) {
-							case 'wast': 	val = margin.top + yScale(d.Wasting); break;
-							case 'sevwast': val = margin.top + yScale(d.Sev_wasting); break;
-							case 'stunt':	val = margin.top + yScale(d.Stunting); break;
-							default:		val = margin.top + yScale(d.Wasting); 
-						};
-						break;
-					case 'burd':
-						switch(currentStatCat) {
-							case 'wast': 	val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); break;
-							case 'sevwast': val = margin.top + yScale((d.Sev_wasting/100) * d.Pop_und5); break;
-							case 'stunt':	val = margin.top + yScale((d.Stunting/100) * d.Pop_und5); break;
-							default:		val = margin.top + yScale((d.Wasting/100) * d.Pop_und5); 
-						};
-						break;
-					default: val = margin.top + yScale(d.Wasting);
-				};
-				return val;     */     
-
+			.attr("cy", function(d){    
 				switch(currentStatType) {
 					case 'prev':
 						switch(currentStatCat) {
@@ -2093,7 +1647,6 @@ function transitionCurrentCountryLines(id, temp_iso){
 		if (statCat != 'sevwast') {
 			countryData = getRegionalData(temp_iso);
 		};
-		//countryData = getRegionalData(temp_iso);
 	} else {
 		countryData = getCountryData(temp_iso);
 	};
@@ -2110,16 +1663,6 @@ function transitionCurrentCountryLines(id, temp_iso){
 			
 };
 
-
-
-/* function naiveShallowCopy (original) {  //clones original object
-	var clone = {} ;
-	var key ;
-	for (key in original) {
-		clone[key] = original[key];
-	}
-	return clone;
-};  */
 	
 /***********************/
 /*****  BAR CHART  *****/  
@@ -2133,10 +1676,10 @@ function generateBarChart(id, idX){
 	var xAxisWidth = $(idX).width();
 	var upper_bar_margin = (width)*(2/3)+10;
 	
- 	//Create axis scales:  //note max Wasting = 26, Sev Wasting = 15.9, Stunting = 73.6
-	var wastPrevScale = d3.scale.linear()    //wastScale = x-axis
-			.domain([0,26]) 			 //need to set to maxWast=26?
-            .range([0, width]);   	 //pixel range to map to 
+ 	//Create axis scales:  //note: max Wasting = 26, Sev Wasting = 15.9, Stunting = 73.6
+	var wastPrevScale = d3.scale.linear()   //wastScale = x-axis
+			.domain([0,26]) 			 	//need to set to maxWast=26?
+            .range([0, width]);   	 		//pixel range to map to 
 			
 	var sevWastPrevScale = d3.scale.linear()    //sevWastScale = x-axis
 			.domain([0,16]) 			 //need to set to maxSevWast=15.9?
@@ -2144,15 +1687,10 @@ function generateBarChart(id, idX){
 			
 	var stuntPrevScale = d3.scale.linear()    //stuntScale = x-axis
 			.domain([0,74]) 			 //need to set to maxStunt=73.6?
-            .range([0, width]);
-	
-	//var wastBurdScale = d3.scale.log() 
-	/* var wastBurdScale = d3.scale.linear()   
-			.domain([1,26000000]) 			 
-            .range([0, width]);  */  	 
+            .range([0, width]);	 
 			
 	var wastBurdScale = d3.scale.linear()   
-			.domain([1,1000000]) 			 
+			.domain([1,1000000]) 			 	//change to 0
             .range([0, upper_bar_margin-10])
 			.clamp(true); 
 			
@@ -2160,14 +1698,6 @@ function generateBarChart(id, idX){
 			.domain([1000000,26000000]) 			 
             .range([upper_bar_margin, width])
 			.clamp(true);
-			
-			
-			
-			
-	//var sevWastBurdScale = d3.scale.log() 
-	/* var sevWastBurdScale = d3.scale.linear() 	
-			.domain([1,9000000]) 			 
-            .range([0, width]); */
 			
 	var sevWastBurdScale = d3.scale.linear()   
 			.domain([1,1000000]) 			 
@@ -2178,16 +1708,6 @@ function generateBarChart(id, idX){
             .range([upper_bar_margin, width])
 			.clamp(true);  	
 			
-	var noScale_upper = d3.scale.linear()   
-			.domain([0,0]) 			 
-            .range([width,width])
-			.clamp(true);
-			
-	//var stuntBurdScale = d3.scale.log()    
-	/* var stuntBurdScale = d3.scale.linear() 
-			.domain([1,76000000]) 			
-            .range([0, width]); */
-			
 	var stuntBurdScale = d3.scale.linear()   
 			.domain([1,2000000]) 			 
             .range([0, upper_bar_margin-10])
@@ -2196,14 +1716,17 @@ function generateBarChart(id, idX){
 			.domain([2000000,76000000]) 			 
             .range([upper_bar_margin, width])
 			.clamp(true);  			
-		
+			
+	var noScale_upper = d3.scale.linear()   
+			.domain([0,0]) 			 
+            .range([width,width])
+			.clamp(true);		
 			
 
 
 	var currentDomain = function (d) {
 		var domain = [];
 		var currentData = getCurrentData();
-		//console.log("in currentDomain: ", domain, "    currentData = ", currentData);
 		for (i=0; i <= currentData.length-1; i++) {
 			domain.push(currentData[i].Country);
 		};
@@ -2266,30 +1789,12 @@ function generateBarChart(id, idX){
 		.rangeRoundBands([0, allBarsHeight], 0.05, 0.5); // 0.05, 0.5);
 	
 	var xAxis = d3.svg.axis()
-					.scale(xScale)
-					/* .tickValues(function (d,i) {      		//doesn't work
-						if (currentStatType == 'burd') {
-							return [0, 1000000, 5000000];
-						} else {
-							return [1,10,30];
-						};
-					}) */
-					
+					.scale(xScale)				
 					.orient("bottom");
-					/* .tickFormat(function(d, i) {
-						if (i%9 == 0) {
-							return d3.format(",.0f")(d);
-						}     		
-					}); 
- 					.ticks(5)									//doesn't work
-					.tickFormat(function(d, i) {
-						return d3.format(",.0f")(d)
-					});  */
 					
 	var xAxis_upper = d3.svg.axis()
 						.scale(x2Scale)
 						.orient("bottom");
-
 					
 	var yAxis = d3.svg.axis()
 					.scale(yScale)
@@ -2300,7 +1805,6 @@ function generateBarChart(id, idX){
 					.orient("left");				
 					
 	
-
 	//Render main SVG
 	var barChart = d3.select(id)           //create a d3.svg called 'barChart' - could classed as e.g. 'chart' (prob just for css?)  //barChart is the whole chart area incl axes
 		//.classed('chart',true)
@@ -2309,22 +1813,15 @@ function generateBarChart(id, idX){
 		.attr("height", height + margin.top + margin.bottom); 		//changing this height will change height of all bars but not of chart area itself
 		/* .attr("transform", "translate(" + 0 + ',' + margin.top + ')');  */
 		//.call(d3.behavior.zoom().scaleExtent([1, 5]).on("zoom", zoom));   //DON'T THINK WE NEED THIS HERE, ONLY IN UPDATE BELOW
-		 
-/* 	var g = barChart.append('g')			//create a group 'g' in the main svg/'barChart' and shift it over by left & top margins
-		.attr('fill', 'yellow')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')'); */
-		
-	/* var barPlotArea = g.append('g');     				//create another group 'g' inside the first 'g' called 'barPlotArea', that is only the size of the plot area
-    barPlotArea.append('clipPath')
-        .attr('id', 'barPlotAreaClip')
-        .append('rect')
-        .attr({ width: width, height: height });		//MIGHT NEED TO INCLUDE THE LEFT MARGIN WITH Y AXIS IN BARPLOTAREA TO BE SCROLLED?
-    barPlotArea.attr('clip-path', 'url(barPlotAreaClip)');		//clip 'barPlotArea' */
 	
 	var barChartXAxis = d3.select(idX)
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", xAxisHeight);
+		
+		
+
+
 	
 	//Render axes
 	barChartXAxis.append("g")
@@ -2337,16 +1834,6 @@ function generateBarChart(id, idX){
 		.attr("transform", "translate(" + margin.left + "," + 0 + ")")
 		.call(xAxis_upper);
 		
-	/* barChart.append("g")
-		.attr("class", "x axis")
-		.attr("transform", "translate(" + margin.left + "," + height + ")")
-		.call(xAxis);
-		
-	barChart.append("g")
-		.attr("class", "x2 axis")
-		.attr("transform", "translate(" + margin.left + "," + height + ")")
-		.call(xAxis_upper);
-		 */
 	barChart.append("g")
 		.attr("class", "y axis")
 		.attr("transform", "translate(" + margin.left + ",0)")
@@ -2357,11 +1844,7 @@ function generateBarChart(id, idX){
 }
 
 
-
-
-
 function updateBarChart(id, idX, data) {
-	//console.log("GENERATE BAR CHART DATA first time only = ", cf.wastingDim.top(maxBarsDisplayed));	// data = array of all data (2561 elements)
 	var margin = {top: 0, left: 140, right: 20, bottom: 0};
 	var width = $(id).width() - margin.left - margin.right;   
 	var height = $(id).height() - margin.top - margin.bottom;  
@@ -2382,12 +1865,7 @@ function updateBarChart(id, idX, data) {
 			
 	var stuntPrevScale = d3.scale.linear()    //stuntScale = x-axis
 			.domain([0,74]) 			 //need to set to maxStunt=73.6?
-            .range([0, width]);
-	
-	//var wastBurdScale = d3.scale.log() 
-	/* var wastBurdScale = d3.scale.linear()   
-			.domain([1,26000000]) 			 
-            .range([0, width]);  */  	 
+            .range([0, width]);	 
 			
 	var wastBurdScale = d3.scale.linear()   
 			.domain([1,1000000]) 			 
@@ -2398,11 +1876,6 @@ function updateBarChart(id, idX, data) {
             .range([upper_bar_margin, width])
 			.clamp(true);  	 
 			
-	//var sevWastBurdScale = d3.scale.log() 
-	/* var sevWastBurdScale = d3.scale.linear() 	
-			.domain([1,9000000]) 			 
-            .range([0, width]); */
-			
 	var sevWastBurdScale = d3.scale.linear()   
 			.domain([1,1000000]) 			 
             .range([0, upper_bar_margin-10])
@@ -2412,16 +1885,6 @@ function updateBarChart(id, idX, data) {
             .range([upper_bar_margin, width])
 			.clamp(true);  	
 			
-	var noScale_upper = d3.scale.linear()   
-			.domain([0,0]) 			 
-            .range([width,width])
-			.clamp(true);
-			
-	//var stuntBurdScale = d3.scale.log()    
-	/* var stuntBurdScale = d3.scale.linear() 
-			.domain([1,76000000]) 			
-            .range([0, width]); */
-			
 	var stuntBurdScale = d3.scale.linear()   
 			.domain([1,2000000]) 			 
             .range([0, upper_bar_margin-10])
@@ -2429,8 +1892,12 @@ function updateBarChart(id, idX, data) {
 	var stuntBurdScale_upper = d3.scale.linear()   
 			.domain([2000000,76000000]) 			 
             .range([upper_bar_margin, width])
-			.clamp(true);  	
+			.clamp(true); 
 			
+	var noScale_upper = d3.scale.linear()   
+			.domain([0,0]) 			 
+            .range([width,width])
+			.clamp(true);		
 
 	var currentDomain = function (d) {
 		var domain = [];
@@ -2463,11 +1930,6 @@ function updateBarChart(id, idX, data) {
 				break;
 			default: scale = wastPrevScale;
 		};
-		/* if ((currentStatCat=='burd') && (currentStatType=='wast')) {
-			return [scale_low,scale_upp];
-		} else {
-			return scale;
-		} */
 		return scale;
 	};
 	var xScale = getXScale();
@@ -2503,9 +1965,6 @@ function updateBarChart(id, idX, data) {
 		//.rangeRoundBands([0,height], 0.05, 0.5);    //i.e. d3.scale.ordinal().rangeRoundBands([0, w], inner_padding, outer_padding)
 		.rangeRoundBands([0, allBarsHeight], 0.05, 0.5); // 0.05, 0.5);
 
-		
-		
-		
 			
 	function getTicks() {
 		var t=0;
@@ -2565,7 +2024,7 @@ function updateBarChart(id, idX, data) {
 			return yAxisLess20;
 		}	
 	};
-	var currentYAxis = getYAxis();     //*** NEED TO REPLACE ALL yAxis and yAxisLess20 by currentYAxis here *********************//
+	var currentYAxis = getYAxis();   
 	
 	
 	function getXTitle() {
@@ -2599,7 +2058,6 @@ function updateBarChart(id, idX, data) {
 		.offset([0, width/4])
 		.html(function(d) {
 			tip_text = '';
-			//console.log("in tool tip, d = ", d);
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -2623,17 +2081,7 @@ function updateBarChart(id, idX, data) {
 			};
 			return tip_text;
 		}); 
- 
-
 		
-	d3.selection.prototype.moveToFront = function() {
-			return this.each(function(){
-				//console.log("In moveToFront function");
-			this.parentNode.appendChild(this);
-		});
-	};	
-	
-	
 	
 	var mouseoverBarFunction = function(d) {   //ALSO WANT TO HIGHLIGHT COUNTRY IN LINECHART HERE TOO?
 		//console.log("In mouseover function, d = ", d);
@@ -2647,28 +2095,10 @@ function updateBarChart(id, idX, data) {
 		
 		//show tooltip
 		tip.show(d); 		
-		
-		//attempt to bring country polygon 'to the front'
-		var this_country = d3.select('.dashgeom'+d.ISO_3);
-		//var this_country = d3.select(this);  //BUT - don't want to select BAR, want to select the country polygons
-		this_country.moveToFront(); 
-		
-		/* .on("mouseover",function(){
-		  var sel = d3.select(this);
-		  sel.moveToFront();
-		}); */
 			
 		//highlight country in map
 		d3.selectAll('.dashgeom'+d.ISO_3)
-			//.moveToFront()					//NOT WORKING - want polygon to move to front to see entire outline stroke
-			//.attr('stroke-width', '2')
-			//.attr('stroke-opacity', '1')
-			//.attr('stroke', '#767373')
-			.attr('fill', function(d) { 
-				//return colorDataOneCountry(d.ISO_3);	//keep country color
-				return '#ffff00';  						//bright yellow
-			})
-			.attr('fillOpacity', '0.5'); //not working
+			.attr('fill', highlightColor);
 		
 		//update info box in map
 		infodata = getInfoData(d.ISO_3);
@@ -2704,8 +2134,7 @@ function updateBarChart(id, idX, data) {
 			.attr('stroke-width', '1')
 			.attr('stroke-opacity', '0.5')
 			.attr('stroke', 'black')
-			.attr('fill', origColor)
-			.attr('fillOpacity', '1'); //not working - probably need a different attr name not fillOpacity
+			.attr('fill', origColor);
 		
 		//clear info box in map
 		updateInfo('','','','');
@@ -2723,24 +2152,16 @@ function updateBarChart(id, idX, data) {
 	};
 
 	
-	
-  	//Update lower bars (i.e. most values)
+  	//Update lower bars
 	currentData = getCurrentData();
-	//console.log("current data = ", currentData);	
-	
-	//var barPlotArea = barChart.select('barPlotAreaClip');
-	//var lower_bars = barPlotArea.selectAll('rect.lower_bar').data(currentData);
-	
+	adjustScroll();
 	
 	var lower_bars = barChart.selectAll('rect.lower_bar').data(currentData);
 	
  	lower_bars.exit()
 	    .transition()
         .duration(600)
-        //.attr('y', yScale(0))
-		.attr('x', function (d) {
-			//console.log("Exiting rect for: ", d.Country);
-			return xScale(0) + margin.left;})
+		.attr('x', xScale(0) + margin.left)
         //.attr('height', height - yScale(0))
 		.attr('width', width - xScale(0))
         .style('fill-opacity', 1e-6)  
@@ -2749,13 +2170,13 @@ function updateBarChart(id, idX, data) {
  	lower_bars.enter() 
 		.append('rect')   
 		.attr('class', function (d) {
-			return 'lower_bar lower_bar' + d.ISO_3;			//adding class for country's ISO - to link individual bar to individual country in map 
+			return 'lower_bar lower_bar' + d.ISO_3;		
 		})
 	    .attr('transform', function(d) {
 			if (currentDomain().length<=20) {
 				return "translate(0,0)scale(1,1)";
 			} else {
-				return  "translate(0," + barsTranslate + ")scale(1,1)";   //ideally don't want it to move back up to the top here
+				return  "translate(0," + barsTranslate + ")scale(1,1)";   
 			};
 		}) 
 		.attr("x", margin.left)
@@ -2780,26 +2201,18 @@ function updateBarChart(id, idX, data) {
 				default: w = xScale(d.Wasting); console.log("Error rendering new bars");
 			};
 			return w;
-			//return wastScale(d.Wasting);
 			})
-		.attr('y', function (d) {     //I THINK THIS IS WHERE THE PROBLEM IS
-			//console.log("Entering rect for: ", d.Country);
-			//return yScale(d.Country);
+		.attr('y', function (d) {     
 			if (currentDomain().length>=20) {
-				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  				
-		//.attr('height', yScale.rangeBand())
-		//.attr('height', barHeight)					//**** HERE WE WANT IF ITS LESS THAN 20 COUNTRIES (CURRENTDOMAIN.LENGTH<20) THEN 'HEIGHT' SHOULD BE YSCALE.RANGEBAND() AS LINE ABOVE
 		.attr('height', function(d) {
 			if (currentDomain().length>=20) {return barHeight;}
 			else {return yScaleLess20.rangeBand();}
 		})
 		.attr('fill', function (d) {
-			//console.log("1 - Render bars");
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -2837,17 +2250,13 @@ function updateBarChart(id, idX, data) {
 		
 	lower_bars.append("text")
 	   .text(function(d,i) {
-		    //console.log("I = ", i, "d = ", d);
 			return i;
 	   })
 	   .attr("x", margin.left+100)
 	   .attr('y', function (d) {   
-			//console.log
 			if (currentDomain().length>=20) {
-				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})
 	   .attr("font-family", "sans-serif")
@@ -2857,15 +2266,13 @@ function updateBarChart(id, idX, data) {
 	lower_bars.transition()  //this only transitions bars that already exist, not new ones entering
 	    .duration(1000)  
 		.attr('class', function (d) {
-			return 'lower_bar lower_bar' + d.ISO_3;			//adding class for country's ISO - to link individual bar to individual country in map 
+			return 'lower_bar lower_bar' + d.ISO_3;		
 		})
  		.attr('transform', function(d) {
 			if (currentDomain().length<=20) {
-				//console.log("Transitioning lower bars <=20");
 				return "translate(0,0)scale(1,1)";
 			} else {
-				//console.log("Transitioning lower bars >20");
-				return  "translate(0," + barsTranslate + ")scale(1,1)"; 				//ideally don't want it to move back up to the top here
+				return  "translate(0," + barsTranslate + ")scale(1,1)"; 				
 			};
 		}) 
 		.attr("x", margin.left)
@@ -2890,29 +2297,18 @@ function updateBarChart(id, idX, data) {
 				default: w = xScale(d.Wasting); 
 			};
 			return w;
-			//return wastScale(d.Wasting);
 			})
-		.attr('y', function (d) {     //I THINK THIS IS WHERE THE PROBLEM IS
-			//console.log("Transitioning rect for: ", d.Country);
-			//return yScale(d.Country);
+		.attr('y', function (d) {     
 			if (currentDomain().length>=20) {
-				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  
-		//.attr('height', yScale.rangeBand())
-		//.attr('height', barHeight)
 		.attr('height', function(d) {
 			if (currentDomain().length>=20) {return barHeight;}
 			else {return yScaleLess20.rangeBand();}
 		})
-		//.attr('fill', function (d) {return getBarColor(d.UNICEF_reg);});
-		//.attr('fill', function (d) {return getColor(d.Wasting);})
 		.attr('fill', function (d) {
-			//console.log("1 - Render bars");
-			//return getBarColor(d.UNICEF_reg);
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -2933,12 +2329,8 @@ function updateBarChart(id, idX, data) {
 				default: col = getColor(d.Wasting);
 			};
 			return col;
-			//return getColor(d.Wasting);
 		});
-		
-		
-		
-		
+				
 		
 	//Update upper bars	
 	var upper_bars = barChart.selectAll('rect.upper_bar').data(currentData);	
@@ -2947,9 +2339,7 @@ function updateBarChart(id, idX, data) {
 	    .transition()
         .duration(600)
         //.attr('y', yScale(0))
-		.attr('x', function (d) {
-			//console.log("Exiting upper rect for: ", d.Country);
-			return margin.left;})   
+		.attr('x', margin.left)   
         //.attr('height', height - yScale(0))
 		.attr('width', width)	
         .style('fill-opacity', 1e-6)  
@@ -2958,26 +2348,19 @@ function updateBarChart(id, idX, data) {
  	upper_bars.enter() 
 		.append('rect')   
 		.attr('class', function (d) {
-			return 'upper_bar upper_bar' + d.ISO_3;			//adding class for country's ISO - to link individual bar to individual country in map 
+			return 'upper_bar upper_bar' + d.ISO_3;		
 		})
 		.attr('transform', function(d) {
 			if (currentDomain().length<=20) {
 				return "translate(0,0)scale(1,1)";
 			} else {
-				return  "translate(0," + barsTranslate + ")scale(1,1)";   //ideally don't want it to move back up to the top here
+				return  "translate(0," + barsTranslate + ")scale(1,1)";  
 			};
 		}) 
 		.attr("x", margin.left + upper_bar_margin)
 		.attr('width', function (d) {     //{ return d >= 15 ? 160 - upper(d) : 0; }
 			switch(currentStatType) {
-				case 'prev':
-					switch(currentStatCat) {
-						case 'wast': 	w = 0; break;
-						case 'sevwast': w = 0; break;
-						case 'stunt':	w = 0; break;
-						default:		w = 0;
-					};
-					break;
+				case 'prev': 	 w = 0;
 				case 'burd':
 					switch(currentStatCat) {
 						case 'wast': 	(((d.Wasting/100)*d.Pop_und5) >= 1000000) ? (w = (x2Scale((d.Wasting/100)*d.Pop_und5))-upper_bar_margin) : (w = 0); break;
@@ -2990,24 +2373,17 @@ function updateBarChart(id, idX, data) {
 			};
 			return w;
 			})
-		.attr('y', function (d) {     //I THINK THIS IS WHERE THE PROBLEM IS
-			//console.log("Transitioning rect for: ", d.Country);
-			//return yScale(d.Country);
+		.attr('y', function (d) {   
 			if (currentDomain().length>=20) {
-				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})  				
-		//.attr('height', yScale.rangeBand())
-		//.attr('height', barHeight)
 		.attr('height', function(d) {
 			if (currentDomain().length>=20) {return barHeight;}
 			else {return yScaleLess20.rangeBand();}
 		})
 		.attr('fill', function (d) {
-			//console.log("1 - Render bars");
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -3044,28 +2420,20 @@ function updateBarChart(id, idX, data) {
 		
 	upper_bars.transition()  //this only transitions bars that already exist, not new ones entering
 		.attr('class', function (d) {
-			return 'upper_bar upper_bar' + d.ISO_3;			//adding class for country's ISO - to link individual bar to individual country in map 
+			return 'upper_bar upper_bar' + d.ISO_3;			 
 		})
 	    .duration(1000)
 		.attr('transform', function(d) {
 			if (currentDomain().length<=20) {
 				return "translate(0,0)scale(1,1)";
 			} else {
-				return  "translate(0," + barsTranslate + ")scale(1,1)";   //ideally don't want it to move back up to the top here
+				return  "translate(0," + barsTranslate + ")scale(1,1)";  
 			};
 		}) 
 	    .attr("x", margin.left + upper_bar_margin)
 		.attr('width', function (d) {
 			switch(currentStatType) {
-				case 'prev':
-					switch(currentStatCat) {
-						
-						case 'wast': 	w = 0; break;
-						case 'sevwast': w = 0; break;
-						case 'stunt':	w = 0; break;
-						default:		w = 0; 
-					};
-					break;
+				case 'prev':	w = 0; break;
 				case 'burd':
 					switch(currentStatCat) {
 						case 'wast': 	(((d.Wasting/100)*d.Pop_und5) >= 1000000) ? (w = (x2Scale((d.Wasting/100)*d.Pop_und5))-upper_bar_margin) : (w = 0); break;
@@ -3077,29 +2445,18 @@ function updateBarChart(id, idX, data) {
 				default: w = 0; 
 			};
 			return w;
-			//return wastScale(d.Wasting);
 			})
-		.attr('y', function (d) {     //I THINK THIS IS WHERE THE PROBLEM IS
-			//console.log("Transitioning rect for: ", d.Country);
-			//return yScale(d.Country);
+		.attr('y', function (d) {    
 			if (currentDomain().length>=20) {
-				//console.log("currentDomain length >= 20: ", currentDomain().length);
 				return yScale(d.Country);}
 			else {
-				//console.log("currentDomain length < 20: ", currentDomain().length);
 				return yScaleLess20(d.Country);}
 		})   
-		//.attr('height', yScale.rangeBand())
-		//.attr('height', barHeight)
 		.attr('height', function(d) {
 			if (currentDomain().length>=20) {return barHeight;}
 			else {return yScaleLess20.rangeBand();}
 		})
-		//.attr('fill', function (d) {return getBarColor(d.UNICEF_reg);});
-		//.attr('fill', function (d) {return getColor(d.Wasting);})
 		.attr('fill', function (d) {
-			//console.log("1 - Render bars");
-			//return getBarColor(d.UNICEF_reg);
 			switch(currentStatType) {
 				case 'prev':
 					switch(currentStatCat) {
@@ -3120,7 +2477,6 @@ function updateBarChart(id, idX, data) {
 				default: col = getColor(d.Wasting);
 			};
 			return col;
-			//return getColor(d.Wasting);
 		});		
 		
 		
@@ -3142,8 +2498,7 @@ function updateBarChart(id, idX, data) {
 		})
 	); 	*/
 	
-
-	function scrollBars() {        // see http://blog.scottlogic.com/2014/09/19/interactive.html - about 60% of the way down page - for not allowing scroll to go beyond min & max
+/* 		function scrollBars() {        // see http://blog.scottlogic.com/2014/09/19/interactive.html - about 60% of the way down page - for not allowing scroll to go beyond min & max
 		var min = 0;							//first country in list (i.e. 0)
 		var max = currentDomain().length-1;		//last country in list (i.e. total countries)
 		var minPix = yScale.range()[min];		//top pix of first bar in list
@@ -3163,37 +2518,41 @@ function updateBarChart(id, idX, data) {
 			first_scroll = 0;
 		} ; */
 /* 		else if (first_scroll==0) {	//user scrolled for second or more consecutive times
-			zoomYTranslate = d3.event.translate[1];
-			first_scroll = 1;
-		}; */
+	//		zoomYTranslate = d3.event.translate[1];
+	//		first_scroll = 1;
+	//	}; 
 		
 		zoomYTranslate = d3.event.translate[1];		
 
 		//console.log("barsTranslate = ", barsTranslate, "     zoomYTranslate = ", zoomYTranslate);		
 			
 		if (currentDomain().length<=20) {				//if <=20 countries in list, don't translate bars
-			barsTranslate = 0;
-		} else if ((currentDomain().length > 20) && (minPix + zoomYTranslate > 0)){    //if >20 countries in list and user scrolls down beyond first one, don't translate bars
+			barsTranslate = 0
+			
+			
+		} else if ((currentDomain().length > 20) && (minPix + zoomYTranslate >= 0)){    //if >20 countries in list and user is at top or scrolls down beyond first one, don't translate bars
 			//console.log("CAN'T MOVE DOWN ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[min]), " + ", minPix);
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[min]) + minPix; 
-			//console.log("1 - barsTranslate = ", barsTranslate); 
+			
 			barsTranslate = 0;
+			console.log("1 - barsTranslate = ", barsTranslate); 
 			scroll.translate([0, barsTranslate]);
 
-			
+
 		} else if ((currentDomain().length > 20) && (maxPix + zoomYTranslate < height)) {	 //if >20 countries in list and user scrolls up beyond last one, don't translate bars
 			//console.log("CAN'T MOVE UP ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[max]), " + ", maxPix);
 			
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[max]) + maxPix;
-			//console.log("2 - barsTranslate = ", barsTranslate); 
+			
 			//yScale.range[1]();
 			barsTranslate = -maxPix + height;   // 14 = barHeight + padding?
+			console.log("2 - barsTranslate = ", barsTranslate); 
 			scroll.translate([0, barsTranslate]);
 			
 		} else {										//if >20 countries in list and user scrolls within limits, translate bars accordingly
 			//console.log("SCROLL OK HERE   ", barsTranslate);
 			barsTranslate = zoomYTranslate;		
-			//console.log("3 - barsTranslate = ", barsTranslate); 
+			console.log("3 - barsTranslate = ", barsTranslate); 
 		};	
 		lower_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");   //makes bars transform up & down (not left & right)
 		upper_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");		
@@ -3214,6 +2573,98 @@ function updateBarChart(id, idX, data) {
 		prevBarsTranslate = barsTranslate;	
 		//console.log("prevBarsTranslate = ", prevBarsTranslate);
 		//console.log("***** END scrollBars()");
+		
+	}	 */
+	
+
+	function scrollBars() {        // see http://blog.scottlogic.com/2014/09/19/interactive.html - about 60% of the way down page - for not allowing scroll to go beyond min & max
+		var min = 0;							//first country in list (i.e. 0)
+		var max = currentDomain().length-1;		//last country in list (i.e. total countries)
+		var minPix = yScale.range()[min];		//top pix of first bar in list
+		var maxPix = yScale.range()[max] + 14;		//bottom pix of last bar in list (i.e. top pix of last bar + 14 to take to bottom of bar)
+		var zoomScale = 1;						//could set this to d3.event.scale
+			
+		console.log("***** IN scrollBars()");	
+		//console.log("min: ", min, "       max: ", max);
+		//console.log("minPix: ", minPix, "         maxPix: ", maxPix);
+		//console.log("barsTranslate = ", barsTranslate);
+		
+		/* if (d3.event===null) {			//if user has updated year but NOT scrolled
+			zoomYTranslate = prevBarsTranslate;
+			first_scroll = 1;
+		} else { // if (first_scroll==1) {   //user scrolled for first time after updated year
+			zoomYTranslate =  d3.event.translate[1];  //same as zoom.translate[0]()
+			first_scroll = 0;
+		} ; */
+/* 		else if (first_scroll==0) {	//user scrolled for second or more consecutive times
+			zoomYTranslate = d3.event.translate[1];
+			first_scroll = 1;
+		}; */
+		
+		
+		zoomYTranslate = d3.event.translate[1];
+		/* if (prevBarsTranslate==0) {
+			zoomYTranslate = d3.event.translate[1];	
+		} else {				
+			zoomYTranslate = prevBarsTranslate;
+		}; */
+
+		console.log("barsTranslate = ", barsTranslate, "     zoomYTranslate = ", zoomYTranslate, "     prevBarsTranslate = ", prevBarsTranslate);		
+			
+		if (currentDomain().length<=20) {				//if <=20 countries in list, don't translate bars
+			barsTranslate = 0
+			
+			
+		} else if ((currentDomain().length > 20) && (minPix + zoomYTranslate >= 0)){    //if >20 countries in list and user is at top or scrolls down beyond first one, don't translate bars
+		//} else if ((currentDomain().length > 20) && (minPix + prevBarsTranslate >= 0)){    //if >20 countries in list and user is at top or scrolls down beyond first one, don't translate bars
+			//console.log("CAN'T MOVE DOWN ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[min]), " + ", minPix);
+			//barsTranslate = zoomYTranslate - yScale(currentDomain()[min]) + minPix; 
+			
+			barsTranslate = 0;
+			console.log("1 - barsTranslate = ", barsTranslate); 
+			scroll.translate([0, barsTranslate]);
+
+
+		} else if ((currentDomain().length > 20) && (maxPix + zoomYTranslate < height)) {	 //if >20 countries in list and user scrolls up beyond last one, don't translate bars
+		//} else if ((currentDomain().length > 20) && (maxPix + prevBarsTranslate < height)) {	 //if >20 countries in list and user scrolls up beyond last one, don't translate bars
+			//console.log("CAN'T MOVE UP ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[max]), " + ", maxPix);
+			
+			//barsTranslate = zoomYTranslate - yScale(currentDomain()[max]) + maxPix;
+			
+			//yScale.range[1]();
+			barsTranslate = -maxPix + height;   // 14 = barHeight + padding?
+			console.log("2 - barsTranslate = ", barsTranslate); 
+			scroll.translate([0, barsTranslate]);
+			
+		} else {										//if >20 countries in list and user scrolls within limits, translate bars accordingly
+			//console.log("SCROLL OK HERE   ", barsTranslate
+			
+			/* if ((prevBarsTranslate <=0)&&(prevBarsTranslate>=height-maxPix)) {
+				barsTranslate = prevBarsTranslate */
+			barsTranslate = zoomYTranslate;		
+			console.log("3 - barsTranslate = ", barsTranslate); 
+		};	
+		
+		lower_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");   //makes bars transform up & down (not left & right)
+		upper_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");		
+		
+					
+		if (currentDomain().length<=20) {
+			barChart.select(".y.axis")
+				.attr("transform", "translate(" + margin.left + ",0)scale(1,1)")		//makes y-axis labels transform up & down (not left & right)
+				.call(yAxisLess20.scale(yScaleLess20.rangeBand()));
+			barChartXAxis.select(".x.axis").call(xAxis); 
+		} else if (currentDomain().length > 20) {	
+			barChart.select(".y.axis")
+				.attr("transform", "translate(" + margin.left + "," + barsTranslate + ")scale(" + zoomScale + ",1)")   //makes y-axis labels transform up & down (not left & right)
+				.call(yAxis.scale(yScale.rangeRoundBands([0, allBarsHeight * zoomScale], 0, 0)));
+			barChartXAxis.select(".x.axis").call(xAxis); 
+		}
+		
+		prevBarsTranslate = barsTranslate;	
+		//console.log("prevBarsTranslate = ", prevBarsTranslate);
+		//console.log("***** END scrollBars()");
+		
 	}	
 	
 	
@@ -3224,57 +2675,61 @@ function updateBarChart(id, idX, data) {
 		var maxPix = yScale.range()[max] + 14;		//bottom pix in list
 		var zoomScale = 1;						//could set this to d3.event.scale
 		
-		/* console.log("****** IN adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
-		console.log("min: ", min, "       max: ", max);
-		console.log("minPix: ", minPix, "         maxPix: ", maxPix);
-		console.log("currentDomain().length: ", currentDomain().length); */
+		//console.log("****** IN adjustScroll, for ", currentYr);
+		//console.log("min: ", min, "       max: ", max);
+		//console.log("minPix: ", minPix, "         maxPix: ", maxPix);
+		//console.log("currentDomain().length: ", currentDomain().length); 
 		//console.log("currentDomain(): ", currentDomain());
 		
 		zoomYTranslate = prevBarsTranslate;
-		//console.log("prevBarsTranslate = ", prevBarsTranslate);
-		//console.log("allBarsHeight = ", allBarsHeight);
+		//console.log("zoomYTranslate = ", zoomYTranslate, "   prevBarsTranslate = ", prevBarsTranslate);
 		
-		if ((currentDomain().length > 20) && (minPix + zoomYTranslate > 0)){    //if >20 countries in list and user scrolls down beyond first one, don't translate bars
+		if ((currentDomain().length > 20) && (minPix + zoomYTranslate >= 0)){    //if >20 countries in list and user is at top or scrolls down beyond first one, don't translate bars
 			//console.log("CAN'T MOVE DOWN ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[min]), " + ", minPix);
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[min]) + minPix; 
 			
 			barsTranslate = 0;
 			//console.log("1 - barsTranslate = ", barsTranslate); 
-			scroll.translate([0, barsTranslate]);
+			//scroll.translate([0, barsTranslate]);
 			
 		//} else if ((currentDomain().length > 20) && (maxPix + zoomYTranslate < height)) {	 //THIS IS WRONG *** NEEDS TO SAY IF PREVZOOM IS > CURRENT MAX THEN SHIFT IT //if >20 countries in list and user scrolls up beyond last one, don't translate bars
-		} else if ((currentDomain().length > 20) && (zoomYTranslate + maxPix +14 < height)) {	//zoomYTranslate > maxPix
+		
+		//} else if ((currentDomain().length > 20) && (zoomYTranslate + maxPix +14 < height)) {	//zoomYTranslate > maxPix
+		} else if ((currentDomain().length > 20) && (zoomYTranslate + maxPix < height)) {	//zoomYTranslate > maxPix
+			//console.log("zoomYTranslate + maxPix < height: ", zoomYTranslate, " + ", maxPix, " < ", height, "       ",zoomYTranslate + maxPix, " < ", height);
+		
 			//console.log("CAN'T MOVE UP ANYMORE!!!!!   ", zoomYTranslate, " - ", yScale(currentDomain()[max]), " + ", maxPix);
 			//console.log("CAN'T MOVE UP ANYMORE!!!!!    ", zoomYTranslate, " < -", maxPix);
 			//barsTranslate = zoomYTranslate - yScale(currentDomain()[max]) + maxPix;
 			//barsTranslate = (-maxPix + height) + (((-maxPix+height)-prevBarsTranslate)*14);   // 14 = barHeight   //don't want to use prevBarsTranslate here
 			barsTranslate = -maxPix + height;
 			//barsTranslate = barsTranslate2 - prevBarsTranslate;
-			//console.log("**** NEED TO MOVE IT DOWN HERE: 2 - barsTranslate =  -", maxPix, " + ", height, " = ", barsTranslate); 
-			scroll.translate([0, barsTranslate]);
+			console.log("**** 2 - barsTranslate = ", barsTranslate); 
+			//scroll.translate([0, barsTranslate]);
 			
 		} else if (currentDomain().length > 20) {										//if >20 countries in list and user scrolls within limits, translate bars accordingly
+			//console.log("zoomYTranslate + maxPix + 14 >= height: ", zoomYTranslate, " + ", maxPix, " + 14 >= ", height, "       ",zoomYTranslate + maxPix +14, " >= ", height);
 			//console.log("SCROLL OK HERE   ", barsTranslate);
 			barsTranslate = zoomYTranslate;		
-			//console.log("3 - barsTranslate = ", barsTranslate); 
+			console.log("3 - barsTranslate = ", barsTranslate); 
 		};	
 		
 
-		lower_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");   //makes bars transform up & down (not left & right)
-		upper_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");		
+		//lower_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");   //makes bars transform up & down (not left & right)
+		//upper_bars.attr("transform", "translate(0," + barsTranslate + ")scale(" + zoomScale + ",1)");		
 		
 			
 		
-		if (currentDomain().length > 20) {	
+		/* if (currentDomain().length > 20) {	
 			barChart.select(".y.axis")
 				.attr("transform", "translate(" + margin.left + "," + barsTranslate + ")scale(" + zoomScale + ",1)")   //makes y-axis labels transform up & down (not left & right)
 				.call(yAxis.scale(yScale.rangeRoundBands([0, allBarsHeight * zoomScale], 0, 0)));
 			barChartXAxis.select(".x.axis").call(xAxis); 
-		}
+		} */
 		
 		prevBarsTranslate = barsTranslate;		
 		//console.log("****** END adjustScroll, prevBarsTranslate = ", prevBarsTranslate);
-		
+
 
 	}
 
@@ -3301,7 +2756,7 @@ function updateBarChart(id, idX, data) {
 			if (currentDomain().length<=20) {
 				return "translate(" + margin.left + ",0)scale(1,1)";
 			} else {
-				return  "translate(" + margin.left + "," + barsTranslate + ")scale(1,1)";   //ideally don't want it to move back up to the top here
+				return  "translate(" + margin.left + "," + barsTranslate + ")scale(1,1)";  
 			};
 		})  
 		.call(currentYAxis); 	
@@ -3309,13 +2764,12 @@ function updateBarChart(id, idX, data) {
 	
 	
 	//Update x-axis title 
-	barChartXAxis.selectAll("text.label").remove();  //First remove previous x-axis label
+	barChartXAxis.selectAll("text.label").remove();  
 	barChartXAxis.append("text")
 		.attr("class", "x label")
 		.attr("text-anchor", "middle")
 		.attr("x", margin.left+(width/2))
 		.attr("y", function(d) {
-			//console.log("4 - Render x-axis title");
 			return xAxisHeight - 10;})
 		.text(xTitle); 
 		
@@ -3341,9 +2795,9 @@ function updateBarChart(id, idX, data) {
 				.append("line") 
 				.attr("class","targets")
 				.attr("x1", margin.left + xScale(5))  //5% aim 
-				.attr("y1", margin.top)    			//+ve value moves down from top
+				.attr("y1", margin.top)    			
 				.attr("x2", margin.left + xScale(5))  
-				.attr("y2", height + margin.top)			//-ve value moves up from bottom
+				.attr("y2", height + margin.top)			
 				.attr('stroke', '#161e2c')  //dark grey
 				.attr('stroke-dasharray', '5, 5')
 				.attr("stroke-width", 1);
@@ -3352,9 +2806,9 @@ function updateBarChart(id, idX, data) {
 				.append("line") 
 				.attr("class","targets")
 				.attr("x1", margin.left + xScale(4))  //4% aim for wasting prev
-				.attr("y1", margin.top)    			//+ve value moves down from top
+				.attr("y1", margin.top)    		
 				.attr("x2", margin.left + xScale(4))  
-				.attr("y2", height + margin.top)			//-ve value moves up from bottom
+				.attr("y2", height + margin.top)			
 				.attr('stroke', '#161e2c')  //dark grey
 				.attr('stroke-dasharray', '15, 5')
 				.attr("stroke-width", 1);
@@ -3377,7 +2831,7 @@ function updateBarChart(id, idX, data) {
 				.attr('stroke-dasharray', '15, 5')
 				.attr("stroke-width", 1);
 			
-			barChartLeg //barChartLeg
+			barChartLeg 
 				.append("text")
 				.attr("class","targets")
 				.attr("x", 52)
@@ -3395,7 +2849,7 @@ function updateBarChart(id, idX, data) {
 				.attr('stroke-dasharray', '5, 5')
 				.attr("stroke-width", 1);
 			
-			barChartLeg //barChartLeg
+			barChartLeg 
 				.append("text")
 				.attr("class","targets")
 				.attr("x", 52)
@@ -3403,11 +2857,6 @@ function updateBarChart(id, idX, data) {
 				.text("<5%: World Health Assembly global target by 2025"); 
 		
 		} else if ((currentStatCat == 'stunt') && (currentStatType == 'burd')) {			
-			/* var sum = 0;
-			for (i=0; i <= data.length-1; i++) {
-				sum += (data[i].Stunting/100 * data[i].Pop_und5);
-			};
-			total_stunt_burd = (d3.format(",.0f"))(sum); */
 			stunt_burd_arr = getRegionalData("XX0");   //get global data
 			console.log(stunt_burd_arr);
 			stunt_burd = "Not available";
@@ -3428,22 +2877,13 @@ function updateBarChart(id, idX, data) {
 			
 	};
 			
-		
-	
-/* 	function barLegend(id) {		
-
-
-	
-	}; */
-
 
 	addTargets();
-	adjustScroll();
+	//adjustScroll();
 	barChart.call(scroll);
 	barChart.call(tip); 
+
 	return [barChart, barChartXAxis];
-	
-	
 	
 };
 
@@ -3453,19 +2893,14 @@ function updateBarChart(id, idX, data) {
 /****  UPDATE DATA & DASHBOARD  ****/
 /***********************************/	
 
-function updateAll(){			//gets current data for current year, calls functions to update bar chart, map
+function updateAll(){			//gets data for current year, calls functions to update linegraph yearline, bar chart, map
 	data = getCurrentData();
 	currentRegionTitle = getRegName(currentRegion);
 	
-	console.log("**** Year being updated for: ", currentYr);
-	//console.log("   Data for ", currentYr, ", ", currentRegionTitle, ", ", currentStatCat, currentStatType, " = ", data);   /// *** KEEP THIS CONSOLE OUTPUT
+	console.log("**** Update for ", currentYr);
+	//console.log("   Data for ", currentYr, ", ", currentRegionTitle, ", ", currentStatCat, currentStatType, " = ", data);   
 				
 	totalEntries = data.length;
-/* 	if (totalEntries >= maxBarsDisplayed) {			//is it redundant now to have entriesDisplayed? - because we're displaying all
-		entriesDisplayed = maxBarsDisplayed;
-	} else {
-		entriesDisplayed = totalEntries;
-	}; */
 	
 	switch(currentStatType) {
 		case 'prev': 	suffix = '(%)'; break;
@@ -3481,17 +2916,18 @@ function updateAll(){			//gets current data for current year, calls functions to
 	$('#barchart_title').html(getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ', ' + currentYr);
 	$('#barchart_subtitle').html(currentRegionTitle + ' (' + totalEntries + ')');
 	
-	console.log("In updateAll, map object before update: ", map);
+	//console.log("In updateAll, map object before update: ", map);
 	map = updateMap('#map',data);
-	console.log("In updateAll, map object after update: ", map);
+	//console.log("In updateAll, map object after update: ", map);
 	$('#map_title').html(getStatName(currentStatCat) + ' ' + getStatName(currentStatType) + ', ' + currentYr);
 	$('#map_subtitle').html(currentRegionTitle + ' (' + totalEntries + ')');
+	
 	
 }
 
 
-function getCurrentData() {		//gets data for current year, region, statistic; ordered by descending statistic
-	//cf.yearDim.filterAll();
+function getCurrentData() {		//returns data for current year, region, statistic; ordered by descending statistic
+
 	cf.yearDim.filter(currentYr);	//filter year
 	
 	if (currentRegion=="Glob") {		//filter region
@@ -3505,15 +2941,12 @@ function getCurrentData() {		//gets data for current year, region, statistic; or
 		case 'prev':
 			switch (currentStatCat) {     
 				case 'wast':	filtered = cf.wastingDim.filter(function(d) {return d >= 0}).top(Infinity); 
-								//console.log("filtering by Wasting Prevalence");
-								cf.wastingDim.filterAll();   		//Remove filter so subsequent operations have a clean start
+								cf.wastingDim.filterAll();   		//remove filter so subsequent operations have a clean start
 								break;
 				case 'sevwast':	filtered = cf.sevWastingDim.filter(function(d) {return d >= 0}).top(Infinity);
-								//console.log("filtering by Severe Wasting Prevalence");
 								cf.sevWastingDim.filterAll();
 								break;
 				case 'stunt':	filtered = cf.stuntingDim.filter(function(d) {return d >= 0}).top(Infinity);
-								//console.log("filtering by Stunting Prevalence");
 								cf.stuntingDim.filterAll();
 								break;
 				default:	filtered = cf.wastingDim.filter(function(d) {return d >= 0}).top(Infinity);	
@@ -3523,16 +2956,13 @@ function getCurrentData() {		//gets data for current year, region, statistic; or
 			break;
 		case 'burd':
 			switch (currentStatCat) {      
-				case 'wast':	filtered = cf.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);		//get all (i.e. Infinity) ordered by Wasting
-								//console.log("filtering by Wasting Burden");
+				case 'wast':	filtered = cf.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);		
 								cf.wastingBurdDim.filterAll();
 								break;
 				case 'sevwast':	filtered = cf.sevWastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);
-								//console.log("filtering by Severe Wasting Burden");
 								cf.sevWastingBurdDim.filterAll();
 								break;
 				case 'stunt':	filtered = cf.stuntingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);
-								//console.log("filtering by Stunting Burden");
 								cf.stuntingBurdDim.filterAll();
 								break;
 				default:	filtered = cf.wastingBurdDim.filter(function(d) {return d >= 0}).top(Infinity);	
@@ -3568,56 +2998,56 @@ function getStatName(st) {
 
 function btn_currentStatCat(new_currentStatCat) {
 	if ((new_currentStatCat=="wast") && !($('#btnWast').hasClass('on'))) {
-	 	console.log("Clicked WASTING button");
+	 	//console.log("Clicked WASTING button");
 		$('#btnWast').addClass('on');
 		$('#btnSevWast').removeClass('on');
 		$('#btnStunt').removeClass('on');
 		currentStatCat = 'wast';
 		updateLegend();
-		updateAll();  //don't move this outside of if statement or updates even if click on same button twice
+		updateAll();  //don't move outside if statement or updates even if clicked on same button twice
 		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
 	}
 	else if  ((new_currentStatCat=="sevwast") && !($('#btnSevWast').hasClass('on'))) {
-		console.log("Clicked SEVERE WASTING button");
+		//console.log("Clicked SEVERE WASTING button");
 		$('#btnWast').removeClass('on');
 		$('#btnSevWast').addClass('on');
 		$('#btnStunt').removeClass('on');
 		currentStatCat = 'sevwast';
 		updateLegend();
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
+		transitionCurrentCountryLines('#linegraph', '');  
 	}
 	else if  ((new_currentStatCat=="stunt") && !($('#btnStunt').hasClass('on'))) {
-		console.log("Clicked STUNTING button");
+		//console.log("Clicked STUNTING button");
 		$('#btnWast').removeClass('on');
 		$('#btnSevWast').removeClass('on');
 		$('#btnStunt').addClass('on');
 		currentStatCat = 'stunt';
 		updateLegend();
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
+		transitionCurrentCountryLines('#linegraph', '');  
 	};
 };
 
 
 function btn_currentStatType(new_currentStatType) {
 	if ((new_currentStatType=="prev") && !($('#btnPrev').hasClass('on'))) {
-	 	console.log("Clicked PREVALENCE button");
+	 	//console.log("Clicked PREVALENCE button");
 		$('#btnPrev').addClass('on');
 		$('#btnBurd').removeClass('on');
 		currentStatType = 'prev';
 		updateLegend();
 		updateAll();
-		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
+		transitionCurrentCountryLines('#linegraph', '');  
 	}
 	else if  ((new_currentStatType=="burd") && !($('#btnBurd').hasClass('on'))) {
-		console.log("Clicked BURDEN button");
+		//console.log("Clicked BURDEN button");
 		$('#btnPrev').removeClass('on');
 		$('#btnBurd').addClass('on');
 		currentStatType = 'burd';
 		updateLegend()
 		updateAll(); 
-		transitionCurrentCountryLines('#linegraph', '');  //'' is for iso_code for temp hovered country - none here
+		transitionCurrentCountryLines('#linegraph', '');  
 	}
 };
 
@@ -3632,63 +3062,63 @@ function btn_currentStatType(new_currentStatType) {
 function btn_reg_zoom(region) {
 	currentRegion = region;
 	if ((region=="Glob") && !($('#btnGlob').hasClass('reg_on'))) {
-	 	console.log("Clicked Global button");
+	 	//console.log("Clicked Global button");
 		removeRegBtnClasses();
 		$('#btnGlob').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
-		updateAll();		//don't move this outside of if statement or updates even if click on same button twice
+		updateAll();		//don't move outside if statement or updates even if clicked on same button twice
 	}	
 	else if  ((region=="WCA") && !($('#btnWCA').hasClass('reg_on'))) {
-		console.log("Clicked WCA button");
+		//console.log("Clicked WCA button");
 		removeRegBtnClasses();
 		$('#btnWCA').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="ESA") && !($('#btnESA').hasClass('reg_on'))) {
-		console.log("Clicked ESA button");
+		//console.log("Clicked ESA button");
 		removeRegBtnClasses();
 		$('#btnESA').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if ((region=="MENA") && !($('#btnMENA').hasClass('reg_on'))) {
-	 	console.log("Clicked MENA button");
+	 	//console.log("Clicked MENA button");
 		removeRegBtnClasses();
 		$('#btnMENA').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		
 	}
 	else if  ((region=="SA") && !($('#btnSA').hasClass('reg_on'))) {
-		console.log("Clicked SA button");
+		//console.log("Clicked SA button");
 		removeRegBtnClasses();
 		$('#btnSA').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="EAP") && !($('#btnEAP').hasClass('reg_on'))) {
-		console.log("Clicked EAP button");
+		//console.log("Clicked EAP button");
 		removeRegBtnClasses();
 		$('#btnEAP').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="TAC") && !($('#btnTAC').hasClass('reg_on'))) {
-		console.log("Clicked TAC button");
+		//console.log("Clicked TAC button");
 		removeRegBtnClasses();
 		$('#btnTAC').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="CEECIS") && !($('#btnCEECIS').hasClass('reg_on'))) {
-		console.log("Clicked CEECIS button");
+		//console.log("Clicked CEECIS button");
 		removeRegBtnClasses();
 		$('#btnCEECIS').addClass('reg_on');
 		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="Ind") && !($('#btnInd').hasClass('reg_on'))) {
-		console.log("Clicked Industrialized button");
+		//console.log("Clicked Industrialized button");
 		removeRegBtnClasses();
 		$('#btnInd').addClass('reg_on');
 		updateAll();
@@ -3888,7 +3318,7 @@ function setSlide (index) {
 		  },
 		  {
 			  element: '#regionbuttons',
-			  intro:"<div style='width: 350px; font: 14px sans-serif;'><h4><b>Select region for display</b></h4><p>Use these buttons to toggle between different regions as defined by UNICEF. Selecting a region does the following:</p><ol><li style='margin-bottom: 5px;'>Zooms to that region on the map and only shows data for the countries in that region</li><li style='margin-bottom: 5px;'>Filters all data in the barchart to display only countries in that region</li><li style='margin-bottom: 5px;'>Note that it does <i>not</i> remove or filter countries' time series from the line graph</li></ol><p>The UNICEF regions are as follows:</p><ul><i><li style='margin-bottom: 5px;'>West and Central Africa (WCA)</li><li style='margin-bottom: 5px;'>Eastern and Southern Africa (ESA)</li><li style='margin-bottom: 5px;'>Middle East and North Africa (MENA)</li><li style='margin-bottom: 5px;'>South Asia (SA)</li><li style='margin-bottom: 5px;'>East Asia and Pacific (EAP)</li><li style='margin-bottom: 5px;'>Latin America and the Caribbean (TAC)</li><li style='margin-bottom: 5px;'>Central and Eastern Europe and the Commonwealth of Independent States (CEECIS)</li><li>Industrialized Countries</li></i></ul><p>Full region names can be seen when hovering over the respective button.</p></div>",
+			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Select region for display</b></h4><p>Use these buttons to toggle between different regions as defined by UNICEF. Selecting a region does the following:</p><ol><li style='margin-bottom: 5px;'>Zooms to that region on the map and only shows data for the countries in that region</li><li style='margin-bottom: 5px;'>Filters all data in the barchart to display only countries in that region</li><li style='margin-bottom: 5px;'>Note that it does <i>not</i> remove or filter countries' time series from the line graph</li></ol><p>The UNICEF regions are as follows:</p><ul><i><li style='margin-bottom: 5px;'>West and Central Africa (WCA)</li><li style='margin-bottom: 5px;'>Eastern and Southern Africa (ESA)</li><li style='margin-bottom: 5px;'>Middle East and North Africa (MENA)</li><li style='margin-bottom: 5px;'>South Asia (SA)</li><li style='margin-bottom: 5px;'>East Asia and Pacific (EAP)</li><li style='margin-bottom: 5px;'>Latin America and the Caribbean (TAC)</li><li style='margin-bottom: 5px;'>Central and Eastern Europe and the Commonwealth of Independent States (CEECIS)</li><li>Industrialized Countries</li></i></ul><p>Full region names can be seen when hovering over the respective button.</p></div>",
 			  position: 'bottom'   /* may be able to make this left once sorted sticky div */
 		  },
 		  {
@@ -3912,7 +3342,7 @@ function setSlide (index) {
 			  position: 'right'
 		  },
 		  {
-			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Further information:</b></h4><ul><li style='margin-bottom: 5px;'>Statistics pertain to children aged between 0 and 59 months of age. This is the age group for which countries gather statistics on wasting and stunting.</li><li style='margin-bottom: 5px;'>For all countries, linear interpolations of prevalence and burden estimates are assumed for the years between actual survey years.</li><li style='margin-bottom: 5px;'>For all countries, constant prevalence and burden estimates are assumed after the last survey year until the most recent year <i>(i.e. 2015)</i>.</li><li>Population estimates were not available from the UN Dept of Economic and Social Affairs for the islands of Tuvalu and Nauru. Instead the single population estimate given by the Joint child Malnutrition Estimates (JME) for a single year in 2007 was kept constant until the most recent year.</li></ul></div>",
+			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Further information:</b></h4><ul><li style='margin-bottom: 5px;'>Statistics pertain to children aged between 0 and 59 months of age. This is the age group for which countries gather statistics on wasting and stunting.</li><li style='margin-bottom: 5px;'>For all countries, linear interpolations of prevalence estimates are assumed for the years between actual survey years.</li><li style='margin-bottom: 5px;'>For all countries, constant prevalence estimates are assumed after the last survey year until the most recent year <i>(i.e. 2015)</i>.</li><li>Annual population statistics from the UN Dept of Economic and Social Affairs were used to convert prevalence estimates to burden estimates. These were available for every country and for every year, <i>except</i> for the islands of Tuvalu and Nauru. In these two cases, a single population estimate, as given by the Joint child Malnutrition Estimates (JME) for the single year of 2007, was kept constant through time.</li></ul></div>",
 		  } ,
  		]
 	});
@@ -3961,12 +3391,15 @@ $(window).scroll(function(){
 } */
 	
       
-/**********************/
-/****  INITIALISE  ****/
-/**********************/
+/*********************************************/
+/****  GLOBAL VARIABLES & INITIALISATION  ****/
+/*********************************************/
 var compact = false;
 var currentwidth=$(window).width();
 
+var minYr = d3.min(data, function(d) { return d.Survey_yr; }) 
+var maxYr = d3.max(data, function(d) { return d.Survey_yr; })  
+var barHeight = 12;
 var currentYr = 2015;
 var currentRegion = 'Glob';
 var currentStatCat = 'wast';
@@ -3991,7 +3424,7 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 	var countriesGeom = topojson.feature(countriesGeomArgs, countriesGeomArgs.objects.countries_all); 
 	countries_all = countriesGeom;
 
-	initData = getCurrentData();    //data for currentYr only
+	initData = getCurrentData();   
 	map = generateMap('#map', initData);
 	$('#map').width($('#map').width());
 	updateLegend();
@@ -4026,4 +3459,3 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 
 /* if(compact){    
 }; */
-
