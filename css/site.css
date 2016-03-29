@@ -1,31 +1,35 @@
 #map{
-	height: 550px;
-	width: 100%; 
+	height: 750px;
+	width: 100%;  
 	margin-left: 0px;
 	margin-right: 0px;   
 	/* float: right; */  
 }
 
 #timeline{
-	margin-top: 30px;
-	margin-left: 10px;
+ 	margin-top: 30px; 
+	margin-left: 20px;
 	margin-right: 20px;
-    width: 95%; 
+    width: 90%; 
 	display: inline-block;
+}
+
+#slider-range-max{
+	margin-left: 55px;
 }
 
 #linegraph_all{
 	margin-left: 10px;
 	margin-right: 0px;	
-	width: 95%;
+	width: 100%;
 }
 
 #linegraph{
 	margin-top: 0px;
-	/* margin-left: 20px; */
+	margin-left: 25px;
 	margin-right: 0px;
-    height: 200px;
-	width: 100%; 
+    height: 180px;
+	width: 90%; 
 	display: inline-block;
 	/* background-color: yellow;  */
 }
@@ -162,10 +166,6 @@
 	/* display: inline;  */
  }
  
-/* .mapLegend {
-    line-height: 18px;
-    color: #555;
-} */
 .mapLegend i {
     width: 18px;
     height: 18px;
@@ -186,8 +186,8 @@
 
 .linegraph_intro{
 	display: inline-block;
-	font: 16px sans-serif;
-	/* font-weight: bold; */
+	font: 14px sans-serif;
+	/* font-weight: bold;  */
 	/* margin-top: 20px;
 	margin-left: 30px; */
 	margin-bottom: 0px;
@@ -228,55 +228,13 @@
 	/* background-color: white; */
 }
 
-
-/* .heading_left{
-	font: 20px sans-serif;
-	margin-top: 20px;
-	margin-left: 22px;
-} */
-
-/* .hidden{
-    display:none;
-} */
-
-
-
 .xlabel{
     font: 12px sans-serif;   /* controls timeline text */
 }  
 
-/* .ylabel{
-    font: 11px sans-serif;
-	display: inline-block;   /* doesn't work */
-/*	vertical-align: center;  /* doesn't work */
-/*	
-}  */
-
 .spacersm {
     margin-top:20px;
 }
-
-/* .lower_bar {
-        -moz-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        -webkit-transition: all 0.3s;
-        transition: all 0.3s;
-} */
-
-/* .lower_bar:hover {
-  fill: yellow;
-}  */
-
-/* .upper_bar {
-        -moz-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        -webkit-transition: all 0.3s;
-        transition: all 0.3s;
-} */
-
-/* .upper_bar:hover {
-  fill: yellow;
-}  */
 
 .d3-tip {
   line-height: 1;
@@ -286,28 +244,8 @@
   color: #fff;
   border-radius: 2px;
 } 
-
-/* .overlay {     PROBABLY NOT NEEDED
-  fill: none;
-  pointer-events: all;
-}
- */
  
 .button {
-/*   display: inline-block;
-  padding: 6px 15px;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;	
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  background-color: #3160b2;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 7px #999;
-  margin-left: 20px; */
-  
     background-color: #cccccc; /* #3160b2; */
     border: none;
 	border-radius: 8px;
@@ -341,19 +279,11 @@
   /* border: 1px solid #979797;  */
 }
 
-/* .button.button1 {
-	/* margin-left: 0px; 
-} */
-
 .button.button_newrow {
 	/*background-color: #b652bd; */
 	margin-top: 4px;
 	/* display: block; */
 }
-
-/* .button.button2:hover {background-color: #823887}
-
-.button.button2:active {background-color: #823887;} */
 
 .on {
 	background-color: #3160b2;
@@ -400,13 +330,12 @@
 	color: white;
 }
 
-
 .button.play{
     float: left; 
     width: 40px;
     height: 40px;
 	margin-top: 0px;
-    margin-left: 12px;
+    margin-left: 0px;
 	background: url(../images/play.png);
 	background-size: 30px 30px;
 	background-position:center;
@@ -417,13 +346,12 @@
 	width: 40px;
     height: 40px;
 	margin-top: 0px;
-    margin-left: 12px;
+    margin-left: 0px;
 	background: url(../images/pause.png);
 	background-size: 30px 30px;
 	background-position:center;
 	background-repeat:no-repeat; 
 }
-
 
 .btnClrAll {
 	float: right;
@@ -442,12 +370,10 @@
   shape-rendering: crispEdges;
 }
 
-
- 
  
 .timeslider {
  	margin-left: 40px;
-	margin-right: 20px;
+	margin-right: 35px;
 	margin-top: 16px;
  }
  
@@ -522,28 +448,29 @@
     border: none !important;
 	height: 10px;
 	width: 85%; 
-	margin-left: 50px;
+	margin-left: 40px;
 	/* background:#e8edf2 !important;  */
     background:white !important;   /* color behind all years on slider */
 }
 /* #map-container {
 	height: 550px;
-	width: 100%; 
- 	position: absolute;  */ 		/* child position absolute relative to parent (row-container) */ 
+	width: 95%; 
+} */
+ 	/*position: absolute;  */ 		/* child position absolute relative to parent (row-container) */ 
 	/* margin-right: 0px; */
 /* 	top: 0px; 
 	right: 0px;
-}     */ 
+}     */
 
-.sticky {
-    position: fixed !important;
-	/* position: static; */
-	/* right: 0px !important; */
+/* .sticky {
+    position: fixed !important; 
 	top: 0px;
+} */	
+	/* position: absolute !important; */
+	/* position: static;  */
+	/* right: 0px !important; */	
 	/* right: 0px; */
-  
-
-} 
+ 
 
 /* #row-container {
 	position: relative; 	/* parent position relative 
