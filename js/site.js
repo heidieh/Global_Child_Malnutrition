@@ -327,6 +327,8 @@ function generateMap(id,data){
 	var map = L.map('map', {
         center: [0,0],  
         zoom: 2,
+		minZoom: 1,
+		maxZoom: 10,
 		layers: [baselayer],
     }); 
 	
@@ -744,7 +746,7 @@ function addCountryLine(id, iso_code, status){
 		line_color = 'none';
 	};
 	
-	if (currentCountryLines.length != 0) {
+	if ((currentCountryLines.length != 0) && (status=="perm")) {
 		var linegraph_text = d3.selectAll('.linegraph_intro')
 			.style("opacity", 0);
 	}
@@ -786,7 +788,7 @@ function addCountryLine(id, iso_code, status){
  	lineGraph.append('path')
         .datum(countryData)
         .attr('class', function (d) {
-			if (status=='perm') {
+			if ((status=='perm')&&(in_list==false)) {
 				return 'country_line country_line' + d[0].ISO_3;	//adding class for country's ISO
 			} else if (status=='temp') {
 				return 'country_line country_line' + d[0].ISO_3 + '_temp';
@@ -795,7 +797,7 @@ function addCountryLine(id, iso_code, status){
         .attr('d', lineFunction)
         //.attr("stroke", "red")
 		 .attr("stroke", function (d) {
-			if ((status=='perm')) {
+			if ((status=='perm')&&(in_list==false)) {
 				return line_color;	
 			} else if (status=='temp') {
 				return 'yellow';
@@ -803,7 +805,7 @@ function addCountryLine(id, iso_code, status){
 		})	 
         //.attr("stroke-width", 1)
 		.attr("stroke-width", function (d) {
-			if (status=='perm') {
+			if ((status=='perm')&&(in_list==false)) {
 				return '1';	
 			} else if (status=='temp') {
 				return '3';
@@ -830,7 +832,7 @@ function addCountryLine(id, iso_code, status){
 			.append("circle") 
 			.attr('class', function (d) {
 					//console.log("Append data circle for: ", d.ISO_3, d.Survey_yr);
-					if (status=='perm') {
+					if ((status=='perm')&&(in_list==false)) {
 						return 'country_line country_line' + d.ISO_3 + ' data_point data_point' + d.ISO_3 + ' data_point' + d.ISO_3 + d.Survey_yr;	
 					} else if (status=='temp') {
 						return 'country_line country_line' + d.ISO_3 + '_temp data_point';
@@ -865,7 +867,7 @@ function addCountryLine(id, iso_code, status){
 				})
 			.attr("r", 3)
 			.attr("fill", function (d) {
-				if ((status=='perm')) { 
+				if ((status=='perm')&&(in_list==false)) { 
 					return line_color;	
 				} else if (status=='temp') {
 					return 'yellow';
@@ -894,6 +896,7 @@ function addCountryLine(id, iso_code, status){
 			});  
 	};
 	
+	//Update x-axis
 	lineGraph.selectAll(".x.axis")
 		.transition()
 		.duration(1000)
@@ -2786,8 +2789,8 @@ function updateBarChart(id, idX, data) {
          
 		 
 		 
-	//Draw vertical campaign target lines & legend on graph 
-	function addTargets() {
+	//Draw legend and vertical campaign target lines on barchart 
+	function addBarLegendAndTargets() {
 		if ((currentStatCat == 'wast') && (currentStatType == 'prev')) {
 			$('.barlegend').html('');	
 
@@ -2856,8 +2859,16 @@ function updateBarChart(id, idX, data) {
 				.attr("y", 22)
 				.text("<5%: World Health Assembly global target by 2025"); 
 		
+		} else if ((currentStatCat == 'wast') && (currentStatType == 'burd')) {
+			$('.barlegend').html('<p>Global wasting burden, 2014: <b>50,000,000</b></p>');			
+		} else if ((currentStatCat == 'sevwast') && (currentStatType == 'prev')) {
+			$('.barlegend').html('<p>Global prevalence of severe wasting, 2014: <b>2.4%</b></p>');
+		} else if ((currentStatCat == 'sevwast') && (currentStatType == 'burd')) {
+			$('.barlegend').html('<p>Global burden of severe wasting, 2014: <b>16,000,000</b></p>');				
+		} else if ((currentStatCat == 'stunt') && (currentStatType == 'prev')) {
+			$('.barlegend').html('<p>Global prevalence of stunting, 2014: <b>23.8%</b></p>');	
 		} else if ((currentStatCat == 'stunt') && (currentStatType == 'burd')) {			
-			stunt_burd_arr = getRegionalData("XX0");   //get global data
+			/* stunt_burd_arr = getRegionalData("XX0");   //get global data
 			console.log(stunt_burd_arr);
 			stunt_burd = "Not available";
 			for (i=0; i <= stunt_burd_arr.length-1; i++) {
@@ -2868,7 +2879,8 @@ function updateBarChart(id, idX, data) {
 				};
 			};			
 
-			$('.barlegend').html('<p>World Health Assembly global target (by 2025): <b><102,000,000</b><br/>Global stunding burden for ' + currentYr + ': <b>' + stunt_burd + '</b></p>');	
+			$('.barlegend').html('<p>World Health Assembly global target (by 2025): <b><102,000,000</b><br/>Global stunding burden for ' + currentYr + ': <b>' + stunt_burd + '</b></p>');	 */
+			$('.barlegend').html('<p>World Health Assembly global target (by 2025; 2011 baseline): <b>99,000,000</b><br/>Global stunting burden, 2014: <b>158,600,000</b></p>');
 		
 		} else {
 			barChart.selectAll(".targets").remove();
@@ -2878,7 +2890,7 @@ function updateBarChart(id, idX, data) {
 	};
 			
 
-	addTargets();
+	addBarLegendAndTargets();
 	//adjustScroll();
 	barChart.call(scroll);
 	barChart.call(tip); 
@@ -3061,60 +3073,53 @@ function btn_currentStatType(new_currentStatType) {
 
 function btn_reg_zoom(region) {
 	currentRegion = region;
+	addCountryLine('#linegraph', getRegISO(region), 'perm');
 	if ((region=="Glob") && !($('#btnGlob').hasClass('reg_on'))) {
-	 	//console.log("Clicked Global button");
+		//console.log("Clicked Global button");
 		removeRegBtnClasses();
 		$('#btnGlob').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		//don't move outside if statement or updates even if clicked on same button twice
 	}	
 	else if  ((region=="WCA") && !($('#btnWCA').hasClass('reg_on'))) {
 		//console.log("Clicked WCA button");
 		removeRegBtnClasses();
 		$('#btnWCA').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="ESA") && !($('#btnESA').hasClass('reg_on'))) {
 		//console.log("Clicked ESA button");
 		removeRegBtnClasses();
 		$('#btnESA').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if ((region=="MENA") && !($('#btnMENA').hasClass('reg_on'))) {
 	 	//console.log("Clicked MENA button");
 		removeRegBtnClasses();
 		$('#btnMENA').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();		
 	}
 	else if  ((region=="SA") && !($('#btnSA').hasClass('reg_on'))) {
 		//console.log("Clicked SA button");
 		removeRegBtnClasses();
 		$('#btnSA').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="EAP") && !($('#btnEAP').hasClass('reg_on'))) {
 		//console.log("Clicked EAP button");
 		removeRegBtnClasses();
 		$('#btnEAP').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="TAC") && !($('#btnTAC').hasClass('reg_on'))) {
 		//console.log("Clicked TAC button");
 		removeRegBtnClasses();
 		$('#btnTAC').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="CEECIS") && !($('#btnCEECIS').hasClass('reg_on'))) {
 		//console.log("Clicked CEECIS button");
 		removeRegBtnClasses();
 		$('#btnCEECIS').addClass('reg_on');
-		addCountryLine('#linegraph', getRegISO(region), 'perm');
 		updateAll();
 	} 
 	else if  ((region=="Ind") && !($('#btnInd').hasClass('reg_on'))) {
@@ -3159,6 +3164,7 @@ function getRegAbbrev(reg) {
 function getRegName(reg) {
 	switch (reg) {
 		case 'Glob':	reg_name = 'Global'; break;
+		case 'Global':	reg_name = 'Global'; break;
 		case 'WCA':		reg_name = 'West and Central Africa'; break;
 		case 'ESA':		reg_name = 'Eastern and Southern Africa'; break;
 		case 'MENA':	reg_name = 'Middle East and North Africa'; break;
@@ -3430,12 +3436,14 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 	updateLegend();
 	lineGraph = generateLineGraph('#linegraph');
 	lineGraph = addLineGraphIntroText();
+	
 	barCharts = generateBarChart('#barchart', '#barchartxaxis'); 
 	barChart = barCharts[0];
 	barChartXAxis = barCharts[1];
 	updateAll();
-	//addCountryLine('#linegraph', 'XX0', 'perm');   //add global stat line
-
+	
+	addCountryLine('#linegraph', 'XX0', 'perm');   //add global stat line
+	lineGraph = addLineGraphIntroText();
 	
 	/* var currentwidth=$(window).width();
 	if ($(window).width()<=976) {compact = true;} else {compact = false;};
