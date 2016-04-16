@@ -327,7 +327,7 @@ function generateMap(id,data){
 	var map = L.map('map', {
         center: [0,0],  
         zoom: 2,
-		minZoom: 1,
+		minZoom: 2,
 		maxZoom: 10,
 		layers: [baselayer],
     }); 
@@ -547,33 +547,47 @@ function generateLineGraph(id){
 		.attr("stroke-width", 1);	
 		
 		
- 	//Add intro text to linegraph to explain how to add/remove country lines	
+ 	//Add intro text to linegraph to explain how to add/remove country, regional, and global lines	
 	var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
 		.attr("class","linegraph_intro")
 		.attr("x", 55)
-		.attr("y", 50)
+		.attr("y", 30)
 		//.attr('font-size', '12px')
 		.style('fill', 'darkOrange')
-		.html('Click on country in map or barchart');
+		.html('Click on country in map or barchart to add');
 	var g2 = lineGraph.append('text')				 
 		.attr("class","linegraph_intro")
-		.attr("x", 130)
-		.attr("y", 70)
+		.attr("x", 120)
+		.attr("y", 50)
 		.style('fill', 'darkOrange')
-		.html('to add here');
+		.html('country line here');
+		
+	var g2 = lineGraph.append('text')				//create a group 'g2' in the main svg/'lineGraph' 
+		.attr("class","linegraph_intro")
+		.attr("x", 55)
+		.attr("y", 80)
+		//.attr('font-size', '12px')
+		.style('fill', 'darkOrange')
+		.html('Click on regional buttons above map to add');
+	var g2 = lineGraph.append('text')				 
+		.attr("class","linegraph_intro")
+		.attr("x", 100)
+		.attr("y", 100)
+		.style('fill', 'darkOrange')
+		.html('regional or global line here');
 
 	var g2 = lineGraph.append('text')
 		.attr("class","linegraph_intro")
-		.attr("x", 50)
-		.attr("y", 100)
+		.attr("x", 55)
+		.attr("y", 130)
 		.style('fill', 'darkOrange')
-		.html('Double-click country in map, barchart'); 
+		.html('Double-click country in map or barchart, or'); 
 	var g2 = lineGraph.append('text')				
 		.attr("class","linegraph_intro")
-		.attr("x", 110)
-		.attr("y", 120)
+		.attr("x", 70)
+		.attr("y", 150)
 		.style('fill', 'darkOrange')
-		.html('or here to remove'); 
+		.html('double-click any line here to remove'); 
 		
 	return lineGraph;
 					
@@ -582,10 +596,8 @@ function generateLineGraph(id){
 
 function addLineGraphIntroText() {
 	lineGraph.selectAll('.linegraph_intro')
-		.style("opacity", 1);
-		
-	return lineGraph;
-	
+		.style("opacity", 1);		
+	return lineGraph;	
 };
 
 
@@ -2860,12 +2872,16 @@ function updateBarChart(id, idX, data) {
 				.text("<5%: World Health Assembly global target by 2025"); 
 		
 		} else if ((currentStatCat == 'wast') && (currentStatType == 'burd')) {
+			barChart.selectAll(".targets").remove();
 			$('.barlegend').html('<p>Global wasting burden, 2014: <b>50,000,000</b></p>');			
 		} else if ((currentStatCat == 'sevwast') && (currentStatType == 'prev')) {
+			barChart.selectAll(".targets").remove();
 			$('.barlegend').html('<p>Global prevalence of severe wasting, 2014: <b>2.4%</b></p>');
 		} else if ((currentStatCat == 'sevwast') && (currentStatType == 'burd')) {
+			barChart.selectAll(".targets").remove();
 			$('.barlegend').html('<p>Global burden of severe wasting, 2014: <b>16,000,000</b></p>');				
 		} else if ((currentStatCat == 'stunt') && (currentStatType == 'prev')) {
+			barChart.selectAll(".targets").remove();
 			$('.barlegend').html('<p>Global prevalence of stunting, 2014: <b>23.8%</b></p>');	
 		} else if ((currentStatCat == 'stunt') && (currentStatType == 'burd')) {			
 			/* stunt_burd_arr = getRegionalData("XX0");   //get global data
@@ -2880,8 +2896,9 @@ function updateBarChart(id, idX, data) {
 			};			
 
 			$('.barlegend').html('<p>World Health Assembly global target (by 2025): <b><102,000,000</b><br/>Global stunding burden for ' + currentYr + ': <b>' + stunt_burd + '</b></p>');	 */
-			$('.barlegend').html('<p>World Health Assembly global target (by 2025; 2011 baseline): <b>99,000,000</b><br/>Global stunting burden, 2014: <b>158,600,000</b></p>');
-		
+			
+			barChart.selectAll(".targets").remove();
+			$('.barlegend').html('<p>World Health Assembly global target (by 2025; 2011 baseline): <b>99,000,000</b><br/>Global stunting burden, 2014: <b>158,600,000</b></p>');	
 		} else {
 			barChart.selectAll(".targets").remove();
 			$('.barlegend').html('');	
@@ -3324,8 +3341,8 @@ function setSlide (index) {
 		  },
 		  {
 			  element: '#regionbuttons',
-			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Select region for display</b></h4><p>Use these buttons to toggle between different regions as defined by UNICEF. Selecting a region does the following:</p><ol><li style='margin-bottom: 5px;'>Zooms to that region on the map and only shows data for the countries in that region</li><li style='margin-bottom: 5px;'>Filters all data in the barchart to display only countries in that region</li><li style='margin-bottom: 5px;'>Note that it does <i>not</i> remove or filter countries' time series from the line graph</li></ol><p>The UNICEF regions are as follows:</p><ul><i><li style='margin-bottom: 5px;'>West and Central Africa (WCA)</li><li style='margin-bottom: 5px;'>Eastern and Southern Africa (ESA)</li><li style='margin-bottom: 5px;'>Middle East and North Africa (MENA)</li><li style='margin-bottom: 5px;'>South Asia (SA)</li><li style='margin-bottom: 5px;'>East Asia and Pacific (EAP)</li><li style='margin-bottom: 5px;'>Latin America and the Caribbean (TAC)</li><li style='margin-bottom: 5px;'>Central and Eastern Europe and the Commonwealth of Independent States (CEECIS)</li><li>Industrialized Countries</li></i></ul><p>Full region names can be seen when hovering over the respective button.</p></div>",
-			  position: 'bottom'   /* may be able to make this left once sorted sticky div */
+			  intro:"<div style='width: 500px; font: 14px sans-serif;'><h4><b>Select region for display</b></h4><p>Use these buttons to toggle between different regions as defined by UNICEF. Selecting a region does the following:</p><ol><li style='margin-bottom: 5px;'>Zooms to that region on the map and only shows data for the countries in that region</li><li style='margin-bottom: 5px;'>Adds the regional or global time series to the linegraph (select the <i>All Countries</i> button for the global time series)<br/><small><i>Note:</i> it does <i>not</i> remove or filter countries' time series from the line graph</small></li><li style='margin-bottom: 5px;'>Filters all data in the barchart to display only countries in that region</li></ol></div>",
+			  position: 'left'   
 		  },
 		  {
 			  element: '#timeline',
@@ -3339,7 +3356,7 @@ function setSlide (index) {
 		  },
 		  {
 			  element: '#linegraph_all',
-			  intro:"<div style='width: 400px; font: 14px sans-serif;'><h4><b>The Linegraph</b></h4><p>This linegraph allows individual country's time series to be compared.</p><p>To <i>add</i> a country's time series to the linegraph do one of the following:</p><ol><li style='margin-bottom: 5px;'><i>Click</i> on the country in the map</li><li><i>Click</i> on the country in the barchart</li></ol><p>To <i>remove</i> a country's time series from the linegraph do one of the following:</p><ol><li style='margin-bottom: 5px;'><i>Double-click</i> on the line itself in the linegraph</li><li style='margin-bottom: 5px;'><i>Double-click</i> on the country in the map</li><li><i>Double-click</i> on the country in the barchart</li></ol><p>To remove <i>all</i> country time series, <i>click</i> on the <i>'Clear All'</i> button.</p><p>The grey vertical line depicts the year that is currently displayed on the map and in the barchart.</p><p>Solid points on a time series indicate survey years.</p></div>",
+			  intro:"<div style='width: 600px; font: 14px sans-serif;'><h4><b>The Linegraph</b></h4><p>This linegraph allows global, regional, and individual country's time series to be compared.</p><p>To <i>add</i> a regional or global time series to the linegraph, <i>click</i> on a regional button above the map (click on the <i>All Countries</i> button for global time series)</p><p>To <i>remove</i> a regional or global time series from the linegraph, <i>double-click</i> on the line itself in the linegraph</p><p>To <i>add</i> an individual country's time series to the linegraph do one of the following:</p><ol><li style='margin-bottom: 5px;'><i>Click</i> on the country in the map</li><li><i>Click</i> on the country in the barchart</li></ol><p>To <i>remove</i> an individual country's time series from the linegraph do one of the following:</p><ol><li style='margin-bottom: 5px;'><i>Double-click</i> on the line itself in the linegraph</li><li style='margin-bottom: 5px;'><i>Double-click</i> on the country in the map</li><li><i>Double-click</i> on the country in the barchart</li></ol><p>To remove <i>all</i> time series, <i>click</i> on the <i>'Clear All'</i> button.</p><p>The grey vertical line depicts the year that is currently displayed on the map and in the barchart.</p><p>Solid points on a time series indicate survey years.</p></div>",
 			  position: 'right'
 		  },
 		  {
@@ -3442,8 +3459,8 @@ $.when(countriesGeomCall).then(function(countriesGeomArgs){
 	barChartXAxis = barCharts[1];
 	updateAll();
 	
-	addCountryLine('#linegraph', 'XX0', 'perm');   //add global stat line
-	lineGraph = addLineGraphIntroText();
+	//addCountryLine('#linegraph', 'XX0', 'perm');   //add global stat line to initial page load
+	//lineGraph = addLineGraphIntroText();
 	
 	/* var currentwidth=$(window).width();
 	if ($(window).width()<=976) {compact = true;} else {compact = false;};
